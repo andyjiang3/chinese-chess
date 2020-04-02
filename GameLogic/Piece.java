@@ -1,3 +1,5 @@
+package GameLogic;
+
 /**
  * @authors: Venkat
  * @date 4/1/20
@@ -23,7 +25,7 @@ public abstract class Piece{
     private Type type;
     private boolean captured;
 
-    public abstract Piece(Color color, Type type) {
+    public Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
         this.captured = false;
