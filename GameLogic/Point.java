@@ -1,5 +1,5 @@
 package GameLogic;
-import GameLogic.Piece;
+import GameLogic.Pieces.Piece;
 
 public class Point {
     enum riverSide{

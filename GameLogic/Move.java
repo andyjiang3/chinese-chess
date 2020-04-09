@@ -1,6 +1,5 @@
 package GameLogic;
-import GameLogic.Board;
-import java.time.Year;
+import GameLogic.Pieces.Piece;
 
 /**
  * Class to generate the move object, which handles moves on the board

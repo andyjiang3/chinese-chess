@@ -1,5 +1,6 @@
-package GameLogic;
-import GameLogic.Piece;
+package GameLogic.Pieces;
+import GameLogic.Move;
+import GameLogic.Pieces.Piece;
 
 public class Rook extends Piece{
     public Rook(Color color) {

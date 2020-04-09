@@ -1,7 +1,7 @@
 package GameLogic;
 
-import GameLogic.Point;
-import GameLogic.Piece;
+import GameLogic.Pieces.Piece;
+import GameLogic.Pieces.Rook;
 
 public class Board {
 
