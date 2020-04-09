@@ -18,6 +18,7 @@ public class Move {
     private boolean isHorizontal;
     private boolean isVertical;
     private boolean isDiagonal;
+    private boolean isValid;
     //private boolean isClear;
     //private boolean numObstacles; //number of pieces on the path
 
@@ -38,6 +39,14 @@ public class Move {
 
     public Move(Piece piece, int originX, int originY, int finalX, int finalY) {
         //this iteration makes the move object hold the piece? Not sure how to structure
+    }
+
+    public void setValid(boolean v) {
+        this.isValid = v;
+    }
+
+    public boolean getValid() {
+        return this.isValid;
     }
 
 }
