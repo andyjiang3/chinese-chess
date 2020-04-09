@@ -15,8 +15,6 @@ public abstract class Piece {
         BLACK
     }
 
-
-
     private Color color;
     private boolean captured;
 

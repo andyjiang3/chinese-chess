@@ -19,6 +19,7 @@ public class Board {
 
     public void validMove(Move move) {
 
+
     }
 
     public static void intialize(Point[][] gBoard) {

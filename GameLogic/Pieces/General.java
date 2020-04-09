@@ -9,6 +9,11 @@ public class General extends Piece{
     @Override
 
     public void doMove(Move move) {
-        //testing git
+        if (!move.isHorizontal() && !move.isVertical()) {
+            move.setValid(false);
+        }
+        if (move.getDx() != 1 || move.getDy() != 1) {
+            move.setValid(false);
+        }
     }
 }

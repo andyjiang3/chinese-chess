@@ -9,6 +9,12 @@ public class Elephant extends Piece{
     @Override
 
     public void doMove(Move move) {
-        //testing git
+        if (!move.isDiagonal()) {
+            move.setValid(false);
+        }
+        if (move.getDx() != 2) {
+            move.setValid(false);
+        }
+        //need to also stop from crossing river
     }
 }

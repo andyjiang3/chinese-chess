@@ -9,6 +9,13 @@ public class Guard extends Piece{
     @Override
 
     public void doMove(Move move) {
-        //testing git
+        if (!move.isDiagonal()) {
+            move.setValid(false);
+        }
+        if (move.getDx() != 1) {
+            move.setValid(false);
+        }
+
+        //need to find a way to keep inside the general's chambers
     }
 }

@@ -9,6 +9,8 @@ public class Chariot extends Piece{
     @Override
 
     public void doMove(Move move) {
-        //testing git
+        if (!move.isHorizontal() && !move.isVertical()) {
+            move.setValid(false);
+        }
     }
 }
