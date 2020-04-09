@@ -5,6 +5,7 @@ import GameLogic.Pieces.Piece;
 public class Soldier extends Piece{
     public Soldier(Color color) {
         super(color);
+        this.type = "Soldier";
     }
     @Override
 

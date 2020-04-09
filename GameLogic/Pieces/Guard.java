@@ -5,7 +5,9 @@ import GameLogic.Pieces.Piece;
 public class Guard extends Piece{
     public Guard(Color color) {
         super(color);
+        this.type = "Guard";
     }
+
     @Override
 
     public void doMove(Move move) {

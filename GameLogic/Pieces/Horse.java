@@ -5,6 +5,7 @@ import GameLogic.Pieces.Piece;
 public class Horse extends Piece{
     public Horse(Color color) {
         super(color);
+        this.type = "Horse";
     }
     @Override
 

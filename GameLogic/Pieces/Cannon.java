@@ -5,6 +5,7 @@ import GameLogic.Pieces.Piece;
 public class Cannon extends Piece{
     public Cannon(Color color) {
         super(color);
+        this.type = "Cannon";
     }
     @Override
 

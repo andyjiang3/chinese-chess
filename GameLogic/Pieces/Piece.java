@@ -10,6 +10,8 @@ import GameLogic.Move;
  */
 
 public abstract class Piece {
+    protected String type;
+
     public enum Color {
         WHITE,
         BLACK
@@ -34,5 +36,10 @@ public abstract class Piece {
 
     public void Capture() {
         this.captured = true;
+    }
+
+    public String toString() {
+
+        return this.type;
     }
 }

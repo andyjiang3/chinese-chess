@@ -5,6 +5,7 @@ import GameLogic.Pieces.Piece;
 public class General extends Piece{
     public General(Color color) {
         super(color);
+        this.type = "General";
     }
     @Override
 

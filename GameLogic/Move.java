@@ -25,6 +25,11 @@ public class Move {
     //private boolean numObstacles; //number of pieces on the path
 
     public Move(int originX, int originY, int finalX, int finalY) {
+        this.originX = originX;
+        this.originY = originY;
+        this.finalX = finalX;
+        this.finalY = finalY;
+
         this.dx = finalX - originX;
         this.dy = finalY - originY;
         if (dx == 0 && dy != 0) {
