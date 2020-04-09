@@ -13,6 +13,8 @@ public class Move {
     private int originY;
     private int finalX;
     private int finalY;
+
+
     private int dx;
     private int dy;
     private boolean isHorizontal;
@@ -45,8 +47,47 @@ public class Move {
         this.isValid = v;
     }
 
-    public boolean getValid() {
-        return this.isValid;
+    public int getOriginX() {
+        return originX;
     }
+
+    public int getOriginY() {
+        return originY;
+    }
+
+    public int getFinalX() {
+        return finalX;
+    }
+
+    public int getFinalY() {
+        return finalY;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
+    }
+
+    public boolean isHorizontal() {
+        return isHorizontal;
+    }
+
+    public boolean isVertical() {
+        return isVertical;
+    }
+
+    public boolean isDiagonal() {
+        return isDiagonal;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+
+
 
 }

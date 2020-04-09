@@ -15,23 +15,13 @@ public abstract class Piece {
         BLACK
     }
 
-//    enum Type {
-//        KING,
-//        ADVISOR,
-//        ELEPHANT,
-//        HORSE,
-//        ROOK,
-//        CANNON,
-//        PAWN
-//    }
+
 
     private Color color;
-  // private Type type;
     private boolean captured;
 
-    public Piece(Color color){//, Type type) {
+    public Piece(Color color){
         this.color = color;
-        //this.type = type;
         this.captured = false;
 
 
@@ -43,9 +33,6 @@ public abstract class Piece {
         return color;
     }
 
-//   public Type getType() {
-//        return type;
-//    }
 
     public void Capture() {
         this.captured = true;
