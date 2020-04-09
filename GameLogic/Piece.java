@@ -1,9 +1,10 @@
 package GameLogic;
-
+import GameLogic.Move;
 /**
- * @authors: Venkat
- * @date 4/1/20
- * @purpose abstract class for peice
+ * Abstract class for Piece
+ * @author Venkat Pamulapati
+ * @version 4/1/20
+ *
  */
 
 public abstract class Piece{
@@ -32,6 +33,8 @@ public abstract class Piece{
 
 
     }
+
+    public abstract void doMove(Move move);
 
     public Color getColor(){
         return color;
