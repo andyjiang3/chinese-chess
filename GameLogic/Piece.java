@@ -1,18 +1,21 @@
 package GameLogic;
+
 import GameLogic.Move;
+
 /**
  * Abstract class for Piece
+ *
  * @author Venkat Pamulapati
  * @version 4/1/20
- *
  */
 
-public abstract class Piece{
-    enum Color{
+public abstract class Piece {
+    enum Color {
         WHITE,
         BLACK
     }
-    enum Type{
+
+    enum Type {
         KING,
         ADVISOR,
         ELEPHANT,
@@ -36,10 +39,15 @@ public abstract class Piece{
 
     public abstract void doMove(Move move);
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
+
     public Type getType() {
         return type;
+    }
+
+    public void Capture() {
+        this.captured = true;
     }
 }
