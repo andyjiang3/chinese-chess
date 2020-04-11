@@ -42,4 +42,6 @@ public abstract class Piece {
 
         return this.type;
     }
+
+
 }
