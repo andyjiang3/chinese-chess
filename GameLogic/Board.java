@@ -8,7 +8,7 @@ import javax.xml.crypto.dsig.keyinfo.KeyName;
 
 public class Board {
 
-
+    //test
     private Point[][] gBoard;
 
     public Board() {
