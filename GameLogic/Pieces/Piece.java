@@ -12,25 +12,24 @@ import GameLogic.Move;
 public abstract class Piece {
     protected String type;
 
-    public enum Color {
-        WHITE,
-        BLACK
+
+    public enum Side {
+        UP,
+        DOWN
     }
 
-    private Color color;
+    protected Side side;
     private boolean captured;
 
-    public Piece(Color color){
-        this.color = color;
+    public Piece(Side side){
+        this.side = side;
         this.captured = false;
-
-
     }
 
     public abstract void doMove(Move move);
 
-    public Color getColor() {
-        return color;
+    public Side getSide() {
+        return side;
     }
 
 

@@ -1,10 +1,9 @@
 package GameLogic.Pieces;
 import GameLogic.Move;
-import GameLogic.Pieces.Piece;
 
 public class Cannon extends Piece{
-    public Cannon(Color color) {
-        super(color);
+    public Cannon(Side side) {
+        super(side);
         this.type = "Cannon";
     }
     @Override

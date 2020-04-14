@@ -1,11 +1,10 @@
 package GameLogic.Pieces;
         import GameLogic.Move;
-        import GameLogic.Pieces.Piece;
 
 public class Chariot extends Piece{
 
-    public Chariot(Color color) {
-        super(color);
+    public Chariot(Side side) {
+        super(side);
         this.type = "Chariot";
     }
     @Override

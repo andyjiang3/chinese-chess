@@ -22,7 +22,7 @@ public class Move {
     private boolean isDiagonal;
     private boolean isValid;
     //private boolean isClear;
-    //private boolean numObstacles; //number of pieces on the path
+    private int numObstacles; //number of pieces on the path
 
     public Move(int originX, int originY, int finalX, int finalY) {
         this.originX = originX;
@@ -91,6 +91,7 @@ public class Move {
     public boolean isValid() {
         return isValid;
     }
+
 
 
 

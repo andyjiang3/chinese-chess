@@ -1,10 +1,10 @@
 package GameLogic.Pieces;
 import GameLogic.Move;
-import GameLogic.Pieces.Piece;
 
 public class Guard extends Piece{
-    public Guard(Color color) {
-        super(color);
+
+    public Guard(Side side) {
+        super(side);
         this.type = "Guard";
     }
 
@@ -18,6 +18,22 @@ public class Guard extends Piece{
             move.setValid(false);
         }
 
-        //need to find a way to keep inside the general's chambers
+        if (move.getFinalX() < 3 || move.getFinalX() > 5) {
+            move.setValid(false);
+        }
+
+        if (side == Side.UP) {
+            if (move.getFinalY() > 2) {
+                move.setValid(false);
+            }
+        }
+        if (side == Side.DOWN) {
+            if (move.getFinalY() < 7) {
+                move.setValid(false);
+            }
+        }
+
+
+
     }
 }
