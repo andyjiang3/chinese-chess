@@ -8,7 +8,7 @@ public class Board {
     private Point[][] gBoard;
 
     public Board() {
-        gBoard = new Point[9][10];
+        gBoard = new Point[10][9];
         initialize(gBoard);
 
     }
@@ -22,7 +22,7 @@ public class Board {
     }
 
     public Point getPoint(int x, int y) {
-        return gBoard[x][y];
+        return gBoard[y][x];
     }
 
     private static void initialize(Point[][] board) {
@@ -32,57 +32,57 @@ public class Board {
             }
         }
 
-        //Chariots/Guards
+        //Chariots/Rook
         board[0][0].setPiece(new Chariot(Piece.Side.UP));
-        board[8][0].setPiece(new Chariot(Piece.Side.UP));
+        board[0][8].setPiece(new Chariot(Piece.Side.UP));
 
-        board[0][9].setPiece(new Chariot(Piece.Side.DOWN));
-        board[8][9].setPiece(new Chariot(Piece.Side.DOWN));
+        board[9][0].setPiece(new Chariot(Piece.Side.DOWN));
+        board[9][8].setPiece(new Chariot(Piece.Side.DOWN));
 
         //Cannons
-        board[1][2].setPiece(new Cannon(Piece.Side.UP));
-        board[7][2].setPiece(new Cannon(Piece.Side.UP));
+        board[2][1].setPiece(new Cannon(Piece.Side.UP));
+        board[2][7].setPiece(new Cannon(Piece.Side.UP));
 
-        board[1][7].setPiece(new Cannon(Piece.Side.DOWN));
+        board[7][1].setPiece(new Cannon(Piece.Side.DOWN));
         board[7][7].setPiece(new Cannon(Piece.Side.DOWN));
 
         //Horses/Knights
-        board[1][0].setPiece(new Horse(Piece.Side.UP));
+        board[0][1].setPiece(new Horse(Piece.Side.UP));
         board[7][0].setPiece(new Horse(Piece.Side.UP));
 
-        board[1][9].setPiece(new Horse(Piece.Side.DOWN));
-        board[7][9].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][1].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][7].setPiece(new Horse(Piece.Side.DOWN));
 
         //Elephants/bishops
-        board[2][0].setPiece(new Horse(Piece.Side.UP));
-        board[6][0].setPiece(new Horse(Piece.Side.UP));
+        board[0][2].setPiece(new Horse(Piece.Side.UP));
+        board[0][6].setPiece(new Horse(Piece.Side.UP));
 
-        board[2][9].setPiece(new Horse(Piece.Side.DOWN));
-        board[6][9].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][2].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][6].setPiece(new Horse(Piece.Side.DOWN));
 
         //Guard/Advisors
-        board[3][0].setPiece(new Horse(Piece.Side.UP));
-        board[5][0].setPiece(new Horse(Piece.Side.UP));
+        board[0][3].setPiece(new Horse(Piece.Side.UP));
+        board[0][5].setPiece(new Horse(Piece.Side.UP));
 
-        board[3][9].setPiece(new Horse(Piece.Side.DOWN));
-        board[5][9].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][3].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][5].setPiece(new Horse(Piece.Side.DOWN));
 
         //General/King
-        board[4][0].setPiece(new General(Piece.Side.UP));
-        board[4][9].setPiece(new General(Piece.Side.DOWN));
+        board[0][4].setPiece(new General(Piece.Side.UP));
+        board[9][4].setPiece(new General(Piece.Side.DOWN));
 
         //Solider/pawns
-        board[0][3].setPiece(new Soldier(Piece.Side.UP));
-        board[2][3].setPiece(new Soldier(Piece.Side.UP));
-        board[4][3].setPiece(new Soldier(Piece.Side.UP));
-        board[6][3].setPiece(new Soldier(Piece.Side.UP));
-        board[8][3].setPiece(new Soldier(Piece.Side.UP));
+        board[3][0].setPiece(new Soldier(Piece.Side.UP));
+        board[3][2].setPiece(new Soldier(Piece.Side.UP));
+        board[3][4].setPiece(new Soldier(Piece.Side.UP));
+        board[3][6].setPiece(new Soldier(Piece.Side.UP));
+        board[3][8].setPiece(new Soldier(Piece.Side.UP));
 
-        board[0][6].setPiece(new Soldier(Piece.Side.DOWN));
-        board[2][6].setPiece(new Soldier(Piece.Side.DOWN));
-        board[4][6].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][0].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][2].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][4].setPiece(new Soldier(Piece.Side.DOWN));
         board[6][6].setPiece(new Soldier(Piece.Side.DOWN));
-        board[8][6].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][8].setPiece(new Soldier(Piece.Side.DOWN));
 
     }
 
