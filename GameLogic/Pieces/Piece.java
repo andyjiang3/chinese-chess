@@ -26,7 +26,9 @@ public abstract class Piece {
         this.captured = false;
     }
 
-    public abstract void doMove(Move move);
+    public void doMove(Move move){
+        move.setValid(true);
+    }
 
     public Side getSide() {
         return side;

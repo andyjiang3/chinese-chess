@@ -13,6 +13,8 @@ public class Soldier extends Piece {
     @Override
 
     public void doMove(Move move) {
+        super.doMove(move);
+
         //finds which side of river it's on, and sets it as member data, maybe scope could just be method?
         Side curSide;
         if (move.getOriginY() > 4) {

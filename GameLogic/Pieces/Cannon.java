@@ -9,6 +9,8 @@ public class Cannon extends Piece{
     @Override
 
     public void doMove(Move move) {
+        super.doMove(move);
+
         if (!move.isHorizontal() && !move.isVertical()) {
             move.setValid(false);
         }

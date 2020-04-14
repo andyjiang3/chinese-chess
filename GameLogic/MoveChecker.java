@@ -12,7 +12,7 @@ public class MoveChecker {
 
     private int obstacleCount; //number of pieces in the way
     private boolean isClear; //if obstacles = 0
-    private boolean isCheck; //checks the board for check (probably gonna make this a separate class at this point
+    //private boolean isCheck; //checks the board for check (probably gonna make this a separate class at this point
 
     private boolean attack;
 
@@ -101,25 +101,73 @@ public class MoveChecker {
 
         //vertical move
         if (move.isVertical()) {
-            for (int y = move.getOriginY() + 1; y < move.getFinalY(); y++) {
-                if (board.getPoint(move.getOriginX(), y).getPiece() != null) {
-                    obstacleCount++;
+            if (move.getDy() > 0) {
+                for (int y = move.getOriginY() + 1; y < move.getFinalY(); y++) {
+                    if (board.getPoint(move.getOriginX(), y).getPiece() != null) {
+                        obstacleCount++;
+                    }
                 }
             }
+            else if (move.getDy() < 0) {
+                for (int y = move.getOriginY() - 1; y > move.getFinalY(); y--) {
+                    if (board.getPoint(move.getOriginX(), y).getPiece() != null) {
+                        obstacleCount++;
+                    }
+                }
+            }
+
 
         }
         //horizontal move
         else if (move.isHorizontal()) {
-            for (int x = move.getOriginX() + 1; x < move.getFinalX(); x++) {
-                if (board.getPoint(x, move.getOriginY()).getPiece() != null) {
-                    obstacleCount++;
+            if (move.getDx() > 0) {
+                for (int x = move.getOriginX() + 1; x < move.getFinalX(); x++) {
+                    if (board.getPoint(x, move.getOriginY()).getPiece() != null) {
+                        obstacleCount++;
+                    }
+                }
+            }
+            else if (move.getDx() < 0) {
+                for (int x = move.getOriginX() - 1; x > move.getFinalX(); x--) {
+                    if (board.getPoint(x, move.getOriginY()).getPiece() != null) {
+                        obstacleCount++;
+                    }
                 }
             }
             //diagonal move
-        } else if (move.isDiagonal()) {
-            for (int x = move.getOriginX() + 1; x < move.getFinalX(); x++) {
-                for (int y = move.getOriginY() + 1; y < move.getFinalY(); y++) {
-                    if (board.getPoint(x, y).getPiece() != null) {
+        }
+        //diagonal move
+        else if (move.isDiagonal()) {
+
+            //left up
+            if (move.getDx() < 0 && move.getDy() < 0) {
+                for (int x = 0; x < move.getDx(); x++) {
+                    if (board.getPoint(move.getOriginX()-x, move.getOriginY()-x).getPiece() != null) {
+                        obstacleCount++;
+                    }
+                }
+            }
+            //left down
+            else if (move.getDx() < 0 && move.getDy() > 0) {
+                for (int x = 0; x < move.getDx(); x++) {
+                    if (board.getPoint(move.getOriginX()-x, move.getOriginY()+x).getPiece() != null) {
+                        obstacleCount++;
+                    }
+                }
+            }
+            //right down
+            else if (move.getDx() > 0 && move.getDy() > 0) {
+                for (int x = 0; x < move.getDx(); x++) {
+                    if (board.getPoint(move.getOriginX()+x, move.getOriginY()+x).getPiece() != null) {
+                        obstacleCount++;
+                    }
+                }
+            }
+
+            //right up
+            else{// (move.getDx() > 0 && move.getDy() > 0) {
+                for (int x = 0; x < move.getDx(); x++) {
+                    if (board.getPoint(move.getOriginX()+x, move.getOriginY()-x).getPiece() != null) {
                         obstacleCount++;
                     }
                 }
@@ -157,5 +205,9 @@ public class MoveChecker {
 
 
 
+    }
+
+    public boolean isLegal(){
+        return legal;
     }
 }

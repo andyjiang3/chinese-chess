@@ -11,6 +11,8 @@ public class Guard extends Piece{
     @Override
 
     public void doMove(Move move) {
+        super.doMove(move);
+
         if (!move.isDiagonal()) {
             move.setValid(false);
         }

@@ -31,8 +31,19 @@ public class Point {
         } else {
             this.side = riverSide.upRiver;
         }
-
     }
+
+//    public Point(int x, int y, Piece piece) {
+//        this.x = x;
+//        this.y = y;
+//        this.piece = piece;
+//        if (y > 4) {
+//            this.side = riverSide.downRiver;
+//        } else {
+//            this.side = riverSide.upRiver;
+//        }
+//
+//    }
 
     public Piece getPiece() {
         return this.piece;
@@ -47,9 +58,5 @@ public class Point {
     }
     public int getY() {
         return this.y;
-    }
-    public void setPosition(int x, int y) {
-    	this.x = x;
-    	this.y = y;
     }
 }

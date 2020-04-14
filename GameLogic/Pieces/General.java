@@ -14,10 +14,13 @@ public class General extends Piece {
     @Override
 
     public void doMove(Move move) {
+
+        super.doMove(move);
+
         if (!move.isHorizontal() && !move.isVertical()) {
             move.setValid(false);
         }
-        if (move.getDx() > 1 || move.getDy() > 1) {
+        if (Math.abs(move.getDx()) > 1 || Math.abs(move.getDy()) > 1) {
             move.setValid(false);
         }
 
