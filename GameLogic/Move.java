@@ -38,7 +38,7 @@ public class Move {
         if (dy == 0 && dx != 0) {
             this.isHorizontal = true;
         }
-        if (dx == dy && dx != 0) {
+        if (Math.abs(dx) == Math.abs(dy) && dx != 0) {
             this.isDiagonal = true;
         }
 

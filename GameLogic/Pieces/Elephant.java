@@ -14,7 +14,7 @@ public class Elephant extends Piece {
         if (!move.isDiagonal()) {
             move.setValid(false);
         }
-        if (move.getDx() != 2) {
+        if (Math.abs(move.getDx()) != 2) {
             move.setValid(false);
         }
 

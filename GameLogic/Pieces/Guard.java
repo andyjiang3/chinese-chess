@@ -14,7 +14,7 @@ public class Guard extends Piece{
         if (!move.isDiagonal()) {
             move.setValid(false);
         }
-        if (move.getDx() != 1) {
+        if (Math.abs(move.getDx()) != 1) {
             move.setValid(false);
         }
 
