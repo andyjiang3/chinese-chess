@@ -10,8 +10,8 @@ public class Elephant extends Piece {
 
     @Override
 
-    public void doMove(Move move) {
-        super.doMove(move);
+    public void checkPattern(Move move) {
+        super.checkPattern(move);
 
         if (!move.isDiagonal()) {
             move.setValid(false);
@@ -20,6 +20,7 @@ public class Elephant extends Piece {
             move.setValid(false);
         }
 
+        //river crossing prevention
         if (side == Side.UP) {
             if (move.getFinalY() > 4) {
                 move.setValid(false);
@@ -30,6 +31,6 @@ public class Elephant extends Piece {
                 move.setValid(false);
             }
         }
-        //need to also stop from crossing river
+
     }
 }

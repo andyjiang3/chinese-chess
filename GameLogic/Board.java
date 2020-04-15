@@ -2,6 +2,7 @@ package GameLogic;
 
 import GameLogic.Pieces.*;
 
+import javax.sound.midi.Soundbank;
 import java.util.Arrays;
 
 /**
@@ -45,21 +46,20 @@ public class Board {
 
             updateGeneral(move);
             doMove(move);
-            if(generalOpen()){
-                undoMove(move);
-            }
-            else {
+            if (generalOpen()) {
+                undoMove(move, captured);
+            } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
                 testCheck();
                 if (curr.getSide() == Piece.Side.UP && upCheck) {
                     System.out.println("Illegal Move! You're in check");
-                    undoMove(move);
+                    undoMove(move, captured);
+
 
                 }
                 if (curr.getSide() == Piece.Side.DOWN && downCheck) {
                     System.out.println("Illegal Move! You're in check");
-                    undoMove(move);
-                }
-                else{
+                    undoMove(move, captured);
+                } else {
                 /*
                 Switch Player
                 Repaint Board
@@ -78,9 +78,10 @@ public class Board {
 
     /**
      * Executes a given move on the board by altering the game board array.
+     *
      * @param move
      */
-    public void doMove(Move move) {
+    private void doMove(Move move) {
         Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         //Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
         this.gBoard[move.getFinalY()][move.getFinalX()].setPiece(curr);
@@ -90,17 +91,19 @@ public class Board {
     /**
      * Undoes a given move on the board by altering the game board array.
      * Used when testing for checks, not for general purpose undoing yet.
+     *
      * @param move
      */
-    public void undoMove(Move move) {
-        Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
-        Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
-        this.gBoard[move.getOriginY()][move.getOriginX()].setPiece(curr);
-        this.gBoard[move.getFinalY()][move.getFinalX()].setPiece(captured);
+    private void undoMove(Move move, Piece captured) {
+        Piece curr = getPoint(move.getFinalX(), move.getFinalY()).getPiece();
+        getPoint(move.getOriginX(), move.getOriginY()).setPiece(curr);
+        getPoint(move.getFinalX(), move.getFinalY()).setPiece(captured);
+        System.out.print(" Illegal Move");
     }
 
     /**
      * Returns a point object at a specified board location (not array index, but coordinate instead.
+     *
      * @param x
      * @param y
      * @return
@@ -111,6 +114,7 @@ public class Board {
 
     /**
      * Sets up the board to play by placing all the pieces down as instantiated points. If there is no piece, it is set to null.
+     *
      * @param board
      */
     private static void initialize(Point[][] board) {
@@ -136,24 +140,24 @@ public class Board {
 
         //Horses/Knights
         board[0][1].setPiece(new Horse(Piece.Side.UP));
-        board[7][0].setPiece(new Horse(Piece.Side.UP));
+        board[0][7].setPiece(new Horse(Piece.Side.UP));
 
         board[9][1].setPiece(new Horse(Piece.Side.DOWN));
         board[9][7].setPiece(new Horse(Piece.Side.DOWN));
 
         //Elephants/bishops
-        board[0][2].setPiece(new Horse(Piece.Side.UP));
-        board[0][6].setPiece(new Horse(Piece.Side.UP));
+        board[0][2].setPiece(new Elephant(Piece.Side.UP));
+        board[0][6].setPiece(new Elephant(Piece.Side.UP));
 
-        board[9][2].setPiece(new Horse(Piece.Side.DOWN));
-        board[9][6].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][2].setPiece(new Elephant(Piece.Side.DOWN));
+        board[9][6].setPiece(new Elephant(Piece.Side.DOWN));
 
         //Guard/Advisors
-        board[0][3].setPiece(new Horse(Piece.Side.UP));
-        board[0][5].setPiece(new Horse(Piece.Side.UP));
+        board[0][3].setPiece(new Guard(Piece.Side.UP));
+        board[0][5].setPiece(new Guard(Piece.Side.UP));
 
-        board[9][3].setPiece(new Horse(Piece.Side.DOWN));
-        board[9][5].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][3].setPiece(new Guard(Piece.Side.DOWN));
+        board[9][5].setPiece(new Guard(Piece.Side.DOWN));
 
         //General/King
         board[0][4].setPiece(new General(Piece.Side.UP));
@@ -174,7 +178,7 @@ public class Board {
 
     }
 
-    public void updateGeneral(Move move) {
+    private void updateGeneral(Move move) {
         Piece temp = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         if (temp.toString() == "General") {
             if (temp.getSide() == Piece.Side.DOWN) {
@@ -191,19 +195,22 @@ public class Board {
     /**
      * Scans the board to check if either general is in check.
      */
-    public void testCheck() {
+    private void testCheck() {
         downCheck = false;
         upCheck = false;
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 10; y++) {
-                if (getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
-                    if (new MoveChecker(this, new Move(x, y, downGeneralX, downGeneralY)).isLegal()) {
-                        downCheck = true;
+                if (getPoint(x, y).getPiece() != null) {
+
+                    if (getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
+                        if (new MoveChecker(this, new Move(x, y, downGeneralX, downGeneralY)).isLegal()) {
+                            downCheck = true;
+                        }
                     }
-                }
-                if (getPoint(x, y).getPiece().getSide() == Piece.Side.DOWN) {
-                    if (new MoveChecker(this, new Move(x, y, upGeneralX, upGeneralY)).isLegal()) {
-                        upCheck = true;
+                    if (getPoint(x, y).getPiece().getSide() == Piece.Side.DOWN) {
+                        if (new MoveChecker(this, new Move(x, y, upGeneralX, upGeneralY)).isLegal()) {
+                            upCheck = true;
+                        }
                     }
                 }
             }
@@ -212,27 +219,51 @@ public class Board {
 
     /**
      * Checks if the generals are facing each other
+     *
      * @return
      */
-    public boolean generalOpen() {
-
+    private boolean generalOpen() {
 
         int obstacleCount = 0;
-
         if (upGeneralX != downGeneralX) {
             return false;
         } else {
-            for (int i = upGeneralY + 1; i < downGeneralX; i++) {
-                if (getPoint(downGeneralX, i) != null) {
-                    return true;
+            for (int i = upGeneralY + 1; i < downGeneralY; i++) {
+                if (getPoint(downGeneralX, i).getPiece() != null) {
+                    obstacleCount++;
                 }
             }
         }
-        return false;
+        if (obstacleCount == 0) {
+            System.out.print(" Generals Exposed!");
+            return true;
+        }
 
+        return false;
 
 
     }
 
 
+    public void printBoard() {
+        System.out.println("       0         1        2         3         4         5         6         7         8     ");
+        String hLine = "  -------------------------------------------------------------------------------------------";
+        System.out.println(hLine);
+
+        for (int y = 0; y < 10; y++) {
+            System.out.print(y + " |");
+            for (int x = 0; x < 9; x++) {
+
+                if (gBoard[y][x].getPiece() == null) {
+                    System.out.printf("%8s%2s", "", "|");
+                } else {
+                    System.out.printf("%8s%2s", gBoard[y][x].getPiece(), "|");
+                }
+
+            }
+            System.out.println();
+            System.out.println(hLine);
+
+        }
+    }
 }

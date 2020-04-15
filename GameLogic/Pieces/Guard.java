@@ -10,8 +10,8 @@ public class Guard extends Piece{
 
     @Override
 
-    public void doMove(Move move) {
-        super.doMove(move);
+    public void checkPattern(Move move) {
+        super.checkPattern(move);
 
         if (!move.isDiagonal()) {
             move.setValid(false);

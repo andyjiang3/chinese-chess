@@ -3,6 +3,7 @@ package GameLogic;
 import GameLogic.Pieces.Piece;
 
 /**
+ * Missing features: Doesn't check who the current player is. Needs player class to integrate
  * @version 4/10/20
  */
 public class MoveChecker {
@@ -23,6 +24,7 @@ public class MoveChecker {
         this.move = move;
         this.legal = true;
 
+
         //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
         CheckPiece();
 
@@ -33,7 +35,8 @@ public class MoveChecker {
 
         //  3. Check if the path is clear, if not See if we're an attacking cannon
         obstacleStats();
-        if(!isClear){
+        if (legal){
+        if(!isClear) {
             if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
                 if (!(obstacleCount == 1 && attack)) {
                     legal = false;
@@ -41,6 +44,7 @@ public class MoveChecker {
             } else {
                 legal = false;
             }
+        }
         }
 
 
@@ -56,22 +60,28 @@ public class MoveChecker {
 
 
     /**
-     * Checks if the move pattern is legal
+     * Checks if the move pattern is a valid move pattern and if there's a piece present.
      * If not, terminates the process
      */
-    public void CheckPiece() {
-        board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().doMove(move);
-        //checkPiece = true;
-        if (!move.isValid()) {
+    private void CheckPiece() {
+        Piece temp = board.getPoint(move.getOriginX(), move.getOriginY()).getPiece();
+
+        if (temp == null) {
             this.legal = false;
+        } else {
+            temp.checkPattern(move);
+            if (!move.isValid()) {
+                this.legal = false;
+            }
         }
+
     }
 
     /**
      * Checks the destination piece to see if we're attacking or self blocked
      * If we're self blocked, we terminate the whole operation because it's definitely illegal
      */
-    public void isAttack() {
+    private void isAttack() {
         if (board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() == null) {
             attack = false;
         } else {
@@ -94,7 +104,7 @@ public class MoveChecker {
      * Useful for seeing if we have one obstacle for the cannon
      * Useful for seeing if a piece is blocked, handles knights as well.
      */
-    public void obstacleStats() {
+    private void obstacleStats() {
 
         isClear = true;
         this.obstacleCount = 0;

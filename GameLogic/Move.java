@@ -3,6 +3,10 @@ import GameLogic.Pieces.Piece;
 
 /**
  * Class to generate the move object, which handles moves on the board
+ * It does not actually carry out moves or check for their validity.
+ * It simply just represents the details of a move, namely the original and final
+ * x and y cooridnates (note, these are not indecies on the board array. They are coordinates which are translated to indecies by the board object.)
+ *
  *
  * @author Venkat
  * @version 4/1/20
@@ -91,9 +95,6 @@ public class Move {
     public boolean isValid() {
         return isValid;
     }
-
-
-
 
 
 }

@@ -2,8 +2,6 @@ package GameLogic.Pieces;
 
 import GameLogic.Move;
 
-import static GameLogic.Pieces.Piece.Side.UP;
-
 public class General extends Piece {
     public General(Side side) {
         super(side);
@@ -13,9 +11,9 @@ public class General extends Piece {
 
     @Override
 
-    public void doMove(Move move) {
+    public void checkPattern(Move move) {
 
-        super.doMove(move);
+        super.checkPattern(move);
 
         if (!move.isHorizontal() && !move.isVertical()) {
             move.setValid(false);
