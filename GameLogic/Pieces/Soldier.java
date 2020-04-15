@@ -17,7 +17,7 @@ public class Soldier extends Piece {
 
         //finds which side of river it's on, and sets it as member data, maybe scope could just be method?
         Side curSide;
-        if (move.getOriginY() > 4) {
+        if (move.getOriginY() < 4) {
             curSide = Side.UP;
         } else {
             curSide = Side.DOWN;
