@@ -1,10 +1,47 @@
 package GameLogic;
 
 import java.util.ArrayList;
+import GameLogic.Pieces.*;
 
 public class tester {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+
+
+        //test player side methods
+        Player player1 = new Player(1, "Hi", Piece.Side.UP);
+        Player player2 = new Player(2, "Hi2", Piece.Side.DOWN);
+        if (player1.getPlayerSide() == Piece.Side.DOWN) {
+            System.out.println("Player is down river");
+        } else {
+            System.out.println("Player is up river");
+
+
+        }
+
+        //test color
+        System.out.println("Color: " + player1.getColor());
+
+        //test player captured pieces
+        System.out.println(player1.getNumPiecesCaptured());
+        player1.addPieceCaptured(new Horse(player2.getPlayerSide()));
+        System.out.println(player1.getNumPiecesCaptured());
+        player1.printPiecesCaptured();
+
+        player1.clearPiecesCaptured();
+        System.out.println(player1.getNumPiecesCaptured());
+
+        //test timer
+        player1.startTurnTimer();
+        Thread.sleep(1000);  //1s
+        player1.stopTurnTimer();
+        player1.printElapsedTime();
+
+
+
+
+
         Board gBoard1 = new Board();
 
         ArrayList<Move> testMoves = new ArrayList<Move>();
