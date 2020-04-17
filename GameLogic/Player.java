@@ -159,8 +159,13 @@ public class Player {
      */
     public void printPiecesCaptured() {
         System.out.print("Pieces Captured: ");
-        for (Piece piece : piecesCaptured) {
-            System.out.println(piece + ", ");
+
+        for (int i = 0; i < piecesCaptured.size(); i++) {
+            if (piecesCaptured.size() - 1 == i) {
+                System.out.println(piecesCaptured.get(i));
+            } else {
+                System.out.print(piecesCaptured.get(i) + ", ");
+            }
         }
     }
 
@@ -238,20 +243,5 @@ public class Player {
         System.out.println("Time: " + formatted);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
