@@ -2,9 +2,15 @@ package GameLogic;
 
 public class Timer {
 
-    private long startTime = 0;
-    private long stopTime = 0;
-    private boolean stillRunning = false;
+    private long startTime;
+    private long stopTime;
+    private boolean stillRunning;
+
+    public Timer() {
+        this.startTime = 0;
+        this.stopTime = 0;
+        this.stillRunning = false;
+    }
 
     public void start() {
         startTime = System.nanoTime();   //In nanoseconds, more precision than currentTimeMillis(),
