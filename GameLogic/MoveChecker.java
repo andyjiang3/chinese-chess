@@ -33,7 +33,7 @@ public class MoveChecker {
             isAttack();
         }
 
-        //  3. Check if the path is clear, if not See if we're an attacking cannon
+        //  3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
         obstacleStats();
         if (legal){
         if(!isClear) {
@@ -43,6 +43,12 @@ public class MoveChecker {
                 }
             } else {
                 legal = false;
+            }
+        } else {
+            if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
+                if (!attack) {
+                    legal = false;
+                }
             }
         }
         }
@@ -151,7 +157,7 @@ public class MoveChecker {
 
             //left up
             if (move.getDx() < 0 && move.getDy() < 0) {
-                for (int x = 0; x < move.getDx(); x++) {
+                for (int x = 1; x < move.getDx(); x++) {
                     if (board.getPoint(move.getOriginX()-x, move.getOriginY()-x).getPiece() != null) {
                         obstacleCount++;
                     }
@@ -159,7 +165,7 @@ public class MoveChecker {
             }
             //left down
             else if (move.getDx() < 0 && move.getDy() > 0) {
-                for (int x = 0; x < move.getDx(); x++) {
+                for (int x = 1; x < move.getDx(); x++) {
                     if (board.getPoint(move.getOriginX()-x, move.getOriginY()+x).getPiece() != null) {
                         obstacleCount++;
                     }
@@ -167,7 +173,7 @@ public class MoveChecker {
             }
             //right down
             else if (move.getDx() > 0 && move.getDy() > 0) {
-                for (int x = 0; x < move.getDx(); x++) {
+                for (int x = 1; x < move.getDx(); x++) {
                     if (board.getPoint(move.getOriginX()+x, move.getOriginY()+x).getPiece() != null) {
                         obstacleCount++;
                     }
@@ -176,7 +182,7 @@ public class MoveChecker {
 
             //right up
             else{// (move.getDx() > 0 && move.getDy() > 0) {
-                for (int x = 0; x < move.getDx(); x++) {
+                for (int x = 1; x < move.getDx(); x++) {
                     if (board.getPoint(move.getOriginX()+x, move.getOriginY()-x).getPiece() != null) {
                         obstacleCount++;
                     }

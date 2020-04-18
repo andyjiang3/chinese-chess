@@ -84,35 +84,7 @@ public class tester {
             counter++;
         }
 
-        /*
-        Board gBoard1 = new Board();
 
-        ArrayList<Move> testMoves = new ArrayList<Move>();
-
-        testMoves.add(new Move(4, 9, 4, 8));
-        testMoves.add(new Move(1, 7, 1, 0));
-        testMoves.add(new Move(4, 3, 4, 4));
-        testMoves.add(new Move(5, 0, 4, 1));
-        testMoves.add(new Move(7, 9, 4, 0));
-
-        testMoves.add(new Move(4, 6, 4, 5));
-        testMoves.add(new Move(4, 5, 4, 4));
-        testMoves.add(new Move(4, 5, 4, 4));
-        testMoves.add(new Move(4, 4, 4, 3));
-        testMoves.add(new Move(4, 3, 5, 3));
-
-
-
-
-        for (Move move : testMoves) {
-            printMove2(move, gBoard1);
-            gBoard1.printBoard();
-            System.out.println("############################################################################################################################");
-            System.out.println();
-        }
-
-        gBoard1.printBoard();
-        */
     }
 
 //    public static void printMove(Move move, Board board) {

@@ -95,7 +95,7 @@ public class Board {
                     doMove(move);
                     if (generalOpen()) {
                         undoMove(move, captured);
-                        System.out.println("Illegal Move! General Exposed.");
+                        System.out.println("Illegal Move! General Exposed ( potential check).");
                         return false;
 
                     } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
