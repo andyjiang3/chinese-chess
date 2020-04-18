@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import GameLogic.Pieces.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Class to generate the Player object, which handles data about player.
@@ -240,7 +241,37 @@ public class Player {
         Date date = new Date(timeElapsed);
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String formatted = formatter.format(date);
-        System.out.println("Time: " + formatted);
+        System.out.println("Time Elapsed: " + formatted);
+
+    }
+
+    //rough draft
+    public void tryMove(Move move, Board board) {
+        //int size = getNumPiecesCaptured();
+        int x, y, finalX, finalY;
+
+        //Piece selected = board.getPoint(x,y).getPiece();
+
+        Scanner in = new Scanner(System.in);
+        boolean passed = board.tryMove2(move, this);
+
+        while (!passed) {    //while tryMove is false
+
+            System.out.println("Move (x y x y): ");
+            x = in.nextInt();
+            y = in.nextInt();
+            finalX = in.nextInt();
+            finalY = in.nextInt();
+
+            passed = board.tryMove2(new Move(x, y, finalX, finalY), this);
+        }
+
+        /*under trymove in board class
+        System.out.println("Moved " + selected + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+        if (size < getNumPiecesCaptured()) {
+            System.out.println(piecesCaptured.get(getNumPiecesCaptured() - 1) + " Captured!");
+        }
+        */
 
     }
 
