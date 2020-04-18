@@ -1,7 +1,9 @@
 package GameLogic;
 
+import java.security.UnresolvedPermission;
 import java.util.ArrayList;
 import GameLogic.Pieces.*;
+import java.util.Scanner;
 
 public class tester {
 
@@ -10,8 +12,8 @@ public class tester {
 
 
         //test player side methods
-        Player player1 = new Player(1, "Hi", Piece.Side.UP);
-        Player player2 = new Player(2, "Hi2", Piece.Side.DOWN);
+        Player player1 = new Player(1, "Hi", Piece.Side.DOWN);
+        Player player2 = new Player(2, "Hi2", Piece.Side.UP );
         if (player1.getPlayerSide() == Piece.Side.DOWN) {
             System.out.println("Player is down river");
         } else {
@@ -26,6 +28,10 @@ public class tester {
         //test player captured pieces
         System.out.println(player1.getNumPiecesCaptured());
         player1.addPieceCaptured(new Horse(player2.getPlayerSide()));
+        player1.addPieceCaptured(new Soldier(player2.getPlayerSide()));
+        player1.addPieceCaptured(new Cannon(player2.getPlayerSide()));
+        player1.addPieceCaptured(new Chariot(player2.getPlayerSide()));
+        player1.addPieceCaptured(new Horse(player2.getPlayerSide()));
         System.out.println(player1.getNumPiecesCaptured());
         player1.printPiecesCaptured();
 
@@ -33,15 +39,52 @@ public class tester {
         System.out.println(player1.getNumPiecesCaptured());
 
         //test timer
-        player1.startTurnTimer();
-        Thread.sleep(1000);  //1s
-        player1.stopTurnTimer();
-        player1.printElapsedTime();
 
 
+        Board gBoard1 = new Board();
+        Scanner in = new Scanner(System.in);
 
+        int x, y, finalX, finalY;
 
+        gBoard1.printBoard();
+        int counter = 0;
+        while(true) {
 
+            if (counter % 2 == 0) {
+                System.out.println(player1.getName() + "'s turn. " + "(" + player1.getColor() + " Side)" + " ===============");
+                System.out.print("Total Pieces Captured: " + player1.getNumPiecesCaptured() + " | ");
+                player1.printElapsedTime();
+                System.out.println("Move (x y x y): ");
+                player1.startTurnTimer();
+                x = in.nextInt();
+                y = in.nextInt();
+                finalX = in.nextInt();
+                finalY = in.nextInt();
+                player1.tryMove(new Move(x, y, finalX, finalY), gBoard1);
+                player1.stopTurnTimer();
+            }
+
+            if (counter % 2 == 1) {
+                System.out.println(player2.getName() + "'s turn. " + "(" + player2.getColor() + " Side)" + " ===============");
+                System.out.print("Total Pieces Captured: " + player2.getNumPiecesCaptured() + " | ");
+                player2.printElapsedTime();
+                System.out.println("Move (x y x y): ");
+                player2.startTurnTimer();
+                x = in.nextInt();
+                y = in.nextInt();
+                finalX = in.nextInt();
+                finalY = in.nextInt();
+                player2.tryMove(new Move(x, y, finalX, finalY), gBoard1);
+                player2.stopTurnTimer();
+        }
+
+            gBoard1.printBoard();
+            System.out.println("############################################################################################################################");
+            System.out.println();
+            counter++;
+        }
+
+        /*
         Board gBoard1 = new Board();
 
         ArrayList<Move> testMoves = new ArrayList<Move>();
@@ -69,6 +112,7 @@ public class tester {
         }
 
         gBoard1.printBoard();
+        */
     }
 
 //    public static void printMove(Move move, Board board) {
