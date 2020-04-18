@@ -40,6 +40,7 @@ public class Board {
      */
     public void tryMove(Move move) {
         if (new MoveChecker(this, move).isLegal()) {
+
             Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
             Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
 
@@ -72,6 +73,71 @@ public class Board {
         } else {
             System.out.println("Illegal Move!");
         }
+
+
+
+
+    }
+
+    //in progress tryMove v2
+    public boolean tryMove2(Move move, Player player) {
+
+            if (new MoveChecker(this, move).isLegal()) {
+                if (gBoard[move.getOriginY()][move.getOriginX()].getPiece().getSide() == player.getPlayerSide()) {  //should probably be put in movechecker
+                    Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
+                    Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
+                    int x = move.getOriginX();
+                    int y = move.getOriginY();
+                    int finalX = move.getFinalX();
+                    int finalY = move.getFinalY();
+
+                    updateGeneral(move);
+                    doMove(move);
+                    if (generalOpen()) {
+                        undoMove(move, captured);
+                        System.out.println("Illegal Move! General Exposed.");
+                        return false;
+
+                    } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
+                        testCheck();
+                        if (curr.getSide() == Piece.Side.UP && upCheck) {
+                            System.out.println("Illegal Move! You're in check.");
+                            undoMove(move, captured);
+                            return false;
+
+                        }
+                        if (curr.getSide() == Piece.Side.DOWN && downCheck) {
+                            System.out.println("Illegal Move! You're in check.");
+                            undoMove(move, captured);
+                            return false;
+                        } else {
+                            //temp, for ascii board
+                            System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+                            if (captured != null) {
+                                player.addPieceCaptured(captured);
+
+                                System.out.println(captured + " Captured!");
+                            }
+
+
+
+                /*
+                Switch Player
+                Repaint Board
+                Switch Timer, part of player
+                 */
+                            return true;
+                        }
+                    }
+                } else {
+                    System.out.println("Illegal Move! Not your piece");
+                    return false;
+                }
+
+            } else {
+                System.out.println("Illegal Move!");
+                return false;
+            }
 
 
     }
