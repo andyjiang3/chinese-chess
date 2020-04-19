@@ -245,6 +245,12 @@ public class Board {
 
     }
 
+
+    /**
+     * need to replace this with a method that just scans the nine possible points for each general on each move
+     *
+     * @param move
+     */
     private void updateGeneral(Move move) {
         Piece temp = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         if (temp.toString() == "General") {
@@ -312,7 +318,7 @@ public class Board {
     }
 
 
-    public void printBoard() {
+    protected void printBoard() {
         System.out.println("       0         1        2         3         4         5         6         7         8     ");
         String hLine = "  -------------------------------------------------------------------------------------------";
         System.out.println(hLine);
