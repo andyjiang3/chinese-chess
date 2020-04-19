@@ -246,14 +246,14 @@ public class Player {
     }
 
     //rough draft
-    public void tryMove(Move move, Board board) {
+    public void tryMove(Move move, Board board, MoveLogger logger) {
         //int size = getNumPiecesCaptured();
         int x, y, finalX, finalY;
 
         //Piece selected = board.getPoint(x,y).getPiece();
 
         Scanner in = new Scanner(System.in);
-        boolean passed = board.tryMove2(move, this);
+        boolean passed = board.tryMove2(move, this, logger);
 
         while (!passed) {    //while tryMove is false
 
@@ -263,7 +263,7 @@ public class Player {
             finalX = in.nextInt();
             finalY = in.nextInt();
 
-            passed = board.tryMove2(new Move(x, y, finalX, finalY), this);
+            passed = board.tryMove2(new Move(x, y, finalX, finalY), this, logger);
         }
 
         /*under trymove in board class
