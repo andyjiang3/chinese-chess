@@ -80,7 +80,7 @@ public class Board {
     }
 
     //in progress tryMove v2
-    public boolean tryMove2(Move move, Player player) {
+    public boolean tryMove2(Move move, Player player, MoveLogger logger) {
 
             if (new MoveChecker(this, move).isLegal()) {
                 if (gBoard[move.getOriginY()][move.getOriginX()].getPiece().getSide() == player.getPlayerSide()) {  //should probably be put in movechecker
@@ -95,7 +95,7 @@ public class Board {
                     doMove(move);
                     if (generalOpen()) {
                         undoMove(move, captured);
-                        System.out.println("Illegal Move! General Exposed ( potential check).");
+                        System.out.println("Illegal Move! General Exposed. ( potential check).");
                         return false;
 
                     } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
@@ -117,8 +117,9 @@ public class Board {
                                 player.addPieceCaptured(captured);
 
                                 System.out.println(captured + " Captured!");
+                                logger.addMove(new Move(curr, captured, x, y, finalX, finalY));
                             }
-
+                            logger.addMove(new Move(curr, x, y, finalX, finalY));
 
 
                 /*
