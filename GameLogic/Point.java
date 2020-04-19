@@ -42,7 +42,10 @@ public class Point {
         this.piece = newPiece;
     }
 
-    //These getter and setter methods utilize x2 and y2 which represent the coordinates of the point on the GUI window
+    /**
+     * These getter and setter methods utilize x2 and y2 which represent the coordinates of the point on the GUI window, they are NOT board coords
+     */
+
     public int getX() {
         return this.x2;
     }
