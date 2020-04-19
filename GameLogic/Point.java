@@ -49,7 +49,8 @@ public class Point {
     public int getY() {
         return this.y2;
     }
-    public void setPosition(int x, int y){
+
+    public void setPosition(int x, int y) {
         this.x2 = x;
         this.y2 = y;
     }
