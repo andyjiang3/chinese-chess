@@ -11,7 +11,7 @@ public class Cannon extends Piece{
     public void checkPattern(Move move) {
         super.checkPattern(move);
 
-        if (!move.isHorizontal() && !move.isVertical()) {
+        if (!(move.isHorizontal() || move.isVertical())) {
             move.setValid(false);
         }
     }

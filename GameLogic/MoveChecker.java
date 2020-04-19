@@ -46,7 +46,7 @@ public class MoveChecker {
             }
         } else {
             if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
-                if (!attack) {
+                if (attack) {
                     legal = false;
                 }
             }
