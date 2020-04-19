@@ -8,6 +8,10 @@ public class Point {
     }
     private int x;
     private int y;
+    
+    private int x2;
+    private int y2;
+    
     private Piece piece;
     private riverSide side;
 
@@ -38,11 +42,15 @@ public class Point {
         this.piece = newPiece;
     }
 
-    //might be unecessary? Might be useful for GUi? idk
+    //These getter and setter methods utilize x2 and y2 which represent the coordinates of the point on the GUI window
     public int getX() {
-        return this.x;
+        return this.x2;
     }
     public int getY() {
-        return this.y;
+        return this.y2;
+    }
+    public setPosition(int x, int y){
+        this.x2 = x;
+        this.y2 = y;
     }
 }
