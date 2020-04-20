@@ -23,9 +23,10 @@ import javax.swing.JRadioButtonMenuItem;
 
 //defines the entire JFrame for the GUI
 public class BoardFrame extends JFrame {
-	public BoardFrame() {
+	private BoardPanel board;
+	public BoardFrame(Core core) {
 		super("Chinese Chess");
-		BoardPanel board = new BoardPanel();
+		board = core.getBoardPanel();
 		add(board, BorderLayout.CENTER);
 
 		//for testing, would be called in core class
