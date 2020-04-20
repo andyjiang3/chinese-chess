@@ -83,7 +83,7 @@ public class tester {
 
             if (counter % 2 == 0) {
 
-                System.out.println(player1.getName() + "'s turn. " + "(" + player1.getColor() + " Side)" + " - Round " + logger.getRound() + " ===============");
+                System.out.println(player1.getName() + "'s turn. " + "(" + player1.getColor() + " Side)" + " - Round " + logger.getRedRound() + " ===============");
                 System.out.print("Total Pieces Captured: " + player1.getNumPiecesCaptured() + " | ");
                 player1.printElapsedTime();
                 System.out.println();
@@ -103,7 +103,7 @@ public class tester {
             }
 
             if (counter % 2 == 1) {
-                System.out.println(player2.getName() + "'s turn. " + "(" + player2.getColor() + " Side)" + " - Round " + logger.getRound() + " ===============");
+                System.out.println(player2.getName() + "'s turn. " + "(" + player2.getColor() + " Side)" + " - Round " + logger.getBlackRound() + " ===============");
                 System.out.print("Total Pieces Captured: " + player2.getNumPiecesCaptured() + " | ");
                 player2.printElapsedTime();
                 System.out.println();
