@@ -54,20 +54,23 @@ public class MoveChecker {
 
 
     private boolean generalsOpen() {
+        Piece curr;
 
         for (int x = 3; x < 6; x++) {
             for (int y = 0; y < 3; y++) {
-                if (board.getPoint(x, y).getPiece().toString().equals("General")) {
+                curr = board.getPoint(x, y).getPiece();
+                if (curr != null && curr.toString().equals("General")) {
                     board.setUpGeneralX(x);
                     board.setUpGeneralY(y);
-
                 }
+
             }
 
             for (int y = 7; y < 10; y++) {
-                if (board.getPoint(x, y).getPiece().toString().equals("General")) {
+                curr = board.getPoint(x, y).getPiece();
+                if (curr != null && curr.toString().equals("General")) {
                     board.setDownGeneralX(x);
-                    board.setUpGeneralY(y);
+                    board.setDownGeneralY(y);
                 }
             }
         }
