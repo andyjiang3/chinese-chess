@@ -81,6 +81,80 @@ public class Board {
         }
     }
 
+    public boolean tryMove3(Move move, Player player) {
+
+        if (new MoveChecker(this, move).isLegal()) {
+
+            Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
+            Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
+
+            int x = move.getOriginX();
+            int y = move.getOriginY();
+            int finalX = move.getFinalX();
+            int finalY = move.getFinalY();
+
+
+            if (curr.getSide() == player.getPlayerSide()) {
+                doMove(move);
+                testCheck();
+                if (curr.getSide() == Piece.Side.UP && upCheck) {
+                    System.out.println("Illegal Move! You're in check");
+                    undoMove(move, captured);
+                    return false;
+                }
+                if (curr.getSide() == Piece.Side.DOWN && downCheck) {
+                    System.out.println("Illegal Move! You're in check");
+                    undoMove(move, captured);
+                    return false;
+                } else { //Everything is LEGALLLLL lets postprocess
+                    //the move is legal, now lets see if it's a winning move.
+                    if (upCheck && curr.getSide() == Piece.Side.DOWN) {
+                        if (checkMate(Piece.Side.UP)) {
+                            checkMate = true;
+                            System.out.println("##############CHECK MATE#############################");
+                            return false;
+                        }
+                    }
+                    if (downCheck && curr.getSide() == Piece.Side.UP) {
+                        if (checkMate(Piece.Side.DOWN)) {
+                            checkMate = true;
+                            System.out.println("##############CHECK MATE#############################");
+                            return false;
+                        }
+                    }
+
+                    if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
+                        System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+                        if (captured != null) {
+                            player.addPieceCaptured(captured);
+
+                            System.out.println(captured + " Captured!");
+                            MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
+                        } else {
+                            MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
+                        }
+
+                        //DO OTHER THINGS =============
+
+                        return true;
+
+                    }
+
+
+
+
+                }
+            } else {
+                System.out.println("Not your turn");
+                return false;
+            }
+        } else {
+            System.out.println("Illegal Move!");
+            return false;
+        }
+        return false;  //gives error when not put? ..
+    }
+
 
     //in progress tryMove v2
 
