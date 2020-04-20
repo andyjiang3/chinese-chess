@@ -37,14 +37,16 @@ public class Core {
 	public void doMove(Move move) {
         System.out.println(counter);
         if (counter % 2 == 0) {
-            board.tryMove(move, player1);
+            if (board.tryMove3(move, player1)) {
+                counter++;
+            }
+        } else if (counter % 2 == 1) {
+            if (board.tryMove3(move, player2)) {
+                counter++;
+            }
         }
 
-        if (counter % 2 == 1) {
-            board.tryMove(move, player2);
-        }
-        counter++;
-	}
+    }
     /*public static void startGame() {
         inGame = true;
         BoardFrame boardFrame = new BoardFrame();

@@ -193,9 +193,9 @@ public class BoardPanel extends JPanel {
 				g2.setColor(new Color(245,245,220));
 	        	g2.fillOval(3, 3, getWidth()-6, getHeight()-6);
 				if(point.getPiece().getSide() == Piece.Side.UP)
-					g2.setColor(Color.red);
-				else
 					g2.setColor(Color.black);
+				else
+					g2.setColor(Color.red);
 				g2.drawOval(2, 2, getWidth()-4, getHeight()-4);
 	        	xCoord = (getWidth())/2 - metrics.stringWidth(point.getPiece().toString()) / 2;
 	        	yCoord = (getHeight())/2 - metrics.getHeight()/2 + metrics.getAscent();

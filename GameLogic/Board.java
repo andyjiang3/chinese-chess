@@ -22,6 +22,7 @@ public class Board {
     private boolean checkMate;
 
 
+
     /**
      * Creating a Board object to handle the game
      */
@@ -111,15 +112,18 @@ public class Board {
                     if (upCheck && curr.getSide() == Piece.Side.DOWN) {
                         if (checkMate(Piece.Side.UP)) {
                             checkMate = true;
-                            System.out.println("##############CHECK MATE#############################");
-                            return false;
+                            System.out.println("##########################CHECK MATE#############################");
+                            System.out.println(player.getName() + "WINS!");
+                            System.out.println("##########################CHECK MATE#############################");
+                            return true;
                         }
-                    }
-                    if (downCheck && curr.getSide() == Piece.Side.UP) {
+                    } else if (downCheck && curr.getSide() == Piece.Side.UP) {
                         if (checkMate(Piece.Side.DOWN)) {
                             checkMate = true;
-                            System.out.println("##############CHECK MATE#############################");
-                            return false;
+                            System.out.println("##########################CHECK MATE#############################");
+                            System.out.println(player.getName() + "WINS!");
+                            System.out.println("##########################CHECK MATE#############################");
+                            return true;
                         }
                     }
 
@@ -137,7 +141,6 @@ public class Board {
                         //DO OTHER THINGS =============
 
                         return true;
-
                     }
 
 
@@ -149,7 +152,7 @@ public class Board {
                 return false;
             }
         } else {
-            System.out.println("Illegal Move!");
+            System.out.println("Illegal Move!!");
             return false;
         }
         return false;  //gives error when not put? ..

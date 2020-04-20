@@ -13,8 +13,8 @@ public class MoveLogger {
     private static ArrayList<Move> blackMoveHistory = new ArrayList<Move>();
 
     public MoveLogger() {
-        redMoveHistory = new ArrayList<Move>();
-        blackMoveHistory = new ArrayList<Move>();
+        redMoveHistory = new ArrayList<Move>(0);
+        blackMoveHistory = new ArrayList<Move>(0);
     }
 
     public static void addMove(Move move) {
