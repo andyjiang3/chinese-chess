@@ -9,8 +9,8 @@ public class MoveLogger {
     //Red = Piece.Side.DOWN
     //Black = Piece.Side.UP
 
-    private static ArrayList<Move> redMoveHistory;
-    private static ArrayList<Move> blackMoveHistory;
+    private static ArrayList<Move> redMoveHistory = new ArrayList<Move>();
+    private static ArrayList<Move> blackMoveHistory = new ArrayList<Move>();
 
     public MoveLogger() {
         redMoveHistory = new ArrayList<Move>();
