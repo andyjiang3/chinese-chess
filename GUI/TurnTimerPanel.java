@@ -46,13 +46,13 @@ public class TurnTimerPanel extends JPanel {
         blackTime = 0;
 
         timerLabel = new JLabel("Timer");
-        timerLabel.setFont(new Font("Sans_Serif", Font.BOLD, 40));
+        timerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
         Border blackLine = BorderFactory.createLineBorder(Color.black, 2);
 
         blackTimerLabel = new JLabel(blackPlayer.elapsedTimeToString());
         blackTimerLabel.setForeground(Color.LIGHT_GRAY);
-        blackTimerLabel.setFont(new Font("Sans_Serif", Font.BOLD, 40));
+        blackTimerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
         blackNumberPanel = new JPanel();
         blackNumberPanel.add(blackTimerLabel);
@@ -64,7 +64,7 @@ public class TurnTimerPanel extends JPanel {
         Border redLine = BorderFactory.createLineBorder(Color.red, 2);
 
         redTimerLabel = new JLabel(redPlayer.elapsedTimeToString());
-        redTimerLabel.setFont(new Font("Sans_Serif", Font.BOLD, 40));
+        redTimerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
         redNumberPanel = new JPanel();
         redNumberPanel.add(redTimerLabel);
