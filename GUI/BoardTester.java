@@ -6,9 +6,14 @@ import javax.swing.JFrame;
 
 public class BoardTester {
 	public static void main(String[] args) {
-		BoardFrame border = new BoardFrame(); 
-	    border.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	    border.setSize( 900, 700 ); // set frame size
-	    border.setVisible( true );
+		//tester for andy's timer class
+		//BoardFrame border = new BoardFrame(); 
+	    //border.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	    //border.setSize( 900, 700 ); // set frame size
+	    //border.setVisible( true );
+		
+		//tester for new core class
+		Core core = new Core();
+		core.start();
 	}
 }
