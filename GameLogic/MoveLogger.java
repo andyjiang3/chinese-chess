@@ -33,9 +33,14 @@ public class MoveLogger {
         //       blue = {1}; 1
     }
 
-    public static int getRound() {
-        //red goes first. So, red most history will have current round.
+    public static int getRedRound() {
+
         return redMoveHistory.size() + 1;
+    }
+
+    public static int getBlackRound() {
+
+        return blackMoveHistory.size() + 1;
     }
 
     public static boolean isRoundDone() {
