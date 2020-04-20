@@ -3,7 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-
+//asdfasdf
 public class BoardTester {
 	public static void main(String[] args) {
 		//tester for andy's timer class
