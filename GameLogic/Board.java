@@ -19,7 +19,7 @@ public class Board {
     private int downGeneralY = 9;
     private boolean upCheck = false; //up is in check
     private boolean downCheck = false; //down is in check
-    private boolean checkMate;
+    private boolean checkMate = false;
 
 
 
@@ -98,6 +98,7 @@ public class Board {
             if (curr.getSide() == player.getPlayerSide()) {
                 doMove(move);
                 testCheck();
+                System.out.println("Made it past testCheck");
                 if (curr.getSide() == Piece.Side.UP && upCheck) {
                     System.out.println("Illegal Move! You're in check");
                     undoMove(move, captured);
@@ -115,16 +116,16 @@ public class Board {
                             System.out.println("##########################CHECK MATE#############################");
                             System.out.println(player.getName() + "WINS!");
                             System.out.println("##########################CHECK MATE#############################");
-                            return true;
                         }
+                        return true;
                     } else if (downCheck && curr.getSide() == Piece.Side.UP) {
                         if (checkMate(Piece.Side.DOWN)) {
                             checkMate = true;
                             System.out.println("##########################CHECK MATE#############################");
                             System.out.println(player.getName() + "WINS!");
                             System.out.println("##########################CHECK MATE#############################");
-                            return true;
                         }
+                        return true;
                     }
 
                     if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
@@ -383,14 +384,15 @@ public class Board {
             for (int y = 0; y < 10; y++) {
                 if (getPoint(x, y).getPiece() != null) {
 
-                    if (getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
-                        if (new MoveChecker(this, new Move(x, y, downGeneralX, downGeneralY)).isLegal()) {
+                    if (!downCheck && getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
+                        if (new MoveChecker(this, new Move(x, y, downGeneralX, downGeneralY), 0).isLegal()) {
                             downCheck = true;
+                            System.out.println("Down is in check");
                         }
-                    }
-                    if (getPoint(x, y).getPiece().getSide() == Piece.Side.DOWN) {
-                        if (new MoveChecker(this, new Move(x, y, upGeneralX, upGeneralY)).isLegal()) {
+                    } else if (!upCheck && getPoint(x, y).getPiece().getSide() == Piece.Side.DOWN) {
+                        if (new MoveChecker(this, new Move(x, y, upGeneralX, upGeneralY), 0).isLegal()) {
                             upCheck = true;
+                            System.out.println("up is in check");
                         }
                     }
                 }

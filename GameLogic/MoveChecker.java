@@ -82,6 +82,56 @@ public class MoveChecker {
          */
     }
 
+    MoveChecker(Board board, Move move, int i) {
+        this.board = board;
+        this.move = move;
+        this.legal = true;
+
+
+        //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
+        CheckPiece();
+        Piece curr = board.getPoint(move.getOriginX(), move.getOriginY()).getPiece();
+        Piece captured = board.getPoint(move.getFinalX(), move.getFinalY()).getPiece();
+
+        //  2. check if we are doing an attack, and also check if the end point is blocked by a friendly piece
+        if (legal) {
+            isAttack();
+        }
+
+        //  3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
+
+        if (legal) {
+            obstacleStats();
+
+            if (!isClear) {
+                if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
+                    if (!(obstacleCount == 1 && attack)) {
+                        legal = false;
+                    }
+                } else {
+                    legal = false;
+                }
+            } else {
+                if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
+                    if (attack) {
+                        legal = false;
+                    }
+                }
+            }
+
+        }
+
+        //###########postmove checking##################
+//        if (legal) {
+//            board.doMove(move);
+//            if (!approveGenerals()) {
+//                legal = false;
+//                System.out.println("genrals open");
+//            }
+//            board.undoMove(move, captured);
+//            board.updateGenerals();
+    }
+
 
     private boolean approveGenerals() {
 
