@@ -23,7 +23,7 @@ public class StartFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 boardFrame = core.getBoardFrame();
                 boardFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        	    boardFrame.setSize( 700, 700 ); // set frame size
+        	    boardFrame.setSize( 900, 700 ); // set frame size
         	    boardFrame.setVisible( true );
                 setVisible(false);
             }
