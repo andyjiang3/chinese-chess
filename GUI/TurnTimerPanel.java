@@ -83,6 +83,36 @@ public class TurnTimerPanel extends JPanel {
 
     }
 
+    //turn timer test
+    public static void main(String args[]) throws Exception {
+        Player player1 = new Player(1, "Hi", Piece.Side.DOWN);
+        Player player2 = new Player(2, "Hi2", Piece.Side.UP );
+        JFrame testFrame = new JFrame("Timer test");
+        TurnTimerPanel timerPanel = new TurnTimerPanel(player1, player2);
+        testFrame.add(timerPanel);
+        testFrame.pack();
+        testFrame.setVisible(true);
+
+/*
+   timer class
+*/
+
+//red
+        player1.startTurnTimer(timerPanel);
+        Thread.sleep(5000);
+        player1.stopTurnTimer();
+
+//black
+        player2.startTurnTimer(timerPanel);
+        Thread.sleep(7000);
+        player2.stopTurnTimer();
+
+        player1.startTurnTimer(timerPanel);
+        Thread.sleep(3000);
+        player1.stopTurnTimer();
+
+    }
+
 
 
     public void updateRedTime() {
@@ -151,6 +181,5 @@ public class TurnTimerPanel extends JPanel {
 
 
     }
-
 
 }
