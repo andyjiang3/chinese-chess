@@ -13,10 +13,16 @@ public class Board {
     //test
     private Point[][] gBoard;
     private int upGeneralX = 4;
+
+
     private int upGeneralY = 0;
+
+
     private int downGeneralX = 4;
     private int downGeneralY = 9;
     private boolean upCheck = false; //up is in check
+
+
     private boolean downCheck = false; //down is in check
 
 
@@ -24,6 +30,7 @@ public class Board {
      * Creating a Board object to handle the game
      */
     public Board() {
+
         gBoard = new Point[10][9];
         initialize(gBoard);
 
@@ -38,117 +45,116 @@ public class Board {
      *
      * @param move
      */
-    public void tryMove(Move move) {
+    public boolean tryMove(Move move, Player player, MoveLogger logger) {
         if (new MoveChecker(this, move).isLegal()) {
 
             Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
             Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
 
+            testCheck();
 
-            updateGeneral(move);
-            doMove(move);
-            if (generalOpen()) {
+            //these should ideally be something like if player.
+            if (curr.getSide() == Piece.Side.UP && upCheck) {
+                System.out.println("Illegal Move! You're in check");
                 undoMove(move, captured);
-            } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
-                testCheck();
-                if (curr.getSide() == Piece.Side.UP && upCheck) {
-                    System.out.println("Illegal Move! You're in check");
-                    undoMove(move, captured);
-
-
-                }
-                if (curr.getSide() == Piece.Side.DOWN && downCheck) {
-                    System.out.println("Illegal Move! You're in check");
-                    undoMove(move, captured);
-                } else {
-                /*
-                Switch Player
-                Repaint Board
-                Switch Timer, part of player
-                 */
-                }
+                return false;
             }
+            if (curr.getSide() == Piece.Side.DOWN && downCheck) {
+                System.out.println("Illegal Move! You're in check");
+                undoMove(move, captured);
+                return false;
+            } else {
+                //temp, for ascii board
+                System.out.println("Moved " + curr + " from (" + move.getOriginX() + ", " + move.getOriginY() + ") to (" + move.getFinalX() + ", " + move.getFinalY() + ")");
 
+                if (captured != null) {
+                    player.addPieceCaptured(captured);
+                    System.out.println(captured + " Captured!");
+                    logger.addMove(new Move(curr, captured, move.getOriginX(), move.getOriginY(), move.getFinalX(), move.getFinalY()));
+                }
+                logger.addMove(new Move(curr, move.getOriginX(), move.getOriginY(), move.getFinalX(), move.getFinalY()));
 
+                return true;
+            }
         } else {
             System.out.println("Illegal Move!");
+            return false;
         }
 
 
-
-
     }
+
 
     //in progress tryMove v2
-    public boolean tryMove2(Move move, Player player, MoveLogger logger) {
-
-            if (new MoveChecker(this, move).isLegal()) {
-                if (gBoard[move.getOriginY()][move.getOriginX()].getPiece().getSide() == player.getPlayerSide()) {  //should probably be put in movechecker
-                    Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
-                    Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
-                    int x = move.getOriginX();
-                    int y = move.getOriginY();
-                    int finalX = move.getFinalX();
-                    int finalY = move.getFinalY();
-
-                    updateGeneral(move);
-                    doMove(move);
-                    if (generalOpen()) {
-                        undoMove(move, captured);
-                        System.out.println("Illegal Move! General Exposed. ( potential check).");
-                        return false;
-
-                    } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
-                        testCheck();
-                        if (curr.getSide() == Piece.Side.UP && upCheck) {
-                            System.out.println("Illegal Move! You're in check.");
-                            undoMove(move, captured);
-                            return false;
-
-                        }
-                        if (curr.getSide() == Piece.Side.DOWN && downCheck) {
-                            System.out.println("Illegal Move! You're in check.");
-                            undoMove(move, captured);
-                            return false;
-                        } else {
-                            //temp, for ascii board
-                            System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
-                            if (captured != null) {
-                                player.addPieceCaptured(captured);
-
-                                System.out.println(captured + " Captured!");
-                                logger.addMove(new Move(curr, captured, x, y, finalX, finalY));
-                            }
-                            logger.addMove(new Move(curr, x, y, finalX, finalY));
-
-
-                /*
-                Switch Player
-                Repaint Board
-                Switch Timer, part of player
-                 */
-                            return true;
-                        }
-                    }
-                } else {
-                    System.out.println("Illegal Move! Not your piece");
-                    return false;
-                }
-
-            } else {
-                System.out.println("Illegal Move!");
-                return false;
-            }
-
-
-    }
+//    public boolean tryMove2(Move move, Player player, MoveLogger logger) {
+//
+//        if (new MoveChecker(this, move).isLegal()) {
+//            if (gBoard[move.getOriginY()][move.getOriginX()].getPiece().getSide() == player.getPlayerSide()) {  //should probably be put in movechecker
+//                Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
+//                Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
+//                int x = move.getOriginX();
+//                int y = move.getOriginY();
+//                int finalX = move.getFinalX();
+//                int finalY = move.getFinalY();
+//
+//                updateGeneral(move);
+//                doMove(move);
+//                if (generalOpen()) {
+//                    undoMove(move, captured);
+//                    System.out.println("Illegal Move! General Exposed. ( potential check).");
+//                    return false;
+//
+//                } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
+//                    testCheck();
+//                    if (curr.getSide() == Piece.Side.UP && upCheck) {
+//                        System.out.println("Illegal Move! You're in check.");
+//                        undoMove(move, captured);
+//                        return false;
+//
+//                    }
+//                    if (curr.getSide() == Piece.Side.DOWN && downCheck) {
+//                        System.out.println("Illegal Move! You're in check.");
+//                        undoMove(move, captured);
+//                        return false;
+//                    } else {
+//                        //temp, for ascii board
+//                        System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+//                        if (captured != null) {
+//                            player.addPieceCaptured(captured);
+//
+//                            System.out.println(captured + " Captured!");
+//                            logger.addMove(new Move(curr, captured, x, y, finalX, finalY));
+//                        }
+//                        logger.addMove(new Move(curr, x, y, finalX, finalY));
+//
+//
+//                /*
+//                Switch Player
+//                Repaint Board
+//                Switch Timer, part of player
+//                 */
+//                        return true;
+//                    }
+//                }
+//            } else {
+//                System.out.println("Illegal Move! Not your piece");
+//                return false;
+//            }
+//
+//        } else {
+//            System.out.println("Illegal Move!");
+//            return false;
+//        }
+//
+//
+//    }
 
     /**
      * Executes a given move on the board by altering the game board array.
      *
      * @param move
      */
-    private void doMove(Move move) {
+    public void doMove(Move move) {
         Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         //Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
         this.gBoard[move.getFinalY()][move.getFinalX()].setPiece(curr);
@@ -161,7 +167,7 @@ public class Board {
      *
      * @param move
      */
-    private void undoMove(Move move, Piece captured) {
+    public void undoMove(Move move, Piece captured) {
         Piece curr = getPoint(move.getFinalX(), move.getFinalY()).getPiece();
         getPoint(move.getOriginX(), move.getOriginY()).setPiece(curr);
         getPoint(move.getFinalX(), move.getFinalY()).setPiece(captured);
@@ -246,24 +252,24 @@ public class Board {
     }
 
 
-    /**
-     * need to replace this with a method that just scans the nine possible points for each general on each move
-     *
-     * @param move
-     */
-    private void updateGeneral(Move move) {
-        Piece temp = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
-        if (temp.toString() == "General") {
-            if (temp.getSide() == Piece.Side.DOWN) {
-                downGeneralX = move.getFinalX();
-                downGeneralY = move.getFinalY();
-
-            } else if (temp.getSide() == Piece.Side.UP) {
-                upGeneralX = move.getFinalX();
-                upGeneralY = move.getFinalY();
-            }
-        }
-    }
+//    /**
+//     * need to replace this with a method that just scans the nine possible points for each general on each move
+//     *
+//     * @param move
+//     */
+////    public void updateGeneral(Move move) {
+////        Piece temp = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
+////        if (temp.toString() == "General") {
+////            if (temp.getSide() == Piece.Side.DOWN) {
+////                downGeneralX = move.getFinalX();
+////                downGeneralY = move.getFinalY();
+////
+////            } else if (temp.getSide() == Piece.Side.UP) {
+////                upGeneralX = move.getFinalX();
+////                upGeneralY = move.getFinalY();
+////            }
+////        }
+////    }
 
     /**
      * Scans the board to check if either general is in check.
@@ -295,26 +301,65 @@ public class Board {
      *
      * @return
      */
-    private boolean generalOpen() {
+//    private boolean generalOpen() {
+//
+//        int obstacleCount = 0;
+//        if (upGeneralX != downGeneralX) {
+//            return false;
+//        } else {
+//            for (int i = upGeneralY + 1; i < downGeneralY; i++) {
+//                if (getPoint(downGeneralX, i).getPiece() != null) {
+//                    obstacleCount++;
+//                }
+//            }
+//        }
+//        if (obstacleCount == 0) {
+//            System.out.print(" Generals Exposed!");
+//            return true;
+//        }
+//
+//        return false;
+//
+//
+//    }
+    public int getUpGeneralX() {
+        return upGeneralX;
+    }
 
-        int obstacleCount = 0;
-        if (upGeneralX != downGeneralX) {
-            return false;
-        } else {
-            for (int i = upGeneralY + 1; i < downGeneralY; i++) {
-                if (getPoint(downGeneralX, i).getPiece() != null) {
-                    obstacleCount++;
-                }
-            }
-        }
-        if (obstacleCount == 0) {
-            System.out.print(" Generals Exposed!");
-            return true;
-        }
+    public int getUpGeneralY() {
+        return upGeneralY;
+    }
 
-        return false;
+    public int getDownGeneralX() {
+        return downGeneralX;
+    }
 
+    public int getDownGeneralY() {
+        return downGeneralY;
+    }
 
+    public void setUpGeneralX(int upGeneralX) {
+        this.upGeneralX = upGeneralX;
+    }
+
+    public void setUpGeneralY(int upGeneralY) {
+        this.upGeneralY = upGeneralY;
+    }
+
+    public void setDownGeneralX(int downGeneralX) {
+        this.downGeneralX = downGeneralX;
+    }
+
+    public void setDownGeneralY(int downGeneralY) {
+        this.downGeneralY = downGeneralY;
+    }
+
+    public boolean isUpCheck() {
+        return upCheck;
+    }
+
+    public boolean isDownCheck() {
+        return downCheck;
     }
 
 

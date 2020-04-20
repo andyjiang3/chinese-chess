@@ -4,19 +4,16 @@ import GameLogic.Pieces.Piece;
 
 /**
  * Missing features: Doesn't check who the current player is. Needs player class to integrate
+ *
  * @version 4/10/20
  */
 public class MoveChecker {
     private Board board;
     private Move move;
 
-
     private int obstacleCount; //number of pieces in the way
     private boolean isClear; //if obstacles = 0
-    //private boolean isCheck; //checks the board for check (probably gonna make this a separate class at this point
-
     private boolean attack;
-
     private boolean legal;
 
     MoveChecker(Board board, Move move) {
@@ -24,46 +21,72 @@ public class MoveChecker {
         this.move = move;
         this.legal = true;
 
+        Piece curr = board.getPoint(move.getOriginX(), move.getOriginY()).getPiece();
+        Piece captured = board.getPoint(move.getFinalX(), move.getFinalY()).getPiece();
+
 
         //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
         CheckPiece();
-
-        //  2. check if we are doing an attack, and also check if the end point is blocked by a friendly piece
         if (legal) {
-            isAttack();
-        }
+            obstacleStats();
+            isAttack(); //  2. check if we are doing an attack, and also check if the end point is blocked by a friendly piece
 
-        //  3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
-        obstacleStats();
-        if (legal){
-        if(!isClear) {
-            if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
-                if (!(obstacleCount == 1 && attack)) {
-                    legal = false;
-                }
-            } else {
-                legal = false;
-            }
-        } else {
-            if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
-                if (attack) {
+            if (!isClear && curr.toString().equals("Cannon") && !(obstacleCount == 1 && attack)) {  //3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
+                this.legal = false;
+
+            } else { //3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
+                if (curr.toString().equals("Cannon") && attack) {
                     legal = false;
                 }
             }
+
+            if (legal) {
+                board.doMove(move);
+                if (generalsOpen()) {
+                    board.undoMove(move, captured);
+                    System.out.println(" Generals Open ");
+                }
+            }
         }
-        }
 
 
-        //check if we have a clear path, and if not how many obstacles we have (cannon and horse special cases
-
-        //check if the generals are facing each other. (make the general coordinates board member data? bruh wtf checking for check is so trippy
-        /*brainstorming the check method thing:
-         1. Obviously we have to check every enemy piece to see if it can put the current players king in check.
-         2. We'll use another class called tryCheck that runs MoveChecker on every enemy piece for a move that could try and attack the king. If everything fails the MoveCheck(becasue pinned can check) then we're good.
-
-         */
     }
 
+
+    private boolean generalsOpen() {
+
+        for (int x = 3; x < 6; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (board.getPoint(x, y).getPiece().toString().equals("General")) {
+                    board.setUpGeneralX(x);
+                    board.setUpGeneralY(y);
+
+                }
+            }
+
+            for (int y = 7; y < 10; y++) {
+                if (board.getPoint(x, y).getPiece().toString().equals("General")) {
+                    board.setDownGeneralX(x);
+                    board.setUpGeneralY(y);
+                }
+            }
+        }
+
+        if (board.getUpGeneralX() != board.getDownGeneralX()) {
+            return false;
+        } else {
+            for (int i = board.getUpGeneralY() + 1; i < board.getDownGeneralY(); i++) {
+                if (board.getPoint(board.getDownGeneralX(), i).getPiece() != null) {
+                    obstacleCount++;
+                }
+            }
+        }
+        if (obstacleCount == 0) {
+            System.out.print(" Generals Exposed!");
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Checks if the move pattern is a valid move pattern and if there's a piece present.
@@ -74,10 +97,12 @@ public class MoveChecker {
 
         if (temp == null) {
             this.legal = false;
+
         } else {
             temp.checkPattern(move);
             if (!move.isValid()) {
                 this.legal = false;
+
             }
         }
 
@@ -123,8 +148,7 @@ public class MoveChecker {
                         obstacleCount++;
                     }
                 }
-            }
-            else if (move.getDy() < 0) {
+            } else if (move.getDy() < 0) {
                 for (int y = move.getOriginY() - 1; y > move.getFinalY(); y--) {
                     if (board.getPoint(move.getOriginX(), y).getPiece() != null) {
                         obstacleCount++;
@@ -142,8 +166,7 @@ public class MoveChecker {
                         obstacleCount++;
                     }
                 }
-            }
-            else if (move.getDx() < 0) {
+            } else if (move.getDx() < 0) {
                 for (int x = move.getOriginX() - 1; x > move.getFinalX(); x--) {
                     if (board.getPoint(x, move.getOriginY()).getPiece() != null) {
                         obstacleCount++;
@@ -158,7 +181,7 @@ public class MoveChecker {
             //left up
             if (move.getDx() < 0 && move.getDy() < 0) {
                 for (int x = 1; x < move.getDx(); x++) {
-                    if (board.getPoint(move.getOriginX()-x, move.getOriginY()-x).getPiece() != null) {
+                    if (board.getPoint(move.getOriginX() - x, move.getOriginY() - x).getPiece() != null) {
                         obstacleCount++;
                     }
                 }
@@ -166,7 +189,7 @@ public class MoveChecker {
             //left down
             else if (move.getDx() < 0 && move.getDy() > 0) {
                 for (int x = 1; x < move.getDx(); x++) {
-                    if (board.getPoint(move.getOriginX()-x, move.getOriginY()+x).getPiece() != null) {
+                    if (board.getPoint(move.getOriginX() - x, move.getOriginY() + x).getPiece() != null) {
                         obstacleCount++;
                     }
                 }
@@ -174,16 +197,16 @@ public class MoveChecker {
             //right down
             else if (move.getDx() > 0 && move.getDy() > 0) {
                 for (int x = 1; x < move.getDx(); x++) {
-                    if (board.getPoint(move.getOriginX()+x, move.getOriginY()+x).getPiece() != null) {
+                    if (board.getPoint(move.getOriginX() + x, move.getOriginY() + x).getPiece() != null) {
                         obstacleCount++;
                     }
                 }
             }
 
             //right up
-            else{// (move.getDx() > 0 && move.getDy() > 0) {
+            else {// (move.getDx() > 0 && move.getDy() > 0) {
                 for (int x = 1; x < move.getDx(); x++) {
-                    if (board.getPoint(move.getOriginX()+x, move.getOriginY()-x).getPiece() != null) {
+                    if (board.getPoint(move.getOriginX() + x, move.getOriginY() - x).getPiece() != null) {
                         obstacleCount++;
                     }
                 }
@@ -196,19 +219,16 @@ public class MoveChecker {
                 if (board.getPoint(move.getOriginX() + 1, move.getOriginY()).getPiece() != null) {
                     obstacleCount++;
                 }
-            }
-            else if (move.getDx() == -2) {
+            } else if (move.getDx() == -2) {
                 if (board.getPoint(move.getOriginX() - 1, move.getOriginY()).getPiece() != null) {
                     obstacleCount++;
                 }
-            }
-            else if (move.getDy() == 2) {
+            } else if (move.getDy() == 2) {
                 if (board.getPoint(move.getOriginX(), move.getOriginY() + 1).getPiece() != null) {
                     obstacleCount++;
                 }
-            }
-            else if (move.getDy() == -2) {
-                if (board.getPoint(move.getOriginX() + 1, move.getOriginY() - 1).getPiece() != null) {
+            } else if (move.getDy() == -2) {
+                if (board.getPoint(move.getOriginX(), move.getOriginY() - 1).getPiece() != null) {
                     obstacleCount++;
                 }
             }
@@ -220,10 +240,9 @@ public class MoveChecker {
         }
 
 
-
     }
 
-    public boolean isLegal(){
+    public boolean isLegal() {
         return legal;
     }
 }
