@@ -116,6 +116,7 @@ public class TurnTimerPanel extends JPanel {
 
 
     public void updateRedTime() {
+
         blackTimerLabel.setForeground(Color.LIGHT_GRAY);
         redTimerLabel.setForeground(Color.BLACK);
 
@@ -163,6 +164,7 @@ public class TurnTimerPanel extends JPanel {
     }
 
     public void updateBlackTime() {
+
         blackTimerLabel.setForeground(Color.BLACK);
         redTimerLabel.setForeground(Color.LIGHT_GRAY);
 
