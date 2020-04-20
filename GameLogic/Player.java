@@ -1,10 +1,13 @@
 package GameLogic;
 
 import java.util.ArrayList;
+
+import GUI.TurnTimerPanel;
 import GameLogic.Pieces.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import javafx.concurrent.Task;
 
 /**
  * Class to generate the Player object, which handles data about player.
@@ -212,8 +215,24 @@ public class Player {
     //============================================================================
     //TIMER
 
+    /**
+     * Start the timer. Call at start of turn.
+     */
     public void startTurnTimer() {
         timer.start();
+
+    }
+
+    public void startTurnTimer(TurnTimerPanel panel) {
+        timer.start();
+
+        if (this.side == Piece.Side.DOWN) { //red
+            panel.updateRedTime();
+
+        } else {
+            panel.updateBlackTime();
+
+        }
     }
 
     /**
@@ -237,12 +256,26 @@ public class Player {
      * Print time elapsed of player.
      * FORMAT: Time: mm:ss
      */
+
     public void printElapsedTime() {
         Date date = new Date(timeElapsed);
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String formatted = formatter.format(date);
         System.out.println("Time Elapsed: " + formatted);
 
+    }
+
+    public String elapsedTimeToString() {
+
+        Date date = new Date(timer.getTime() + timeElapsed);
+        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
+        String formatted = formatter.format(date);
+        return formatted;
+
+    }
+
+    public boolean isTimerRunning() {
+        return timer.isStillRunning();
     }
 
     //rough draft
