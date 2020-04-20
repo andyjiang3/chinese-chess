@@ -123,8 +123,9 @@ public class Board {
 
                             System.out.println(captured + " Captured!");
                             MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
+                        } else {
+                            MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
                         }
-                        MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
 
 
                 /*
