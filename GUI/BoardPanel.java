@@ -23,9 +23,12 @@ public class BoardPanel extends JPanel {
 	private int squareWidth, radius;
 	private int[] pressLoc = new int[2], releaseLoc = new int[2];
 	private boolean pressed = false, pressIsValid = false;
-	public BoardPanel() {
+	private Core core;
+	public BoardPanel(Core core) {
 		//setSize(500, 500);
-		board = new Board();
+		//board = new Board();
+		this.core = core;
+		this.board = core.getBoard();
 		//Loop initializes the 2d array of jlabels on the board
 		for(int y = 0; y<10; y++) {
 			for(int x = 0; x<9; x++) {
@@ -158,6 +161,14 @@ public class BoardPanel extends JPanel {
 			g2.drawOval(board.getPoint(pressLoc[0],pressLoc[1]).getX()-radius, board.getPoint(pressLoc[0],pressLoc[1]).getY()-radius, radius*2, radius*2);
 		}
 	}
+	public void userRepaint() {
+		repaint();
+		for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 9; x++) {
+            	pointIcons[y][x].repaint();
+            }
+		}
+	}
 	private class Icons extends JLabel implements MouseListener{
 		private int x, y;
 		private Point point;
@@ -215,7 +226,8 @@ public class BoardPanel extends JPanel {
 					}
 					else {
 						pressed = false;
-						board.tryMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
+						sendMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
+						//board.tryMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
 						System.out.println("Origin XCoord, Origin YCoord, Destination XCoord, Destination YCoord");
 						System.out.println(pressLoc[0] + "," + pressLoc[1] + "," + releaseLoc[0] + "," + releaseLoc[1]);
 					}
@@ -246,6 +258,9 @@ public class BoardPanel extends JPanel {
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+		public void sendMove(Move move) {
+			core.doMove(move);
 		}
 		public boolean storePressed() {
 			if(board.getPoint(x,y).getPiece() == null)
