@@ -146,5 +146,10 @@ public class Move {
         return capturedPiece;
     }
 
+    public String toString() {
+        return originX + ", " + originY + ", " + finalX + ", " + finalY;
+    }
+
+
 
 }

@@ -4,6 +4,7 @@ import GameLogic.Pieces.Piece;
 
 /**
  * Missing features: Doesn't check who the current player is. Needs player class to integrate
+ *
  * @version 4/10/20
  */
 public class MoveChecker {
@@ -13,6 +14,7 @@ public class MoveChecker {
 
     private int obstacleCount; //number of pieces in the way
     private boolean isClear; //if obstacles = 0
+    private boolean generalsApproved;
     //private boolean isCheck; //checks the board for check (probably gonna make this a separate class at this point
 
     private boolean attack;
@@ -27,6 +29,8 @@ public class MoveChecker {
 
         //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
         CheckPiece();
+        Piece curr = board.getPoint(move.getOriginX(), move.getOriginY()).getPiece();
+        Piece captured = board.getPoint(move.getFinalX(), move.getFinalY()).getPiece();
 
         //  2. check if we are doing an attack, and also check if the end point is blocked by a friendly piece
         if (legal) {
@@ -34,8 +38,9 @@ public class MoveChecker {
         }
 
         //  3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
-        obstacleStats();
+
         if (legal) {
+            obstacleStats();
 
             if (!isClear) {
                 if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
@@ -45,13 +50,25 @@ public class MoveChecker {
                 } else {
                     legal = false;
                 }
-        } else {
+            } else {
                 if (board.getPoint(move.getOriginX(), move.getOriginY()).getPiece().toString().equals("Cannon")) {
                     if (attack) {
                         legal = false;
+                    }
                 }
             }
+
         }
+
+        //###########postmove checking##################
+        if (legal) {
+            board.doMove(move);
+            if (!approveGenerals()) {
+                legal = false;
+                System.out.println("genrals open");
+            }
+            board.undoMove(move, captured);
+            board.updateGenerals();
         }
 
 
@@ -63,6 +80,31 @@ public class MoveChecker {
          2. We'll use another class called tryCheck that runs MoveChecker on every enemy piece for a move that could try and attack the king. If everything fails the MoveCheck(becasue pinned can check) then we're good.
 
          */
+    }
+
+
+    private boolean approveGenerals() {
+
+        //uses location to determine if generals are facing each other
+        board.updateGenerals();
+
+        if (board.getUpGeneralX() != board.getDownGeneralX()) {
+            return true;
+        } else {
+            for (int i = board.getUpGeneralY() + 1; i < board.getDownGeneralY(); i++) {
+                if (board.getPoint(board.getDownGeneralX(), i).getPiece() != null) {
+                    obstacleCount++;
+                }
+            }
+
+            if (obstacleCount == 0) {
+                // System.out.print(" Generals Exposed!");
+                return false;
+
+            }
+        }
+
+        return true;
     }
 
 

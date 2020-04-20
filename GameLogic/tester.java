@@ -151,15 +151,15 @@ public class tester {
 //        System.out.printf("%12s%12s%12s%n", "After move:", board.getPoint(move.getOriginX(), move.getOriginY()).getPiece(), board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() );
 //    }
 
-    private static void printMove2(Move move, Board board) {
-        System.out.print(" Moved " + board.getPoint(move.getOriginX(), move.getOriginY()).getPiece() + " from (" + move.getOriginX() + ", " + move.getOriginY() + ") to (" + move.getFinalX() + ", " + move.getFinalY() + ")");
-        if (board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() != null) {
-            System.out.print("  Captured " + board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() + "  ");
-
-        }
-        board.tryMove(move);
-        System.out.println();
-    }
+//    private static void printMove2(Move move, Board board) {
+//        System.out.print(" Moved " + board.getPoint(move.getOriginX(), move.getOriginY()).getPiece() + " from (" + move.getOriginX() + ", " + move.getOriginY() + ") to (" + move.getFinalX() + ", " + move.getFinalY() + ")");
+//        if (board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() != null) {
+//            System.out.print("  Captured " + board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() + "  ");
+//
+//        }
+//        board.tryMove(move);
+//        System.out.println();
+//    }
 
 
 }

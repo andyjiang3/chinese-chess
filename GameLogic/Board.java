@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 public class Board {
 
+
     //test
     private Point[][] gBoard;
     private int upGeneralX = 4;
@@ -18,6 +19,7 @@ public class Board {
     private int downGeneralY = 9;
     private boolean upCheck = false; //up is in check
     private boolean downCheck = false; //down is in check
+    private boolean checkMate;
 
 
     /**
@@ -38,46 +40,50 @@ public class Board {
      *
      * @param move
      */
-    public void tryMove(Move move) {
+    //HERE IS THE LAST FUNCTIONAL INSTANCE WHERE CHECKMATE WAS WORKING GREAT, AFTER THIS I STARTED ADDING ANDY'S STUFF.
+    public void tryMove(Move move, Player player) {
         if (new MoveChecker(this, move).isLegal()) {
 
             Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
             Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
 
-
-            updateGeneral(move);
-            doMove(move);
-            if (generalOpen()) {
-                undoMove(move, captured);
-            } else {//this probably should be implemented better and integrated with player class. i kinda just hacked it out bc no player gui yet
+            if (curr.getSide() == player.getPlayerSide()) {
+                doMove(move);
                 testCheck();
                 if (curr.getSide() == Piece.Side.UP && upCheck) {
                     System.out.println("Illegal Move! You're in check");
                     undoMove(move, captured);
-
-
                 }
                 if (curr.getSide() == Piece.Side.DOWN && downCheck) {
                     System.out.println("Illegal Move! You're in check");
                     undoMove(move, captured);
-                } else {
-                /*
-                Switch Player
-                Repaint Board
-                Switch Timer, part of player
-                 */
+                } else { //Everything is LEGALLLLL lets postprocess
+                    //the move is legal, now lets see if it's a winning move.
+                    if (upCheck && curr.getSide() == Piece.Side.DOWN) {
+                        if (checkMate(Piece.Side.UP)) {
+                            checkMate = true;
+                            System.out.println("##############CHECK MATE#############################");
+                        }
+                    }
+                    if (downCheck && curr.getSide() == Piece.Side.UP) {
+                        if (checkMate(Piece.Side.DOWN)) {
+                            checkMate = true;
+                            System.out.println("##############CHECK MATE#############################");
+                        }
+                    }
+
                 }
+            } else {
+                System.out.println("Not your turn");
             }
-
-
         } else {
             System.out.println("Illegal Move!");
         }
-
-
     }
 
+
     //in progress tryMove v2
+
     public boolean tryMove2(Move move, Player player, MoveLogger logger) {
 
         if (new MoveChecker(this, move).isLegal()) {
@@ -89,6 +95,7 @@ public class Board {
                 int finalX = move.getFinalX();
                 int finalY = move.getFinalY();
 
+                //checkMate(move, player);
                 updateGeneral(move);
                 doMove(move);
                 if (generalOpen()) {
@@ -115,9 +122,9 @@ public class Board {
                             player.addPieceCaptured(captured);
 
                             System.out.println(captured + " Captured!");
-                            logger.addMove(new Move(curr, captured, x, y, finalX, finalY));
+                            MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
                         }
-                        logger.addMove(new Move(curr, x, y, finalX, finalY));
+                        MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
 
 
                 /*
@@ -146,7 +153,7 @@ public class Board {
      *
      * @param move
      */
-    private void doMove(Move move) {
+    public void doMove(Move move) {
         Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         //Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
         this.gBoard[move.getFinalY()][move.getFinalX()].setPiece(curr);
@@ -159,12 +166,13 @@ public class Board {
      *
      * @param move
      */
-    private void undoMove(Move move, Piece captured) {
+    public void undoMove(Move move, Piece captured) {
         Piece curr = getPoint(move.getFinalX(), move.getFinalY()).getPiece();
         getPoint(move.getOriginX(), move.getOriginY()).setPiece(curr);
         getPoint(move.getFinalX(), move.getFinalY()).setPiece(captured);
-        System.out.print(" Illegal Move");
+        //System.out.print(" Illegal Move");
     }
+
 
     /**
      * Returns a point object at a specified board location (not array index, but coordinate instead.
@@ -263,10 +271,34 @@ public class Board {
         }
     }
 
+    public void updateGenerals() {
+        //finds location of generals
+
+        for (int x = 3; x < 6; x++) {
+            for (int y = 0; y < 3; y++) {
+                Piece curr = getPoint(x, y).getPiece();
+                if (curr != null && curr.toString().equals("General")) {
+                    setUpGeneralX(x);
+                    setUpGeneralY(y);
+                }
+
+            }
+
+            for (int y = 7; y < 10; y++) {
+                Piece curr = getPoint(x, y).getPiece();
+                if (curr != null && curr.toString().equals("General")) {
+                    setDownGeneralX(x);
+                    setDownGeneralY(y);
+                }
+            }
+        }
+    }
+
     /**
      * Scans the board to check if either general is in check.
      */
     private void testCheck() {
+        updateGenerals();
         downCheck = false;
         upCheck = false;
         for (int x = 0; x < 9; x++) {
@@ -287,6 +319,64 @@ public class Board {
             }
         }
     }
+
+    /**
+     * Checks for checkmate. currently it runs by checking if you have any possible moves, and if not your in checkmate
+     * tomorow when i wake up I'll try and do it such that it checks if your opponent has a Player has any possible moves
+     * and changes his her checkmate status.
+     * <p>
+     * Don't get fooled by the number of forloopps and brackets, this is a master piece that runs in constant time and constant space.
+     * Experts call it Eulers second algorithm. An algorithm so efficient and well thought out, one that would never be written at 2:07am in less than
+     * 10 minutes.
+     * <p>
+     * Anyway, it's actually not that complicated or slow.
+     */
+    private boolean checkMate(Piece.Side loserSide) {//, Player player) {
+//        Piece.Side currSide = player.getPlayerSide();
+        updateGenerals();
+        //Piece.Side currSide = getPoint(move.getOriginX(), move.getOriginY()).getPiece().getSide();
+
+        checkMate = true;
+
+        //running through every loser piece
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 10; y++) {
+
+                if (getPoint(x, y).getPiece() != null && getPoint(x, y).getPiece().getSide() == loserSide) {
+
+                    //running through every possible point to generate every possible move
+                    for (int i = 0; i < 9; i++) {
+                        for (int j = 0; j < 10; j++) {
+                            Move tempMove = new Move(x, y, i, j); //generating the temporary move
+                            Piece tempCaptured = getPoint(i, j).getPiece();
+                            //if that move is legal then attempt it.
+                            if (new MoveChecker(this, tempMove).isLegal()) { //trying every possible move for the piece
+                                doMove(tempMove); //doing the temporary move
+                                testCheck(); //updates check status
+                                //if any of these moves were both legal, and result with us not being in check, we aren't in checkmate.
+                                if (loserSide == Piece.Side.DOWN) {
+                                    if (!downCheck) {
+                                        undoMove(tempMove, tempCaptured);
+                                        return false;
+                                    }
+                                }
+                                if (loserSide == Piece.Side.UP) {
+                                    if (!upCheck) {
+                                        undoMove(tempMove, tempCaptured);
+                                        return false;
+                                    }
+                                }
+                                undoMove(tempMove, tempCaptured);
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Checks if the generals are facing each other
@@ -336,5 +426,37 @@ public class Board {
             System.out.println(hLine);
 
         }
+    }
+
+    public int getUpGeneralX() {
+        return upGeneralX;
+    }
+
+    public void setUpGeneralX(int upGeneralX) {
+        this.upGeneralX = upGeneralX;
+    }
+
+    public int getUpGeneralY() {
+        return upGeneralY;
+    }
+
+    public void setUpGeneralY(int upGeneralY) {
+        this.upGeneralY = upGeneralY;
+    }
+
+    public int getDownGeneralX() {
+        return downGeneralX;
+    }
+
+    public void setDownGeneralX(int downGeneralX) {
+        this.downGeneralX = downGeneralX;
+    }
+
+    public int getDownGeneralY() {
+        return downGeneralY;
+    }
+
+    public void setDownGeneralY(int downGeneralY) {
+        this.downGeneralY = downGeneralY;
     }
 }
