@@ -1,5 +1,6 @@
 package GUI;
 import GameLogic.Pieces.Piece;
+import GameLogic.Player;
 import GameLogic.Point;
 import GameLogic.Board;
 import GameLogic.Move;
@@ -26,7 +27,15 @@ public class BoardFrame extends JFrame {
 		super("Chinese Chess");
 		BoardPanel board = new BoardPanel();
 		add(board, BorderLayout.CENTER);
-		
+
+		//for testing, would be called in core class
+		Player player1 = new Player(1, "Hi", Piece.Side.DOWN);
+		Player player2 = new Player(2, "Hi2", Piece.Side.UP );
+		JFrame testFrame = new JFrame("Timer test");
+		TurnTimerPanel timerPanel = new TurnTimerPanel(player1, player2);
+		add(timerPanel, BorderLayout.EAST);
+
+
 		ActionListener saveHandler = new ActionListener() {  
 		       //saves the board when the player presses saveItem
 		       public void actionPerformed( ActionEvent event ){
