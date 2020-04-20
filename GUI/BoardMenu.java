@@ -90,4 +90,7 @@ public class BoardMenu extends JMenuBar {
 	    add( viewMenu );
 	    add( helpMenu );
 	}
+	public String getLanguage() {
+		return languageKey;
+	}
 }
