@@ -22,13 +22,17 @@ public class Timer {
         stillRunning = false;
     }
 
+    public boolean isStillRunning() {
+        return this.stillRunning;
+    }
+
     //in milliseconds
     public long getTime() {
 
         if (stillRunning) {
             return (System.nanoTime() - startTime) / 1000000;  //convert to milliseconds
         } else {
-            return (stopTime  - startTime) / 1000000;
+            return (stopTime - startTime) / 1000000;
         }
     }
 
