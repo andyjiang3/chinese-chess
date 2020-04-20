@@ -29,7 +29,6 @@ public class MoveLogger {
                 redMoveHistory.add(move);
             }
 
-
         //test: red = {1, 1} 2
         //       blue = {1}; 1
     }
