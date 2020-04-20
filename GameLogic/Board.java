@@ -128,11 +128,10 @@ public class Board {
                         return true;
                     }
 
-                    if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
+                    // if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
                         System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
                         if (captured != null) {
                             player.addPieceCaptured(captured);
-
                             System.out.println(captured + " Captured!");
                             MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
                         } else {
@@ -142,21 +141,18 @@ public class Board {
                         //DO OTHER THINGS =============
 
                         return true;
-                    }
-
-
-
+                    //   }
 
                 }
             } else {
                 System.out.println("Not your turn");
                 return false;
             }
-        } else {
+        }
             System.out.println("Illegal Move!!");
             return false;
-        }
-        return false;  //gives error when not put? ..
+
+
     }
 
 
