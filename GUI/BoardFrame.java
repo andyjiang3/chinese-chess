@@ -1,10 +1,9 @@
 package GUI;
+
+import GameLogic.*;
 import GameLogic.Pieces.Piece;
-import GameLogic.Player;
-import GameLogic.Point;
-import GameLogic.Board;
-import GameLogic.Move;
 import GUI.BoardPanel;
+import GameLogic.Point;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -61,7 +60,7 @@ public class BoardFrame extends JFrame {
 	    JMenuItem popupUndo = new JMenuItem("Undo");
 	    popupUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//add code or methods to undo last move
+				//core.getBoard().doMove(MoveLogger.undoLastMove(core.getBoard()));
 			}
 	    });
 	    popupMenu.add(popupUndo);

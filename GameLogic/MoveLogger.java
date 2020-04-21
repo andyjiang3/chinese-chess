@@ -195,6 +195,7 @@ public class MoveLogger {
             } else {
                 board.undoMove(redMoveHistory.get(redMoveHistory.size() - 1), redMoveHistory.get(redMoveHistory.size() - 1).getCapturedPiece());
                 Move current = redMoveHistory.remove(redMoveHistory.size() - 1);
+//                System.out.println(current);
                 return current;
 
             }
