@@ -31,12 +31,12 @@ public class Core {
 	public void start(Profile profile) {
         inGame = false;
         //startFrame = new StartFrame(this);
-        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN);
-        player2 = new Player(2, profile.getP2String(), Piece.Side.UP);
+        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, profile);
+        player2 = new Player(2, profile.getP2String(), Piece.Side.UP, profile);
         board = new Board();
-        boardPanel = new BoardPanel(this);
+        boardPanel = new BoardPanel(this, profile);
         boardMenu = new BoardMenu(this);
-        timerPanel = new TurnTimerPanel(player1,player2);
+        timerPanel = new TurnTimerPanel(player1, player2, profile);
         boardFrame = new BoardFrame(this);
 
 

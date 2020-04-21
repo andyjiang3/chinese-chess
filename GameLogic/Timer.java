@@ -6,6 +6,7 @@ public class Timer {
     private long stopTime;
     private boolean stillRunning;
 
+
     public Timer() {
         this.startTime = 0;
         this.stopTime = 0;

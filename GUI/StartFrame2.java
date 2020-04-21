@@ -125,7 +125,10 @@ public class StartFrame2 extends JFrame {
         begin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                core.initializeFrame();
+                profile.setMinutes((int) minutes.getValue());
+                profile.setP1String(p1Name.getText());
+                profile.setP2String(p2Name.getText());
+                core.start(profile);
 
                 //core.getBoardPanel().setProfile(profile);
                 boardFrame = core.getBoardFrame();

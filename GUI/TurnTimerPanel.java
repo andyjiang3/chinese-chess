@@ -32,7 +32,7 @@ public class TurnTimerPanel extends JPanel {
     Thread newThread;
 
 
-    public TurnTimerPanel(Player player1, Player player2) {
+    public TurnTimerPanel(Player player1, Player player2, Profile profile) {
         if (player1.getPlayerSide() == Piece.Side.DOWN) {  //Player1 is red
             this.redPlayer = player1;
             this.blackPlayer = player2;
@@ -47,7 +47,7 @@ public class TurnTimerPanel extends JPanel {
         timerLabel = new JLabel("Timer");
         timerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
-        Border blackLine = BorderFactory.createLineBorder(Color.black, 2);
+        Border blackLine = BorderFactory.createLineBorder(profile.getP2Color(), 2);
 
         blackTimerLabel = new JLabel(blackPlayer.elapsedTimeToString());
         blackTimerLabel.setForeground(Color.LIGHT_GRAY);
@@ -60,7 +60,7 @@ public class TurnTimerPanel extends JPanel {
         blackTimerPanel.setBorder(blackLine);
         blackTimerPanel.add(blackNumberPanel, BorderLayout.CENTER);
 
-        Border redLine = BorderFactory.createLineBorder(Color.red, 2);
+        Border redLine = BorderFactory.createLineBorder(profile.getP1Color(), 2);
 
         redTimerLabel = new JLabel(redPlayer.elapsedTimeToString());
         redTimerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
@@ -84,10 +84,10 @@ public class TurnTimerPanel extends JPanel {
 
     //turn timer test
     public static void main(String args[]) throws Exception {
-        Player player1 = new Player(1, "Hi", Piece.Side.DOWN);
-        Player player2 = new Player(2, "Hi2", Piece.Side.UP );
+        Player player1 = new Player(1, "Hi", Piece.Side.DOWN, new Profile());
+        Player player2 = new Player(2, "Hi2", Piece.Side.UP, new Profile());
         JFrame testFrame = new JFrame("Timer test");
-        TurnTimerPanel timerPanel = new TurnTimerPanel(player1, player2);
+        TurnTimerPanel timerPanel = new TurnTimerPanel(player1, player2, new Profile());
         testFrame.add(timerPanel);
         testFrame.pack();
         testFrame.setVisible(true);

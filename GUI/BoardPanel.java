@@ -35,11 +35,14 @@ public class BoardPanel extends JPanel {
 	private boolean pressed = false, pressIsValid = false;
 	private Core core;
 	private Profile profile;
-	public BoardPanel(Core core) {
+
+	public BoardPanel(Core core, Profile profile) {
 		//setSize(500, 500);
 		//board = new Board();
 		this.core = core;
 		this.board = core.getBoard();
+		this.profile = profile;
+		this.setBackground(profile.getBgColor1());
 		//Loop initializes the 2d array of jlabels on the board
 		for(int y = 0; y<10; y++) {
 			for(int x = 0; x<9; x++) {
@@ -157,9 +160,9 @@ public class BoardPanel extends JPanel {
 					g2.setColor(new Color(245,245,220));
 					g2.fillOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
 					if(board.getPoint(x,y).getPiece().getSide() == Piece.Side.UP)
-						g2.setColor(Color.red);
+						g2.setColor(profile.getP1Color());
 					else
-						g2.setColor(Color.black);
+						g2.setColor(profile.getP1Color());
 					g2.drawOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
 					xCoord = board.getPoint(x,y).getX() - metrics.stringWidth(board.getPoint(x,y).getPiece().toString()) / 2;
 					yCoord = board.getPoint(x,y).getY() - metrics.getHeight()/2 + metrics.getAscent();
@@ -221,9 +224,9 @@ public class BoardPanel extends JPanel {
 				g2.setColor(new Color(245,245,220));
 				g2.fillOval(3, 3, getWidth()-6, getHeight()-6);
 				if(point.getPiece().getSide() == Piece.Side.UP)
-					g2.setColor(Color.black);
+					g2.setColor(profile.getP2Color());
 				else
-					g2.setColor(Color.red);
+					g2.setColor(profile.getP1Color());
 				g2.drawOval(2, 2, getWidth()-4, getHeight()-4);
 				xCoord = (getWidth())/2 - metrics.stringWidth(point.getPiece().toString()) / 2;
 				yCoord = (getHeight())/2 - metrics.getHeight()/2 + metrics.getAscent();

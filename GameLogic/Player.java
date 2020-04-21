@@ -2,6 +2,7 @@ package GameLogic;
 
 import java.util.ArrayList;
 
+import GUI.Profile;
 import GUI.TurnTimerPanel;
 import GameLogic.Pieces.*;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class Player {
      * @param id set this player's id
      * @param side set this player's side on board
      */
-    public Player(int id, Piece.Side side) {
+    public Player(int id, Piece.Side side, Profile profile) {
         this.id = id;
         this.name = "Player" + id;
         this.side = side;
@@ -61,9 +62,9 @@ public class Player {
             Set the color of the player based on their side. Color will be used for theming.
          */
         if (side == Piece.Side.DOWN) {
-            color = "Red";
+            color = profile.getP1Color().toString();
         } else {
-            color = "Black";
+            color = profile.getP2Color().toString();
         }
 
     }
@@ -74,7 +75,7 @@ public class Player {
      * @param name set name of player
      * @param side set this player's side on board
      */
-    public Player(int id, String name, Piece.Side side) {
+    public Player(int id, String name, Piece.Side side, Profile profile) {
         this.id = id;
         this.name = name;
         this.side = side;
