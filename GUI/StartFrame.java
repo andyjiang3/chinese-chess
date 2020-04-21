@@ -3,14 +3,16 @@ package GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
 
-public class StartFrame2 extends JFrame {
+public class StartFrame extends JFrame {
 
     private JPanel topLeftPanel, topRightPanel, top, middle, bottom, tippyTop;
-    private JPanel p1Colors, p2Colors, p1Names, p2Names, bgColors, timers;
-    private JButton p1Chooser, p2Chooser, bgChooser, begin, loadGame;
+    private JPanel p1Colors, p2Colors, p1Names, p2Names, bgColors, timers, fgColors;
+    private JButton p1Chooser, p2Chooser, bgChooser, begin, loadGame, fgChooser;
     private JTextField p1Name, p2Name;
     private BoardFrame boardFrame;
     private JSpinner minutes;
@@ -18,8 +20,10 @@ public class StartFrame2 extends JFrame {
 
     private Profile profile;
 
-    public StartFrame2(Core core) {
+    public StartFrame(Core core) {
         this.setLayout(new GridLayout(4, 0));
+
+        Font bigFont = new Font("Sans_Serif", Font.PLAIN, 40);
 
         //Player 1 stuff
         p1Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
@@ -46,8 +50,16 @@ public class StartFrame2 extends JFrame {
 
         //tippy top stuff
         tippyTop = new JPanel(new GridLayout(0, 2));
-        tippyTop.add(new JLabel("Player 1 Options:", SwingConstants.CENTER));
-        tippyTop.add(new JLabel("Player 2 Options:", SwingConstants.CENTER));
+        JLabel leftTitle = new JLabel("Player 1:");
+        JLabel rightTitle = new JLabel("Player 2:");
+        leftTitle.setFont(bigFont);
+        leftTitle.setHorizontalAlignment(SwingConstants.CENTER);
+
+        rightTitle.setFont(bigFont);
+        rightTitle.setHorizontalAlignment(SwingConstants.CENTER);
+
+        tippyTop.add(leftTitle);
+        tippyTop.add(rightTitle);
 
         //top left panel stuff
         topLeftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -71,6 +83,12 @@ public class StartFrame2 extends JFrame {
         bgChooser = new JButton("Select");
         bgColors.add(bgChooser);
 
+        //FGstuff
+        fgColors = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        fgColors.add(new JLabel("Foreground Color"));
+        fgChooser = new JButton("Select");
+        fgColors.add(fgChooser);
+
 
         //timer stuff
         timers = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -80,11 +98,44 @@ public class StartFrame2 extends JFrame {
 
         //middle stuff
         middle = new JPanel(new GridLayout(0, 2));
+        JPanel middleLeftHolder = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+
+        middleLeftHolder.add(bgColors);
+        middleLeftHolder.add(fgColors);
+        middleLeftHolder.add(timers);
+        middle.add(middleLeftHolder);
 
 
-        middle.add(bgColors, BOTTOM_ALIGNMENT);
+        //Preview Panel
+        class preview extends JPanel {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setColor(profile.getBackgroundColor());
+                int xOffset = 45;
+                g2.fill(new Rectangle2D.Double(xOffset, 0, 200, 100));
 
-        middle.add(timers);
+                g2.setColor(profile.getForeGround());
+                g2.fill(new Ellipse2D.Double(xOffset + 10, 10, 80, 80));
+                g2.fill(new Ellipse2D.Double(xOffset + 110, 10, 80, 80));
+
+                g2.setStroke(new BasicStroke(5));
+                g2.setColor(profile.getP1Color());
+                g2.draw(new Ellipse2D.Double(10 + xOffset, 10, 80, 80));
+                g2.drawString("General", 25 + xOffset, 55);
+
+                g2.setColor(profile.getP2Color());
+                g2.draw(new Ellipse2D.Double(110 + xOffset, 10, 80, 80));
+                g2.drawString("Elephant", 125 + xOffset, 55);
+            }
+
+        }
+
+        JPanel preview2 = new preview();
+        middle.add(preview2);
+
+
+
 
         //bottom stuff
         bottom = new JPanel(new GridLayout(0, 2));
@@ -101,24 +152,36 @@ public class StartFrame2 extends JFrame {
         p1Chooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", Color.LIGHT_GRAY);
+                Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", profile.getP1Color());
                 profile.setP1Color(temp);
+                preview2.repaint();
 
             }
         });
         p2Chooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", Color.LIGHT_GRAY);
+                Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", profile.getP2Color());
                 profile.setP2Color(temp);
+                preview2.repaint();
 
             }
         });
         bgChooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", profile.getBackgroundColor());
+                profile.setBackGround(temp);
+                preview2.repaint();
+
+            }
+        });
+        fgChooser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 Color temp = JColorChooser.showDialog(null, "Chosoe Player 1 Color", Color.LIGHT_GRAY);
-                profile.setBgColor1(temp);
+                profile.setForeGround(temp);
+                preview2.repaint();
 
             }
         });

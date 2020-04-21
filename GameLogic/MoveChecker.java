@@ -21,6 +21,12 @@ public class MoveChecker {
 
     private boolean legal;
 
+    /**
+     * Upon instantiation this object will do all static checking of legality and even checks if the geneerals are facing each other.
+     *
+     * @param board
+     * @param move
+     */
     MoveChecker(Board board, Move move) {
         this.board = board;
         this.move = move;
@@ -82,6 +88,13 @@ public class MoveChecker {
          */
     }
 
+    /**
+     * This secondary constructor does not check for generals, since a move can dilver a check without having a legal move there.
+     *
+     * @param board
+     * @param move
+     * @param i
+     */
     MoveChecker(Board board, Move move, int i) {
         this.board = board;
         this.move = move;
@@ -133,6 +146,10 @@ public class MoveChecker {
     }
 
 
+    /**
+     * Validates that the generals aren't facing each other.
+     * @return
+     */
     private boolean approveGenerals() {
 
         //uses location to determine if generals are facing each other

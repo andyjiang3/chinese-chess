@@ -31,6 +31,15 @@ public class Move {
     //private boolean isClear;
     private int numObstacles; //number of pieces on the path
 
+    /**
+     * Is a simple construct of a move. Only carries the starting location and the final location. No validation.
+     *
+     * @param originX
+     * @param originY
+     * @param finalX
+     * @param finalY
+     */
+
     public Move(int originX, int originY, int finalX, int finalY) {
         this.originX = originX;
         this.originY = originY;

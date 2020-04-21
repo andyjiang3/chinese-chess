@@ -20,7 +20,7 @@ public class Board {
     private boolean upCheck = false; //up is in check
     private boolean downCheck = false; //down is in check
     private boolean checkMate = false;
-
+    private boolean staleMate = false;
 
 
     /**
@@ -126,21 +126,35 @@ public class Board {
                             System.out.println("##########################CHECK MATE#############################");
                         }
                         return true;
+                    } else if (curr.getSide() == Piece.Side.DOWN) {
+                        if (checkMate(Piece.Side.UP)) {
+                            staleMate = true;
+                            System.out.println("##########################STALE MATE#############################");
+                            System.out.println("ITS A DRAW");
+                            System.out.println("##########################STALE MATE#############################");
+                        }
+                    } else if (curr.getSide() == Piece.Side.UP) {
+                        if (checkMate(Piece.Side.DOWN)) {
+                            staleMate = true;
+                            System.out.println("##########################STALE MATE#############################");
+                            System.out.println("ITS A DRAW");
+                            System.out.println("##########################STALE MATE#############################");
+                        }
                     }
 
                     // if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
-                        System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
-                        if (captured != null) {
-                            player.addPieceCaptured(captured);
-                            System.out.println(captured + " Captured!");
-                            MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
-                        } else {
-                            MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
-                        }
+                    System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+                    if (captured != null) {
+                        player.addPieceCaptured(captured);
+                        System.out.println(captured + " Captured!");
+                        MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
+                    } else {
+                        MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
+                    }
 
-                        //DO OTHER THINGS =============
+                    //DO OTHER THINGS =============
 
-                        return true;
+                    return true;
                     //   }
 
                 }
@@ -149,8 +163,8 @@ public class Board {
                 return false;
             }
         }
-            System.out.println("Illegal Move!!");
-            return false;
+        System.out.println("Illegal Move!!");
+        return false;
 
 
     }
@@ -184,8 +198,7 @@ public class Board {
                         undoMove(move, captured);
                         return false;
 
-                    }
-                    if (curr.getSide() == Piece.Side.DOWN && downCheck) {
+                    } else if (curr.getSide() == Piece.Side.DOWN && downCheck) {
                         System.out.println("Illegal Move! You're in check.");
                         undoMove(move, captured);
                         return false;

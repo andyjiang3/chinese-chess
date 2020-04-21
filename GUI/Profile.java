@@ -4,12 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Profile {
-    private Color p1Color = Color.lightGray;
-    private Color p2Color = Color.lightGray;
-    private Color bgColor1 = Color.lightGray;
+    private Color p1Color;
+    private Color p2Color;
+    private Color backGround;
+    private Color foreGround;
     private String p1String;
     private String p2String;
     private int minutes;
+
+    Profile() {
+        p1Color = Color.RED;
+        p2Color = Color.BLACK;
+        backGround = Color.lightGray;
+        foreGround = new Color(245, 245, 220);
+        p1String = "Player 1";
+        p2String = "Player 2";
+        minutes = 10;
+    }
 
     public void setP1Color(Color p1Color) {
         this.p1Color = p1Color;
@@ -19,8 +30,21 @@ public class Profile {
         this.p2Color = p2Color;
     }
 
-    public void setBgColor1(Color bgColor1) {
-        this.bgColor1 = bgColor1;
+
+    public Color getForeGround() {
+        return foreGround;
+    }
+
+    public Color getBackgroundColor() {
+        return backGround;
+    }
+
+    public void setForeGround(Color foreGround) {
+        this.foreGround = foreGround;
+    }
+
+    public void setBackGround(Color newBackGround) {
+        this.backGround = newBackGround;
     }
 
     public void setP1String(String p1String) {
@@ -43,8 +67,8 @@ public class Profile {
         return p2Color;
     }
 
-    public Color getBgColor1() {
-        return bgColor1;
+    public Color background() {
+        return backGround;
     }
 
     public String getP1String() {
@@ -60,7 +84,7 @@ public class Profile {
         return "Profile{" +
                 "p1Color=" + p1Color +
                 ", p2Color=" + p2Color +
-                ", bgColor1=" + bgColor1 +
+                ", bgColor1=" + backGround +
                 ", p1String='" + p1String + '\'' +
                 ", p2String='" + p2String + '\'' +
                 ", minutes=" + minutes +
@@ -74,20 +98,13 @@ public class Profile {
     Profile(Color p1, Color p2, Color bg, String p1Name, String p2Name, int min) {
         p1Color = p1;
         p2Color = p2;
-        bgColor1 = bg;
+        backGround = bg;
+
         p1String = p1Name;
         p2String = p2Name;
         minutes = min;
     }
 
-    Profile() {
-        p1Color = Color.RED;
-        p2Color = Color.BLACK;
-        bgColor1 = Color.lightGray;
-        p1String = "Player 1";
-        p2String = "Player 2";
-        minutes = 10;
-    }
 
     ;
 

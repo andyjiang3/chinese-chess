@@ -21,7 +21,7 @@ public class BoardMenu extends JMenuBar {
 					// display message dialog when user selects About...
 					public void actionPerformed( ActionEvent event ) {
 						JOptionPane.showMessageDialog( BoardMenu.this,
-								"This Chinese Chess game was created by the following members:\nVenkatratnam Pamulaptai\nMichael Yu\nAndy Jiang",
+								"This Chinese Chess game was created by the following members:\nVenkat Pamulaptai\nMichael Yu\nAndy Jiang",
 								"About", JOptionPane.PLAIN_MESSAGE );
 					}
 				}

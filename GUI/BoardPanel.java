@@ -10,12 +10,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,7 +37,7 @@ public class BoardPanel extends JPanel {
 		this.core = core;
 		this.board = core.getBoard();
 		this.profile = profile;
-		this.setBackground(profile.getBgColor1());
+        this.setBackground(profile.background());
 		//Loop initializes the 2d array of jlabels on the board
 		for(int y = 0; y<10; y++) {
 			for(int x = 0; x<9; x++) {
@@ -157,12 +152,14 @@ public class BoardPanel extends JPanel {
 				if (board.getPoint(x,y).getPiece() == null)
 					continue;
 				else {
-					g2.setColor(new Color(245,245,220));
+                    g2.setColor(profile.getForeGround());
 					g2.fillOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
-					if(board.getPoint(x,y).getPiece().getSide() == Piece.Side.UP)
-						g2.setColor(profile.getP1Color());
-					else
-						g2.setColor(profile.getP1Color());
+                    if (board.getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
+                        g2.setColor(profile.getP2Color());
+                    } else {
+
+                        g2.setColor(profile.getP1Color());
+                    }
 					g2.drawOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
 					xCoord = board.getPoint(x,y).getX() - metrics.stringWidth(board.getPoint(x,y).getPiece().toString()) / 2;
 					yCoord = board.getPoint(x,y).getY() - metrics.getHeight()/2 + metrics.getAscent();
@@ -221,7 +218,7 @@ public class BoardPanel extends JPanel {
 			FontMetrics metrics = g2.getFontMetrics();
 			int xCoord,yCoord;
 			if (point.getPiece() != null) {
-				g2.setColor(new Color(245,245,220));
+                g2.setColor(profile.getForeGround());
 				g2.fillOval(3, 3, getWidth()-6, getHeight()-6);
 				if(point.getPiece().getSide() == Piece.Side.UP)
 					g2.setColor(profile.getP2Color());

@@ -1,7 +1,5 @@
 package GUI;
 
-import javax.swing.JFrame;
-
 import GameLogic.Board;
 import GameLogic.Move;
 import GameLogic.Pieces.Piece;
@@ -19,12 +17,12 @@ public class Core {
     private int counter;
     private Player player1;
     private Player player2;
-    private static StartFrame2 startFrame2;
+    private static StartFrame startFrame;
     private Profile profile;
 
     
 	public Core() {
-        startFrame2 = new StartFrame2(this);
+        startFrame = new StartFrame(this);
 
 
     }
