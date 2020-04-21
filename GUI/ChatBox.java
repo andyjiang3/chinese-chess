@@ -15,11 +15,12 @@ class ChatBox extends JPanel {
     public ChatBox() {
         JLabel title = new JLabel("Chat Log");
         systemOutput = new JTextArea(14,18);
-        JScrollPane scrollPane = new JScrollPane(systemOutput);
+        JScrollPane scrollPane = new JScrollPane(systemOutput, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(title, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         systemOutput.setCaretPosition(systemOutput.getDocument().getLength());
-        setPreferredSize(new Dimension(200,400));
+        setPreferredSize(new Dimension(220, 400));
+
 
         JButton endGameBtn = new JButton("End Game");
         endGameBtn.addActionListener(new ActionListener() {

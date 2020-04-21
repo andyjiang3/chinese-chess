@@ -72,12 +72,12 @@ public class Board {
                 doMove(move);
                 testCheck();
                 if (curr.getSide() == Piece.Side.UP && upCheck) {
-                    System.out.println("Illegal Move! You're in check");
+                    System.out.println(" Illegal Move, you're in check");
                     undoMove(move, captured);
                     return false;
                 }
                 if (curr.getSide() == Piece.Side.DOWN && downCheck) {
-                    System.out.println("Illegal Move! You're in check");
+                    System.out.println(" Illegal Move, you're in check");
                     undoMove(move, captured);
                     return false;
 
@@ -87,9 +87,9 @@ public class Board {
                     if (upCheck && curr.getSide() == Piece.Side.DOWN) {
                         if (checkMate(Piece.Side.UP)) {
                             winner = PLAYER1_WINS;
-                            System.out.println("##########################CHECK MATE#############################");
-                            System.out.println(player.getName() + "WINS!");
-                            System.out.println("##########################CHECK MATE#############################");
+//                            System.out.println("##########################CHECK MATE#############################");
+//                            System.out.println(player.getName() + "WINS!");
+//                            System.out.println("##########################CHECK MATE#############################");
                         }
 //                        return true;
 
@@ -97,9 +97,9 @@ public class Board {
                     } else if (downCheck && curr.getSide() == Piece.Side.UP) {
                         if (checkMate(Piece.Side.DOWN)) {
                             winner = PLAYER2_WINS;
-                            System.out.println("##########################CHECK MATE#############################");
-                            System.out.println(player.getName() + "WINS!");
-                            System.out.println("##########################CHECK MATE#############################");
+//                            System.out.println("##########################CHECK MATE#############################");
+//                            System.out.println(player.getName() + "WINS!");
+//                            System.out.println("##########################CHECK MATE#############################");
                         }
 //                        return true;
 
@@ -107,26 +107,26 @@ public class Board {
                     } else if (curr.getSide() == Piece.Side.DOWN) {
                         if (checkMate(Piece.Side.UP) || separated()) {
                             winner = DRAW;
-                            System.out.println("##########################STALE MATE#############################");
-                            System.out.println("ITS A DRAW");
-                            System.out.println("##########################STALE MATE#############################");
+//                            System.out.println("##########################STALE MATE#############################");
+//                            System.out.println("ITS A DRAW");
+//                            System.out.println("##########################STALE MATE#############################");
                         }
 //                        return true;
                     } else if (curr.getSide() == Piece.Side.UP) {
                         if (checkMate(Piece.Side.DOWN) || separated()) {
                             winner = DRAW;
-                            System.out.println("##########################STALE MATE#############################");
-                            System.out.println("ITS A DRAW");
-                            System.out.println("##########################STALE MATE#############################");
+//                            System.out.println("##########################STALE MATE#############################");
+//                            System.out.println("ITS A DRAW");
+//                            System.out.println("##########################STALE MATE#############################");
                         }
 //                        return true;
                     }
 
                     // if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
-                    System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+                    System.out.println(" Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
                     if (captured != null) {
                         player.addPieceCaptured(captured);
-                        System.out.println(captured + " Captured!");
+                        System.out.println(" " + captured + " Captured!");
                         MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
                     } else {
                         MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
@@ -139,11 +139,11 @@ public class Board {
 
                 }
             } else {
-                System.out.println("Not your turn");
+                System.out.println(" That's not your piece");
                 return false;
             }
         }
-        System.out.println("Illegal Move!!");
+        System.out.println(" Illegal Move");
         return false;
 
 

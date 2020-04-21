@@ -298,7 +298,7 @@ public class BoardPanel extends JPanel {
 						pressed = false;
 						sendMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
 						//board.tryMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
-						System.out.println(pressLoc[0] + "," + pressLoc[1] + "," + releaseLoc[0] + "," + releaseLoc[1]);
+//						System.out.println(pressLoc[0] + "," + pressLoc[1] + "," + releaseLoc[0] + "," + releaseLoc[1]);
 					}
 				}
 			}
