@@ -53,17 +53,18 @@ public class BoardFrame extends JFrame {
 		setJMenuBar(boardMenu);
 		
 	    JPopupMenu popupMenu = new JPopupMenu(); // create pop-up menu
-	    String popupChoices[] = {"Undo", "Save"};
-		JMenuItem[] popupItems = new JMenuItem[popupChoices.length];
+//	    String popupChoices[] = {"Undo", "Save"};
+//		JMenuItem[] popupItems = new JMenuItem[popupChoices.length];
 	    JMenuItem popupSave = new JMenuItem("Save");
 	    popupSave.addActionListener(saveHandler);
-	    JMenuItem popupUndo = new JMenuItem("Undo");
-	    popupUndo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//core.getBoard().doMove(MoveLogger.undoLastMove(core.getBoard()));
-			}
-	    });
-	    popupMenu.add(popupUndo);
+//	    JMenuItem popupUndo = new JMenuItem("Undo");
+//	    popupUndo.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				core.getBoard().doMove(MoveLogger.undoLastMove(core.getBoard()));
+//			}
+//	    });
+//	    popupMenu.add(popupUndo);
+
 	    popupMenu.add(popupSave);
 	    addMouseListener( new MouseAdapter() {  
 	           // handle mouse press event
