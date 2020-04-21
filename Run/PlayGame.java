@@ -1,8 +1,4 @@
-package GUI;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
+package Run;
 
 /**
  * Launches the core class.
