@@ -5,6 +5,7 @@ public class Horse extends Piece{
     public Horse(Side side) {
         super(side);
         this.type = "Horse";
+        this.canWinAlone = true;
     }
     @Override
 

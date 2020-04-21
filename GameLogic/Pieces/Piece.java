@@ -11,6 +11,7 @@ import GameLogic.Move;
 
 public abstract class Piece {
     protected String type;
+    protected boolean canWinAlone;
 
 
     public enum Side {
@@ -79,6 +80,10 @@ public abstract class Piece {
 
         fileName += ".png";
         return fileName;
+    }
+
+    public boolean canWinAlone() {
+        return canWinAlone;
     }
 
 }

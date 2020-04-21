@@ -3,14 +3,22 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The profile object holds user preferences form the menu.
+ * It it's attributes are passed around to instantiate the rest of the game.
+ *
+ * @author Venkat Pamulapati
+ */
 public class Profile {
     private Color p1Color;
     private Color p2Color;
     private Color backGround;
     private Color foreGround;
+    private Color lineColor;
     private String p1String;
     private String p2String;
     private int minutes;
+
 
     Profile() {
         p1Color = Color.RED;
@@ -20,6 +28,7 @@ public class Profile {
         p1String = "Player 1";
         p2String = "Player 2";
         minutes = 10;
+        lineColor = Color.BLACK;
     }
 
     public void setP1Color(Color p1Color) {
@@ -35,7 +44,7 @@ public class Profile {
         return foreGround;
     }
 
-    public Color getBackgroundColor() {
+    public Color getBackground() {
         return backGround;
     }
 
@@ -79,41 +88,19 @@ public class Profile {
         return p2String;
     }
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "p1Color=" + p1Color +
-                ", p2Color=" + p2Color +
-                ", bgColor1=" + backGround +
-                ", p1String='" + p1String + '\'' +
-                ", p2String='" + p2String + '\'' +
-                ", minutes=" + minutes +
-                '}';
-    }
 
     public int getMinutes() {
         return minutes;
     }
 
-    Profile(Color p1, Color p2, Color bg, String p1Name, String p2Name, int min) {
-        p1Color = p1;
-        p2Color = p2;
-        backGround = bg;
 
-        p1String = p1Name;
-        p2String = p2Name;
-        minutes = min;
+    public Color getLineColor() {
+        return lineColor;
     }
 
+    public void setLineColor(Color lineColor) {
+        this.lineColor = lineColor;
+    }
 
-    ;
-
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame("StartMenu2");
-//        frame.setContentPane(new StartMenu2().$$$getRootComponent$$$());
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setVisible(true);
-//    }
 
 }

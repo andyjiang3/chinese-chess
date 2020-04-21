@@ -6,6 +6,7 @@ public class Guard extends Piece{
     public Guard(Side side) {
         super(side);
         this.type = "Guard";
+        this.canWinAlone = false;
     }
 
     @Override

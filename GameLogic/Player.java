@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import GUI.Profile;
 import GUI.TurnTimerPanel;
 import GameLogic.Pieces.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ import java.util.Scanner;
  * Class to generate the Player object, which handles data about player.
  * Keeps track of checkmate status, pieces captured, side on board, and time elapsed.
  *
- * @author Andy
+ * @author Andy Jiang
  * @version 4/15/20
  */
 
@@ -45,7 +46,8 @@ public class Player {
 
     /**
      * Constructor without player name. Name will be defaulted to Player + id.
-     * @param id set this player's id
+     *
+     * @param id   set this player's id
      * @param side set this player's side on board
      */
     public Player(int id, Piece.Side side, Profile profile) {
@@ -71,7 +73,8 @@ public class Player {
 
     /**
      * Complete constructor.
-     * @param id set this player's id
+     *
+     * @param id   set this player's id
      * @param name set name of player
      * @param side set this player's side on board
      */
@@ -100,6 +103,7 @@ public class Player {
 
     /**
      * Get this player's id.
+     *
      * @return this player's id
      */
     public int getId() {
@@ -108,6 +112,7 @@ public class Player {
 
     /**
      * Get this player's name.
+     *
      * @return this oplayer's name
      */
     public String getName() {
@@ -116,6 +121,7 @@ public class Player {
 
     /**
      * Get this player's color.
+     *
      * @return this player's color. (Red or Black based on side)
      */
     public String getColor() {
@@ -124,6 +130,7 @@ public class Player {
 
     /**
      * Get this player's side relative to river.
+     *
      * @return this player's side. (UP river or DOWN river)
      */
     public Piece.Side getPlayerSide() {
@@ -132,6 +139,7 @@ public class Player {
 
     /**
      * Set player's side relative to river
+     *
      * @param side the side the player is on.
      */
     public void setPlayerSide(Piece.Side side) {
@@ -140,18 +148,19 @@ public class Player {
 
     /**
      * Add piece captured by player to ArrayList of all pieces captured.
+     *
      * @param pieceCaptured the piece captured by the player
      */
 
     //============================================================================
     //PIECES CAPTURED
-
     public void addPieceCaptured(Piece pieceCaptured) {
         piecesCaptured.add(pieceCaptured);
     }
 
     /**
      * Set player's side based on river
+     *
      * @return an ArrayList<Piece> of all pieces captured.
      */
     public ArrayList<Piece> getPiecesCaptured() {
@@ -176,6 +185,7 @@ public class Player {
 
     /**
      * Get the number of pieces captured.
+     *
      * @return the number of pieces captured by the player. (Int)
      */
     public int getNumPiecesCaptured() {
@@ -191,18 +201,19 @@ public class Player {
 
     /**
      * Get status on whether the player is in checkmate
+     *
      * @return status of checkmate.
      */
 
     //============================================================================
     //CHECKMATE STATUS
-
     public boolean getCheckmateStatus() {
         return checkmateStatus;
     }
 
     /**
      * Set player's checkmate status
+     *
      * @param checkmateStatus whether the player is in checkmate
      */
     public void setCheckmateStatus(Boolean checkmateStatus) {
@@ -247,6 +258,7 @@ public class Player {
 
     /**
      * Get player's time elapsed
+     *
      * @return the player's time elapsed.
      */
     public long getElapsedTime() {
@@ -294,7 +306,8 @@ public class Player {
         return timer.isStillRunning();
     }
 
-    //rough draft
+    //rough draft //#########ANDY I COMMENTED THIS OUT BECAUSE I DELETED THE TRYMOVE AND TRYMOVE 2. IF YOU WANT TO TEST THIS YOU'LL HAVE TO ADDAPT IT TO TRYMOVE3#############
+    /*
     public void tryMove(Move move, Board board, MoveLogger logger) {
         //int size = getNumPiecesCaptured();
         int x, y, finalX, finalY;
@@ -322,6 +335,5 @@ public class Player {
         }
         */
 
-    }
-
 }
+

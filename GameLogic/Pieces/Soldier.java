@@ -9,6 +9,7 @@ public class Soldier extends Piece {
     public Soldier(Side side) {
         super(side);
         this.type = "Soldier";
+        this.canWinAlone = true;
     }
 
     @Override

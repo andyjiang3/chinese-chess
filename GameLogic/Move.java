@@ -8,7 +8,7 @@ import GameLogic.Pieces.Piece;
  * x and y cooridnates (note, these are not indecies on the board array. They are coordinates which are translated to indecies by the board object.)
  *
  *
- * @author Venkat
+ * @author Venkat Pamulapati
  * @version 4/1/20
  */
 
@@ -34,12 +34,11 @@ public class Move {
     /**
      * Is a simple construct of a move. Only carries the starting location and the final location. No validation.
      *
-     * @param originX
-     * @param originY
-     * @param finalX
-     * @param finalY
+     * @param originX the starting x coordinate
+     * @param originY starting y coordinate
+     * @param finalX the destination x coordinate
+     * @param finalY the destination y coordinate
      */
-
     public Move(int originX, int originY, int finalX, int finalY) {
         this.originX = originX;
         this.originY = originY;
@@ -60,6 +59,15 @@ public class Move {
 
     }
 
+    /**
+     * Used in move logger, not in board to save a move that isn't an attack
+     *
+     * @param piece   the piece that is being moved
+     * @param originX the starting x coordinate
+     * @param originY starting y coordinate
+     * @param finalX  the destination x coordinate
+     * @param finalY  the destination y coordinate
+     */
     public Move(Piece piece, int originX, int originY, int finalX, int finalY) {
         //this iteration makes the move object hold the piece? Not sure how to structure
         this.piece = piece;
@@ -81,6 +89,16 @@ public class Move {
         }
     }
 
+    /**
+     * Used in move logger for logging an attack move.
+     *
+     * @param piece the piece that is being moved
+     * @param capturedPiece the piece that is being captured
+     * @param originX the starting x coordinate
+     * @param originY starting y coordinate
+     * @param finalX the destination x coordinate
+     * @param finalY the destination y coordinate
+     */
     public Move(Piece piece, Piece capturedPiece, int originX, int originY, int finalX, int finalY) {
 
         this.piece = piece;
@@ -103,6 +121,10 @@ public class Move {
         }
     }
 
+    /**
+     * Accesed by the Piece object to set wheter or not a move follows the appropriate move pattern.
+     * @param v true = good to go, false = that isn't even normally allowed, go read the rules.
+     */
     public void setValid(boolean v) {
         this.isValid = v;
     }

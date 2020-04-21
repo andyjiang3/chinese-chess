@@ -1,17 +1,28 @@
 package GameLogic;
 import GameLogic.Pieces.Piece;
 
+/**
+ * Point objects have know their position on the board, and what piece is currently on top of them. They are modified and managed by the board object.
+ *
+ * @author Venkat Pamulapati
+ */
+
 public class Point {
+    /**
+     * upRiver = player on top (player 2)
+     * downRiver = player on bottom (player 1)
+     */
     enum riverSide{
         upRiver,
         downRiver
     }
+
     private int x;
     private int y;
-    
+
     private int x2;
     private int y2;
-    
+
     private Piece piece;
     private riverSide side;
 
@@ -33,28 +44,44 @@ public class Point {
     }
 
 
-
+    /**
+     * @return the piece on the point
+     */
     public Piece getPiece() {
         return this.piece;
     }
 
+    /**
+     *
+     * @param newPiece the piece to replace the current piece with
+     */
     public void setPiece(Piece newPiece) {
         this.piece = newPiece;
     }
 
-    /**
-     * These getter and setter methods utilize x2 and y2 which represent the coordinates of the point on the GUI window, they are NOT board coords
-     */
 
+    /**
+     *
+     * @return the x coordinate
+     */
     public int getX() {
         return this.x2;
     }
+
+    /**
+     *
+     * @return the y coordinate
+     */
     public int getY() {
         return this.y2;
     }
 
+    /**
+     * sets the points position. No two points are to have the same position. This should only be called by board initializer
+     */
     public void setPosition(int x, int y) {
         this.x2 = x;
         this.y2 = y;
     }
+
 }

@@ -6,6 +6,7 @@ public class Elephant extends Piece {
     public Elephant(Side side) {
         super(side);
         this.type = "Elephant";
+        this.canWinAlone = false;
     }
 
     @Override

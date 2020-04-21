@@ -3,7 +3,11 @@ package GameLogic;
 import java.util.ArrayList;
 import GameLogic.Pieces.*;
 
-
+/**
+ * MoveLogger object holds all the moves completed in the board, including the piece and the piece captured.
+ *
+ * @author Andy Jiang
+ */
 public class MoveLogger {
 
     //Red = Piece.Side.DOWN

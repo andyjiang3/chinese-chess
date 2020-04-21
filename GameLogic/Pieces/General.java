@@ -7,6 +7,7 @@ public class General extends Piece {
         super(side);
 
         this.type = "General";
+        this.canWinAlone = false;
     }
 
     @Override

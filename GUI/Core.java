@@ -5,8 +5,14 @@ import GameLogic.Move;
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
 
+import javax.swing.*;
+
+/**
+ * Combines everything together, since we all developed everything separately they all integrate here. God Class?
+ */
+
 public class Core {
-	
+
     private static boolean inGame;
     //    private static StartFrame startFrame;
     private BoardFrame boardFrame;
@@ -18,17 +24,24 @@ public class Core {
     private Player player1;
     private Player player2;
     private static StartFrame startFrame;
+    private EndScreen endScreen;
     private Profile profile;
 
-    
-	public Core() {
+
+    /**
+     * Upon instantiation the start menu runs, which in turn starts everything else.
+     */
+    public Core() {
         startFrame = new StartFrame(this);
-
-
     }
-	public void start(Profile profile) {
+
+    /**
+     * Takes in a profile object to instantiate the rest of the application with the users start menu options.
+     *
+     * @param profile
+     */
+    public void start(Profile profile) {
         inGame = false;
-        //startFrame = new StartFrame(this);
         player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, profile);
         player2 = new Player(2, profile.getP2String(), Piece.Side.UP, profile);
         board = new Board();
@@ -36,24 +49,27 @@ public class Core {
         boardMenu = new BoardMenu(this);
         timerPanel = new TurnTimerPanel(player1, player2, profile);
         boardFrame = new BoardFrame(this);
-
-
         counter = 0;
-
-        //board.tryMove(new Move(4, 9, 4, 8 ));
-        //boardPanel.userRepaint();
         player1.startTurnTimer(timerPanel);
-
+//        board.setWinner(2);
+//        endScreen = new EndScreen(board.getWinner(), profile);
 
     }
 
-	public void doMove(Move move) {
-        System.out.println(counter);
+    /**
+     * Takes a move and tries to run it. if the move goes through then it switches the timer and player.
+     *
+     * @param move move received from the gui.
+     */
+    public void playMove(Move move) {
+//        System.out.println(counter);
+
         if (counter % 2 == 0) {
             if (board.tryMove3(move, player1)) {
-                    //first round
+                //first round
                 player1.stopTurnTimer();
                 player2.startTurnTimer(timerPanel);
+
 
                 counter++;
             }
@@ -66,31 +82,35 @@ public class Core {
             }
             //player2.stopTurnTimer();
         }
+//         Broken Win Screen
+
+//        if (board.getWinner() != -1) {
+//            System.out.println("GAME OVER");
+//            endScreen = new EndScreen(board.getWinner(), profile);
+//        }
 
     }
+
     public void saveGame(){
 
     }
-    /*public static void startGame() {
-        inGame = true;
-        BoardFrame boardFrame = new BoardFrame();
-        boardFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	    boardFrame.setSize( 700, 700 ); // set frame size
-	    boardFrame.setVisible( true );
-        //boardGame = new BoardGame();
-    }*/
+
     public BoardPanel getBoardPanel() {
-    	return boardPanel;
+        return boardPanel;
     }
+
     public BoardFrame getBoardFrame() {
-    	return boardFrame;
+        return boardFrame;
     }
+
     public TurnTimerPanel getTurnTimerPanel() {
         return timerPanel;
     }
+
     public Board getBoard() {
-    	return board;
+        return board;
     }
+
     public BoardMenu getBoardMenu() {
         return boardMenu;
     }

@@ -3,35 +3,41 @@ package GameLogic;
 import GameLogic.Pieces.Piece;
 
 /**
- * Missing features: Doesn't check who the current player is. Needs player class to integrate
+ * The Move Tester has two options, a shallow check and a deep check. It will set it's own value that staes whether the given move is valid.
+ * The shallow check only does static checking which is not dependent on rules like generals and checks
+ * The deep check also checks for generals (which involves trying a move and undoing it for the following checks
  *
+ * @author Venkat Pamulapati
  * @version 4/10/20
  */
-public class MoveChecker {
+public class MoveTester {
     private Board board;
     private Move move;
 
 
     private int obstacleCount; //number of pieces in the way
     private boolean isClear; //if obstacles = 0
-    private boolean generalsApproved;
-    //private boolean isCheck; //checks the board for check (probably gonna make this a separate class at this point
-
     private boolean attack;
-
     private boolean legal;
 
     /**
-     * Upon instantiation this object will do all static checking of legality and even checks if the geneerals are facing each other.
+     * This is the deep checker. Upon instantiation it will:
+     * <ul>
+     *     <li>Check Move patter validity</li>
+     *     <li>Check if it's an attacking move or a movement move</li>
+     *     <li>Count the number of obstackles and determine if it's a legal move (ie Chariot can attack by jumping over one obstacle</li>
+     *     <li>Check if the generals are facing each other</li>
+     * </ul>
+     * <p>
+     * It differs from the shallow check because it checks generals, something not required for delivering check.
      *
-     * @param board
-     * @param move
+     * @param board the current board object
+     * @param move  the move to be validated
      */
-    MoveChecker(Board board, Move move) {
+    MoveTester(Board board, Move move) {
         this.board = board;
         this.move = move;
         this.legal = true;
-
 
         //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
         CheckPiece();
@@ -44,7 +50,6 @@ public class MoveChecker {
         }
 
         //  3. Check if the path is clear, if not See if we're an attacking cannon or a non attacking cannon that can't move
-
         if (legal) {
             obstacleStats();
 
@@ -63,7 +68,6 @@ public class MoveChecker {
                     }
                 }
             }
-
         }
 
         //###########postmove checking##################
@@ -71,40 +75,35 @@ public class MoveChecker {
             board.doMove(move);
             if (!approveGenerals()) {
                 legal = false;
-                System.out.println("genrals open");
             }
             board.undoMove(move, captured);
             board.updateGenerals();
         }
 
 
-        //check if we have a clear path, and if not how many obstacles we have (cannon and horse special cases
-
-        //check if the generals are facing each other. (make the general coordinates board member data? bruh wtf checking for check is so trippy
-        /*brainstorming the check method thing:
-         1. Obviously we have to check every enemy piece to see if it can put the current players king in check.
-         2. We'll use another class called tryCheck that runs MoveChecker on every enemy piece for a move that could try and attack the king. If everything fails the MoveCheck(becasue pinned can check) then we're good.
-
-         */
     }
 
     /**
-     * This secondary constructor does not check for generals, since a move can dilver a check without having a legal move there.
+     * This is the shallow checker. Upon instantiation it will:
+     * <ul>
+     *     <li>Check Move patter validity</li>
+     *     <li>Check if it's an attacking move or a movement move</li>
+     *     <li>Count the number of obstackles and determine if it's a legal move (ie Chariot can attack by jumping over one obstacle</li>
+     * </ul>
+     * <p>
+     * It differs from the deep check because it doesn't check generals, something not required for delivering check.
      *
-     * @param board
-     * @param move
-     * @param i
+     * @param board the current board object
+     * @param move  the move to be validated
+     * @param i     is just used to overload
      */
-    MoveChecker(Board board, Move move, int i) {
+    MoveTester(Board board, Move move, int i) {
         this.board = board;
         this.move = move;
         this.legal = true;
 
-
         //  1. first check if movement pattern is legal (ie horse moves 1 up 2 left)
         CheckPiece();
-        Piece curr = board.getPoint(move.getOriginX(), move.getOriginY()).getPiece();
-        Piece captured = board.getPoint(move.getFinalX(), move.getFinalY()).getPiece();
 
         //  2. check if we are doing an attack, and also check if the end point is blocked by a friendly piece
         if (legal) {
@@ -131,24 +130,14 @@ public class MoveChecker {
                     }
                 }
             }
-
         }
-
-        //###########postmove checking##################
-//        if (legal) {
-//            board.doMove(move);
-//            if (!approveGenerals()) {
-//                legal = false;
-//                System.out.println("genrals open");
-//            }
-//            board.undoMove(move, captured);
-//            board.updateGenerals();
     }
 
 
     /**
-     * Validates that the generals aren't facing each other.
-     * @return
+     * Returns that the generals aren't facing each other by counting the obstacles between them if they're in line.
+     *
+     * @return True if they are facing eachother (illegal)
      */
     private boolean approveGenerals() {
 
@@ -195,7 +184,7 @@ public class MoveChecker {
 
     /**
      * Checks the destination piece to see if we're attacking or self blocked
-     * If we're self blocked, we terminate the whole operation because it's definitely illegal
+     *
      */
     private void isAttack() {
         if (board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() == null) {

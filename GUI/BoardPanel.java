@@ -20,6 +20,11 @@ import GameLogic.Move;
 import GameLogic.Point;
 import GameLogic.Pieces.Piece;
 
+/**
+ * Draws like everything.
+ *
+ * @author Michael Yu
+ */
 public class BoardPanel extends JPanel {
 	protected Board board;
 	private String language = "English";
@@ -37,7 +42,7 @@ public class BoardPanel extends JPanel {
 		this.core = core;
 		this.board = core.getBoard();
 		this.profile = profile;
-        this.setBackground(profile.background());
+		this.setBackground(profile.background());
 		//Loop initializes the 2d array of jlabels on the board
 		for(int y = 0; y<10; y++) {
 			for(int x = 0; x<9; x++) {
@@ -52,9 +57,11 @@ public class BoardPanel extends JPanel {
 		setLayout(null);
 		//board.tryMove(new Move(4, 9, 4, 8));
 	}
+
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
 	public void paintComponent(Graphics g) {
 		int xDisplacement, yDisplacement;
 		//sets a new width for the grid squares
@@ -80,7 +87,9 @@ public class BoardPanel extends JPanel {
 		drawRiver(g2);
 		//drawPieces(g2);
 	}
+
 	public void drawBoard(Graphics2D g2) {
+		g2.setColor(profile.getLineColor());
 		for(int y = 0; y<10; y++) {
 			for(int x = 0; x<9; x++) {
 				if(x==8)
@@ -117,6 +126,7 @@ public class BoardPanel extends JPanel {
 		drawPoint(g2, board.getPoint(1,7),0,360);
 		drawPoint(g2, board.getPoint(7,7),0,360);
 	}
+
 	//marks the points that the soldiers go on at the start of the game
 	//added the start and end angle arguments so I could draw the points on the edge
 	public void drawPoint(Graphics2D g2, Point point, int startAngle, int endAngle) {
@@ -131,6 +141,7 @@ public class BoardPanel extends JPanel {
 					point.getY() + (int)(Math.sin(Math.toRadians(45+90*x))*squareWidth/10));
 		}
 	}
+
 	public void drawRiver(Graphics2D g2) {
 		if (language.equals("English")) {
 			g2.setFont(new Font("Sans_Serif", Font.PLAIN, 18));
@@ -138,11 +149,11 @@ public class BoardPanel extends JPanel {
 			int xCoord = (getWidth() - metrics.stringWidth("River"))/2;
 			int yCoord = getHeight()/2 - metrics.getHeight()/2 + metrics.getAscent();
 			g2.drawString("River", xCoord,yCoord);
-		}
-		else {
+		} else {
 
 		}
 	}
+
 	public void drawPieces(Graphics2D g2) {
 		g2.setFont(new Font("Sans_Serif", Font.PLAIN, 12));
 		FontMetrics metrics = g2.getFontMetrics();
@@ -152,14 +163,14 @@ public class BoardPanel extends JPanel {
 				if (board.getPoint(x,y).getPiece() == null)
 					continue;
 				else {
-                    g2.setColor(profile.getForeGround());
+					g2.setColor(profile.getForeGround());
 					g2.fillOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
-                    if (board.getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
-                        g2.setColor(profile.getP2Color());
-                    } else {
+					if (board.getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
+						g2.setColor(profile.getP2Color());
+					} else {
 
-                        g2.setColor(profile.getP1Color());
-                    }
+						g2.setColor(profile.getP1Color());
+					}
 					g2.drawOval(board.getPoint(x,y).getX()-radius, board.getPoint(x,y).getY()-radius, radius*2, radius*2);
 					xCoord = board.getPoint(x,y).getX() - metrics.stringWidth(board.getPoint(x,y).getPiece().toString()) / 2;
 					yCoord = board.getPoint(x,y).getY() - metrics.getHeight()/2 + metrics.getAscent();
@@ -172,6 +183,7 @@ public class BoardPanel extends JPanel {
 			g2.drawOval(board.getPoint(pressLoc[0],pressLoc[1]).getX()-radius, board.getPoint(pressLoc[0],pressLoc[1]).getY()-radius, radius*2, radius*2);
 		}
 	}
+
 	public void userRepaint() {
 		repaint();
 		for (int y = 0; y < 10; y++) {
@@ -180,12 +192,15 @@ public class BoardPanel extends JPanel {
 			}
 		}
 	}
+
 	public void setProfile(Profile profile){
 		this.profile = profile;
 	}
+
 	private class Icons extends JLabel implements MouseListener{
 		private int x, y;
 		private Point point;
+
 		public Icons(int x, int y, Point point) {
 			this.x = x;
 			this.y = y;
@@ -196,6 +211,7 @@ public class BoardPanel extends JPanel {
 			//	   setText(point.getPiece().toString());
 			addMouseListener(this);
 		}
+
 		public void paintComponent(Graphics g) {
 			super.paintComponent( g );
 			Graphics2D g2 = (Graphics2D) g;
@@ -212,13 +228,14 @@ public class BoardPanel extends JPanel {
 			else if(language.equals("Chinese"))
 				setPieceImages(g2, "/Pictures/chinese_");
 		}
+
 		public void createEnglishPieces(Graphics2D g2) {
 			setIcon(null);
 			g2.setFont(new Font("Sans_Serif", Font.PLAIN, 12));
 			FontMetrics metrics = g2.getFontMetrics();
 			int xCoord,yCoord;
 			if (point.getPiece() != null) {
-                g2.setColor(profile.getForeGround());
+				g2.setColor(profile.getForeGround());
 				g2.fillOval(3, 3, getWidth()-6, getHeight()-6);
 				if(point.getPiece().getSide() == Piece.Side.UP)
 					g2.setColor(profile.getP2Color());
@@ -236,6 +253,7 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
+
 		public void setPieceImages(Graphics2D g2, String fileName){
 			try {
 				if (point.getPiece() != null) {
@@ -258,6 +276,7 @@ public class BoardPanel extends JPanel {
 				System.out.print(e);
 			}
 		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(pressed == false) {
@@ -275,12 +294,10 @@ public class BoardPanel extends JPanel {
 							(board.getPoint(pressLoc[0],pressLoc[1]).getPiece().getSide() ==
 									board.getPoint(releaseLoc[0],releaseLoc[1]).getPiece().getSide())) {
 						storePressed();
-					}
-					else {
+					} else {
 						pressed = false;
 						sendMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
 						//board.tryMove(new Move(pressLoc[0], pressLoc[1],releaseLoc[0], releaseLoc[1]));
-						System.out.println("Origin XCoord, Origin YCoord, Destination XCoord, Destination YCoord");
 						System.out.println(pressLoc[0] + "," + pressLoc[1] + "," + releaseLoc[0] + "," + releaseLoc[1]);
 					}
 				}
@@ -291,29 +308,35 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if(pressed == false) {
 				storePressed();
 			}
 		}
+
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			//System.out.println("Released: " +e.getX() + " " + e.getY());
 			//System.out.println("Released: " +x + " " + y);
 		}
+
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			//mouseReleased(e);
 		}
+
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 
 		}
+
 		public void sendMove(Move move) {
-			core.doMove(move);
+			core.playMove(move);
 		}
+
 		public boolean storePressed() {
 			if(board.getPoint(x,y).getPiece() == null)
 				pressIsValid = false;
@@ -325,6 +348,7 @@ public class BoardPanel extends JPanel {
 			}
 			return false;
 		}
+
 		//this method stores the location of the released piece
 		public boolean storeReleased() {
 			if(pressIsValid == true) {

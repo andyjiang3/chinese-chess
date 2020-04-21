@@ -1,5 +1,10 @@
 package GameLogic;
 
+/**
+ * Timer used for game timer.
+ *
+ * @author Andy Jiang
+ */
 public class Timer {
 
     private long startTime;
@@ -36,20 +41,6 @@ public class Timer {
             return (stopTime - startTime) / 1000000;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

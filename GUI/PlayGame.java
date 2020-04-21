@@ -4,17 +4,17 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-//asdfasdf
+/**
+ * Launches the core class.
+ * Serves as a simple way to start the game and easily add things like cmdline arguments.
+ * You can also start multiple games.
+ */
 public class PlayGame {
     public static void main(String[] args) {
-        //tester for andy's timer class
-        //BoardFrame border = new BoardFrame();
-        //border.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        //border.setSize( 900, 700 ); // set frame size
-        //border.setVisible( true );
 
-        //tester for new core class
         Core core = new Core();
+
+        //Core core2 = new Core();
 
     }
 }

@@ -21,7 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 
-//defines the entire JFrame for the GUI
+/**
+ * defines the entire JFrame for the GUI
+ *
+ * @author Michael Yu
+ */
+
 public class BoardFrame extends JFrame {
 	private BoardPanel board;
 	private TurnTimerPanel timerPanel;
@@ -31,11 +36,6 @@ public class BoardFrame extends JFrame {
 		board = core.getBoardPanel();
 		timerPanel = core.getTurnTimerPanel();
 		add(board, BorderLayout.CENTER);
-
-//		//for testing, would be called in core class
-//		Player player1 = new Player(1, "Hi", Piece.Side.DOWN);
-//		Player player2 = new Player(2, "Hi2", Piece.Side.UP );
-
 		add(timerPanel, BorderLayout.EAST);
 
 
