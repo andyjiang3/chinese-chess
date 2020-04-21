@@ -275,6 +275,16 @@ public class Player {
 
     }
 
+    //time
+    public String elapsedTimeToString(int timeLimit) {
+        timeLimit = timeLimit * 60000;
+        Date date = new Date(timeLimit - (timer.getTime() + timeElapsed));
+        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
+        String formatted = formatter.format(date);
+        return formatted;
+
+    }
+
     public boolean isTimerRunning() {
         return timer.isStillRunning();
     }
