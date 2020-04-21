@@ -34,6 +34,7 @@ public class BoardPanel extends JPanel {
 	private int[] pressLoc = new int[2], releaseLoc = new int[2];
 	private boolean pressed = false, pressIsValid = false;
 	private Core core;
+	private Profile profile;
 	public BoardPanel(Core core) {
 		//setSize(500, 500);
 		//board = new Board();
@@ -178,6 +179,9 @@ public class BoardPanel extends JPanel {
 				pointIcons[y][x].repaint();
 			}
 		}
+	}
+	public void setProfile(Profile profile){
+		this.profile = profile;
 	}
 	private class Icons extends JLabel implements MouseListener{
 		private int x, y;

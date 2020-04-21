@@ -29,17 +29,17 @@ public class Core {
         player1 = new Player(1, "DownGamer", Piece.Side.DOWN);
         player2 = new Player(2, "GamersRise", Piece.Side.UP);
         board = new Board();
-        boardPanel = new BoardPanel(this);
-        boardMenu = new BoardMenu(this);
-        timerPanel = new TurnTimerPanel(player1,player2);
-        boardFrame = new BoardFrame(this);
+//        boardPanel = new BoardPanel(this);
+//        boardMenu = new BoardMenu(this);
+//        timerPanel = new TurnTimerPanel(player1,player2);
+//        boardFrame = new BoardFrame(this);
 
 
         counter = 0;
 
 		//board.tryMove(new Move(4, 9, 4, 8 ));
 		//boardPanel.userRepaint();
-        player1.startTurnTimer(timerPanel);
+        //player1.startTurnTimer(timerPanel);
     }
 	public void start() {
         inGame = false;
@@ -47,7 +47,13 @@ public class Core {
         startFrame2 = new StartFrame2(this);
 
     }
-
+    public void initializeFrame(){
+        boardPanel = new BoardPanel(this);
+        boardMenu = new BoardMenu(this);
+        timerPanel = new TurnTimerPanel(player1,player2);
+        boardFrame = new BoardFrame(this);
+        player1.startTurnTimer(timerPanel);
+    }
 	public void doMove(Move move) {
         System.out.println(counter);
         if (counter % 2 == 0) {

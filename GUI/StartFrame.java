@@ -17,6 +17,7 @@ public class StartFrame extends JFrame {
 	private JButton loadGameButton;
 	private BoardFrame boardFrame;
 	public StartFrame(Core core) {
+        super("Chinese Chess");
         newGameButton = new JButton("New Game");
         newGameButton.addActionListener(new ActionListener() {
             @Override

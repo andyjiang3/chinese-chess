@@ -58,7 +58,7 @@ public class BoardMenu extends JMenuBar {
 		ButtonGroup languageButtonGroup = new ButtonGroup(); // manages languages
 		JRadioButtonMenuItem englishButton = new JRadioButtonMenuItem( "English" ); // create item
 		JRadioButtonMenuItem chineseButton = new JRadioButtonMenuItem( "Chinese" );
-		JRadioButtonMenuItem englishPicButton = new JRadioButtonMenuItem( "English Pictures" );
+		JRadioButtonMenuItem englishPicButton = new JRadioButtonMenuItem( "Pictures" );
 		languageMenu.add(englishButton ); // add item to language menu
 		languageButtonGroup.add(englishButton );
 		languageMenu.add(chineseButton );

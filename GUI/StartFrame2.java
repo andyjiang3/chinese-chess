@@ -125,7 +125,11 @@ public class StartFrame2 extends JFrame {
         begin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                core.initializeFrame();
+
+                //core.getBoardPanel().setProfile(profile);
                 boardFrame = core.getBoardFrame();
+                //core.getBoardPanel().setProfile(profile);
                 boardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 boardFrame.setSize(900, 700);
                 boardFrame.setVisible(true);
