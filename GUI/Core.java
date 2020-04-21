@@ -2,6 +2,7 @@ package GUI;
 
 import GameLogic.Board;
 import GameLogic.Move;
+import GameLogic.MoveLogger;
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
 
@@ -91,8 +92,27 @@ public class Core {
 
     }
 
-    public void saveGame(){
+    public void saveGame() throws Exception {
+        JFrame parentFrame = new JFrame();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new java.io.File("."));
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setDialogTitle("Specify where to save game");
 
+        int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+        parentFrame.setVisible(true);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            System.out.println("Current Directory: " + fileChooser.getCurrentDirectory());
+            System.out.println("Selected File" + fileChooser.getSelectedFile());
+            MoveLogger.saveAllMoves(player1, player2, fileChooser.getSelectedFile());
+            System.out.println("Game Saved");
+            parentFrame.setVisible(false);
+        } else {
+            System.out.println("No Selection");
+        }
     }
 
     public BoardPanel getBoardPanel() {
