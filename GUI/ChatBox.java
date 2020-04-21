@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+/**
+ * Creates the chat box that displays all of the output statements to the side of the board.
+ */
 class ChatBox extends JPanel {
 //    private JLabel systemOutput;
     private JTextArea systemOutput;
@@ -20,7 +23,6 @@ class ChatBox extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         systemOutput.setCaretPosition(systemOutput.getDocument().getLength());
         setPreferredSize(new Dimension(220, 400));
-
 
         //setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         JButton endGameBtn = new JButton("End Game");
@@ -46,7 +48,9 @@ class ChatBox extends JPanel {
         }
     }
 }
-
+/**
+ * Creates a
+ */
 class StreamIntake extends OutputStream {
 
     private String string = "";
