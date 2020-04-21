@@ -30,8 +30,12 @@ public class BoardMenu extends JMenuBar {
 		saveItem.setMnemonic( 'S' );
 		saveItem.addActionListener(new ActionListener() {
 			//saves the board when the player presses saveItem
-			public void actionPerformed( ActionEvent event ){
-				core.saveGame();
+			public void actionPerformed( ActionEvent event ) {
+				try {
+					core.saveGame();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		JMenuItem exitItem = new JMenuItem( "Exit" );
