@@ -33,7 +33,7 @@ public class BoardFrame extends JFrame {
 		sidePanel = new JPanel();
 		sidePanel.setLayout(new GridLayout(2,0,0,3));
 		sidePanel.add(timerPanel);
-		ChatBox chatBox = new ChatBox();
+        ChatBox chatBox = new ChatBox(core);
 		System.setOut(new PrintStream(new StreamIntake(chatBox, System.out)));
 		sidePanel.add(chatBox);
 		add(sidePanel, BorderLayout.EAST);

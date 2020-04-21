@@ -15,7 +15,7 @@ class ChatBox extends JPanel {
 //    private JLabel systemOutput;
     private JTextArea systemOutput;
 
-    public ChatBox() {
+    public ChatBox(Core core) {
         JLabel title = new JLabel("Chat Log");
         systemOutput = new JTextArea(14,18);
         JScrollPane scrollPane = new JScrollPane(systemOutput, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -29,6 +29,8 @@ class ChatBox extends JPanel {
         endGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                core.getBoard().setWinner(0);
+                core.callEnd();
             }
         });
         add(endGameBtn, BorderLayout.SOUTH);

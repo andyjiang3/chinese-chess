@@ -1,5 +1,6 @@
-package GUI;
+package Run;
 
+import GUI.*;
 import GameLogic.Board;
 import GameLogic.Move;
 import GameLogic.MoveLogger;
@@ -7,11 +8,11 @@ import GameLogic.Pieces.Piece;
 import GameLogic.Player;
 
 import javax.swing.*;
-import java.io.File;
 
 /**
  * Combines everything together, since we all developed everything separately they all integrate here. God Class?
  */
+
 public class Core {
 
     //    private static StartFrame startFrame;
@@ -26,6 +27,7 @@ public class Core {
     private static StartFrame startFrame;
     private EndScreen endScreen;
     private Profile profile;
+
 
 
     /**
@@ -86,24 +88,21 @@ public class Core {
         getBoardPanel().userRepaint();
         if (board.getWinner() != -1) {
             System.out.println("GAME OVER");
-            endScreen = new EndScreen(board.getWinner(), profile);
+            callEnd();
         }
 
     }
-    private static String OS = System.getProperty("os.name").toLowerCase();
-    public static boolean isWindows() {
 
-        return (OS.indexOf("win") >= 0);
-
+    public void callEnd() {
+        endScreen = new EndScreen(board.getWinner(), profile);
     }
+
     public void saveGame() throws Exception {
         JFrame parentFrame = new JFrame();
         JFileChooser fileChooser = new JFileChooser();
-        String defaultFileName = "XiangQi_Save";
         fileChooser.setCurrentDirectory(new java.io.File("."));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
-//        fileChooser.setSelectedFile(new File("\\" + defaultFileName));
         fileChooser.setDialogTitle("Specify where to save game");
 
         int userSelection = fileChooser.showSaveDialog(parentFrame);
@@ -113,9 +112,6 @@ public class Core {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             System.out.println("Current Directory: " + fileChooser.getCurrentDirectory());
             System.out.println("Selected File" + fileChooser.getSelectedFile());
-            if (isWindows()) {
-                fileChooser.setSelectedFile(new File(".\\" + defaultFileName));
-            }
             MoveLogger.saveAllMoves(player1, player2, fileChooser.getSelectedFile());
             System.out.println("Game Saved");
             parentFrame.setVisible(false);
