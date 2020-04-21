@@ -111,6 +111,7 @@ public class Core {
             parentFrame.setVisible(false);
         } else {
             System.out.println("No Selection");
+            parentFrame.setVisible(false);
         }
     }
 
