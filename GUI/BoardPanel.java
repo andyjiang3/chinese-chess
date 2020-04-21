@@ -37,12 +37,12 @@ public class BoardPanel extends JPanel {
 	private Core core;
 	private Profile profile;
 
-	public BoardPanel(Core core, Profile profile) {
+	public BoardPanel(Core core) {
 		//setSize(500, 500);
 		//board = new Board();
 		this.core = core;
 		this.board = core.getBoard();
-		this.profile = profile;
+		this.profile = core.getProfile();
 		this.setBackground(profile.background());
 		//Loop initializes the 2d array of jlabels on the board
 		for(int y = 0; y<10; y++) {

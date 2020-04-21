@@ -43,6 +43,7 @@ public class Player {
     private ArrayList<Piece> piecesCaptured;
     private boolean checkmateStatus;
     private long timeElapsed;
+    private Core core;
 
     private String color;
 
@@ -80,13 +81,14 @@ public class Player {
      * @param name set name of player
      * @param side set this player's side on board
      */
-    public Player(int id, String name, Piece.Side side, Profile profile) {
+    public Player(int id, String name, Piece.Side side, Core core) {
         this.id = id;
         this.name = name;
         this.side = side;
         this.piecesCaptured = new ArrayList<Piece>();
         this.checkmateStatus = false;
         this.timeElapsed = 0;
+        this.core = core;
 
         timer = new Timer();
 
@@ -296,10 +298,11 @@ public class Player {
         if (timer.getTime()+ timeElapsed >= timeLimit) {
             if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
                 Board.setWinner(Board.PLAYER1_WINS);
+                core.callEnd();
 
             } else {
                 Board.setWinner(Board.PLAYER2_WINS);           //player 2 up river
-                //popup end game
+                core.callEnd();
             }
         }
 

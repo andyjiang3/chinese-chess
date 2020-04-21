@@ -44,17 +44,16 @@ public class Core {
      */
     public void start(Profile profile) {
         this.profile = profile;
-        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, profile);
-        player2 = new Player(2, profile.getP2String(), Piece.Side.UP, profile);
+        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, this);
+        player2 = new Player(2, profile.getP2String(), Piece.Side.UP, this);
         board = new Board();
-        boardPanel = new BoardPanel(this, profile);
+        boardPanel = new BoardPanel(this);
         boardMenu = new BoardMenu(this);
         timerPanel = new TurnTimerPanel(player1, player2, profile);
         boardFrame = new BoardFrame(this);
         counter = 0;
         player1.startTurnTimer(timerPanel);
-        //board.setWinner(2);
-        //endScreen = new EndScreen(board.getWinner(), profile);
+
 
     }
 
@@ -143,5 +142,9 @@ public class Core {
 
     public void setProfile(Profile newProfile) {
         this.profile = newProfile;
+    }
+
+    public Profile getProfile() {
+        return this.profile;
     }
 }
