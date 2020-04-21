@@ -14,7 +14,6 @@ import javax.swing.*;
 
 public class Core {
 
-    private static boolean inGame;
     //    private static StartFrame startFrame;
     private BoardFrame boardFrame;
     private BoardPanel boardPanel;
@@ -42,7 +41,7 @@ public class Core {
      * @param profile
      */
     public void start(Profile profile) {
-        inGame = false;
+        this.profile = profile;
         player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, profile);
         player2 = new Player(2, profile.getP2String(), Piece.Side.UP, profile);
         board = new Board();
@@ -52,8 +51,8 @@ public class Core {
         boardFrame = new BoardFrame(this);
         counter = 0;
         player1.startTurnTimer(timerPanel);
-//        board.setWinner(2);
-//        endScreen = new EndScreen(board.getWinner(), profile);
+        //board.setWinner(2);
+        //endScreen = new EndScreen(board.getWinner(), profile);
 
     }
 
@@ -85,10 +84,10 @@ public class Core {
         }
 //         Broken Win Screen
 
-//        if (board.getWinner() != -1) {
-//            System.out.println("GAME OVER");
-//            endScreen = new EndScreen(board.getWinner(), profile);
-//        }
+        if (board.getWinner() != -1) {
+            System.out.println("GAME OVER");
+            endScreen = new EndScreen(board.getWinner(), profile);
+        }
 
     }
 

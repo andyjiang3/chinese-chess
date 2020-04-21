@@ -6,20 +6,13 @@ import GameLogic.Board;
 import GameLogic.Move;
 import GUI.BoardPanel;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
+import java.io.PrintStream;
+import javax.swing.*;
 
 /**
  * defines the entire JFrame for the GUI
@@ -30,14 +23,21 @@ import javax.swing.JRadioButtonMenuItem;
 public class BoardFrame extends JFrame {
 	private BoardPanel board;
 	private TurnTimerPanel timerPanel;
+	private JPanel sidePanel;
 
 	public BoardFrame(Core core) {
 		super("Chinese Chess");
 		board = core.getBoardPanel();
 		timerPanel = core.getTurnTimerPanel();
 		add(board, BorderLayout.CENTER);
-		add(timerPanel, BorderLayout.EAST);
 
+		sidePanel = new JPanel();
+		sidePanel.setLayout(new GridLayout(2,0,0,3));
+		sidePanel.add(timerPanel);
+		ChatBox chatBox = new ChatBox();
+		System.setOut(new PrintStream(new StreamIntake(chatBox, System.out)));
+		sidePanel.add(chatBox);
+		add(sidePanel, BorderLayout.EAST);
 
 		ActionListener saveHandler = new ActionListener() {  
 		       //saves the board when the player presses saveItem
