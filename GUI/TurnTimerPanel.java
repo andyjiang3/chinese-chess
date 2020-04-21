@@ -31,6 +31,8 @@ public class TurnTimerPanel extends JPanel {
 
     Thread newThread;
 
+    private int timeLimit;
+
 
     public TurnTimerPanel(Player player1, Player player2, Profile profile) {
         if (player1.getPlayerSide() == Piece.Side.DOWN) {  //Player1 is red
@@ -41,6 +43,8 @@ public class TurnTimerPanel extends JPanel {
             this.blackPlayer = player1;
         }
 
+        timeLimit = profile.getMinutes();
+
         redTime = 0;
         blackTime = 0;
 
@@ -49,7 +53,7 @@ public class TurnTimerPanel extends JPanel {
 
         Border blackLine = BorderFactory.createLineBorder(profile.getP2Color(), 2);
 
-        blackTimerLabel = new JLabel(blackPlayer.elapsedTimeToString());
+        blackTimerLabel = new JLabel(blackPlayer.elapsedTimeToString(timeLimit));
         blackTimerLabel.setForeground(Color.LIGHT_GRAY);
         blackTimerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
@@ -62,7 +66,7 @@ public class TurnTimerPanel extends JPanel {
 
         Border redLine = BorderFactory.createLineBorder(profile.getP1Color(), 2);
 
-        redTimerLabel = new JLabel(redPlayer.elapsedTimeToString());
+        redTimerLabel = new JLabel(redPlayer.elapsedTimeToString(timeLimit));
         redTimerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
         redNumberPanel = new JPanel();
@@ -122,7 +126,7 @@ public class TurnTimerPanel extends JPanel {
         newThread = new Thread(() -> {
             while (redPlayer.isTimerRunning()) {
 
-                redTimerLabel.setText(redPlayer.elapsedTimeToString());
+                redTimerLabel.setText(redPlayer.elapsedTimeToString(timeLimit));
 
 
                 //System.out.println(redPlayer.elapsedTimeToString());
@@ -169,7 +173,7 @@ public class TurnTimerPanel extends JPanel {
 
         newThread = new Thread(() -> {
             while (blackPlayer.isTimerRunning()) {
-                blackTimerLabel.setText(blackPlayer.elapsedTimeToString());
+                blackTimerLabel.setText(blackPlayer.elapsedTimeToString(timeLimit));
 
 
                 //System.out.println(blackPlayer.elapsedTimeToString());
