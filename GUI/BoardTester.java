@@ -15,6 +15,6 @@ public class BoardTester {
 
         //tester for new core class
         Core core = new Core();
-        core.start();
+
     }
 }
