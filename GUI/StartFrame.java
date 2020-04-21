@@ -5,13 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
  * This is the starting menu. It accepts user input on a gui to create a profile object which is passed to core.start()
  */
-public class StartFrame extends JFrame {
+public class
+StartFrame extends JFrame {
 
     private JPanel tippyTop, top, middle, bottom; //larger containers
     private JPanel topLeftPanel, topRightPanel; //medium containers
@@ -20,17 +23,59 @@ public class StartFrame extends JFrame {
     private JTextField p1Name, p2Name;
     private BoardFrame boardFrame;
     private JSpinner minutes;
-
-
+    private Profile[] themes;
+    private JComboBox profilSelector;
+    private Image logo;
     private Profile profile;
 
     public StartFrame(Core core) {
+        super("Start Menu");
         this.setLayout(new GridLayout(4, 0));
+        logo = new ImageIcon(getClass().getResource("/Pictures/CC_logo.png")).getImage();
+        JLabel logoPic = new JLabel(new ImageIcon(logo.getScaledInstance(120, 120, 50)));
+
+
+        profile = new Profile();
+        Profile dark = new Profile(Color.magenta, new Color(0, 255, 132), Color.DARK_GRAY, Color.LIGHT_GRAY, Color.BLACK);
+        Profile light = new Profile(Color.pink, Color.LIGHT_GRAY, new Color(230, 216, 195), Color.white, Color.DARK_GRAY);
+        Profile minimal = new Profile(Color.LIGHT_GRAY, Color.LIGHT_GRAY, new Color(86, 86, 86), Color.BLACK, Color.white);
+        Profile basic = new Profile();
+
+        themes = new Profile[4];
+        themes[0] = basic;
+        themes[1] = dark;
+        themes[2] = light;
+        themes[3] = minimal;
+
+        String[] themes2 = new String[themes.length];
+        themes2[0] = "Basic";
+        themes2[1] = "Dark";
+        themes2[2] = "Light";
+        themes2[3] = "Minimal";
 
         Font bigFont = new Font("Sans_Serif", Font.PLAIN, 40);
+        Font mediumFont = new Font("Sans_Serif", Font.BOLD, 15);
+
+
+        //tippy top stuff
+        tippyTop = new JPanel(new GridLayout(0, 2));
+        JLabel leftTitle = new JLabel("Xiang Qi");
+        leftTitle.setFont(bigFont);
+        leftTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        logoPic.setHorizontalAlignment(SwingConstants.CENTER);
+        tippyTop.add(leftTitle);
+        tippyTop.add(logoPic);
+
 
         //Player 1 stuff
-        p1Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
+
+        JPanel p1TitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
+        JLabel p1Title = new JLabel("Player 1:");
+        p1Title.setFont(mediumFont);
+        p1TitlePanel.add(p1Title);
+
+
+        p1Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p1Names.add(new JLabel("Name: "));
         p1Name = new JTextField("Player 1", 12);
         p1Names.add(p1Name);
@@ -40,7 +85,20 @@ public class StartFrame extends JFrame {
         p1Chooser = new JButton("Select");
         p1Colors.add(p1Chooser);
 
+
+        topLeftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        topLeftPanel.add(p1TitlePanel);
+        topLeftPanel.add(p1Names);
+        topLeftPanel.add(p1Colors);
+
         //Player 2 stuff
+
+        JPanel p2TitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
+        JLabel p2Title = new JLabel("Player 2:");
+        p2Title.setFont(mediumFont);
+        p2TitlePanel.add(p2Title);
+
+
         p2Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
         p2Names.add(new JLabel("Name: "));
         p2Name = new JTextField("Player 2", 12);
@@ -51,30 +109,11 @@ public class StartFrame extends JFrame {
         p2Chooser = new JButton("Select");
         p2Colors.add(p2Chooser);
 
-
-        //tippy top stuff
-        tippyTop = new JPanel(new GridLayout(0, 2));
-        JLabel leftTitle = new JLabel("Player 1:");
-        JLabel rightTitle = new JLabel("Player 2:");
-        leftTitle.setFont(bigFont);
-        leftTitle.setHorizontalAlignment(SwingConstants.CENTER);
-
-        rightTitle.setFont(bigFont);
-        rightTitle.setHorizontalAlignment(SwingConstants.CENTER);
-
-        tippyTop.add(leftTitle);
-        tippyTop.add(rightTitle);
-
-        //top left panel stuff
-        topLeftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
-        topLeftPanel.add(p1Names);
-        topLeftPanel.add(p1Colors);
-
-
-        //top Right Panel stuff
         topRightPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        topRightPanel.add(p2TitlePanel);
         topRightPanel.add(p2Names);
         topRightPanel.add(p2Colors);
+
 
         //top panel stuff
         top = new JPanel(new GridLayout(0, 2));
@@ -106,64 +145,42 @@ public class StartFrame extends JFrame {
         minutes = new JSpinner(new SpinnerNumberModel(10, 1, 60, 1));
         timers.add(minutes);
 
+        //Theme Selector Stuff
+        JPanel ComboPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 10));
+        profilSelector = new JComboBox(themes2);
+        ComboPanel.add(new JLabel("Or select a default theme:"));
+        ComboPanel.add(profilSelector);
+        ComboPanel.add(timers);
+
+
         //middle stuff
         middle = new JPanel(new GridLayout(0, 2));
         JPanel middleLeftHolder = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
-
         middleLeftHolder.add(bgColors);
         middleLeftHolder.add(fgColors);
         middleLeftHolder.add(lineColors);
-        middleLeftHolder.add(timers);
+        JPanel middleRightHolder = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
+        middleRightHolder.add(ComboPanel);
+
 
         middle.add(middleLeftHolder);
-
-
-        //Preview Panel
-        class preview extends JPanel {
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setColor(profile.getBackground());
-                int xOffset = 45;
-                int yOffset = 10;
-                g2.fill(new Rectangle2D.Double(xOffset, yOffset, 200, 100));
-
-                g2.setColor(profile.getLineColor());
-                g2.setStroke(new BasicStroke(2));
-                g2.drawLine(0 + xOffset, 50 + yOffset, 200 + xOffset, 50 + yOffset);
-                g2.drawLine(50 + xOffset, 0 + yOffset, 50 + xOffset, 100 + yOffset);
-                g2.drawLine(150 + xOffset, 0 + yOffset, 150 + xOffset, 100 + yOffset);
-
-
-                g2.setColor(profile.getForeGround());
-                g2.fill(new Ellipse2D.Double(xOffset + 10, 10 + yOffset, 80, 80));
-                g2.fill(new Ellipse2D.Double(xOffset + 110, 10 + yOffset, 80, 80));
-
-                g2.setStroke(new BasicStroke(5));
-                g2.setColor(profile.getP1Color());
-                g2.draw(new Ellipse2D.Double(10 + xOffset, 10 + yOffset, 80, 80));
-                g2.drawString("General", 25 + xOffset, 55 + yOffset);
-
-                g2.setColor(profile.getP2Color());
-                g2.draw(new Ellipse2D.Double(110 + xOffset, 10 + yOffset, 80, 80));
-                g2.drawString("Elephant", 125 + xOffset, 55 + yOffset);
-            }
-
-        }
-
-        JPanel preview2 = new preview();
-        middle.add(preview2);
+        middle.add(ComboPanel);
 
 
         //bottom stuff
+
         bottom = new JPanel(new GridLayout(0, 2));
-        loadGame = new JButton("Load Game");
         begin = new JButton("Start New Game");
-        bottom.add(loadGame);
-        bottom.add(begin);
+
+        JPanel preview2 = new preview();
+        JPanel beginPanel = new JPanel();
+        beginPanel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+        beginPanel.add(begin, CENTER_ALIGNMENT);
+        bottom.add(preview2);
+        bottom.add(beginPanel);
 
 
-        profile = new Profile();
+
 
         //Action listeners
 
@@ -214,6 +231,14 @@ public class StartFrame extends JFrame {
             }
         });
 
+        profilSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseProfile();
+                preview2.repaint();
+            }
+        });
+
         begin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -243,45 +268,46 @@ public class StartFrame extends JFrame {
         this.setResizable(false);
         setVisible(true);
 
-//        newGameButton = new JButton("New Game");
-//        newGameButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                boardFrame = core.getBoardFrame();
-//                boardFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-//                boardFrame.setSize( 900, 700 ); // set frame size
-//                boardFrame.setVisible( true );
-//                setVisible(false);
-//            }
-//        });
-        //newGameButtonPanel = new JPanel(new GridLayout(1, 1));
-        //newGameButtonPanel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 25));
-        //newGameButtonPanel.add(newGameButton);
-        //loadGameFileChooser = new JFileChooser("Load Saved Game");
-        //loadGameFileChooser.setFileFilter(new FileNameExtensionFilter("Saved Game", "chessgame"));
-//        loadGameButton = new JButton("Load Game");
-//        loadGameButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //loadGameFileChooser.showOpenDialog(Core.getLaunchFrame());
-//                //SaverLoader.loadGame(loadGameFileChooser.getSelectedFile());
-//            }
-//        });
-//        //loadGameButtonPanel = new JPanel(new GridLayout(1, 1));
-//        //loadGameButtonPanel.setBorder(BorderFactory.createEmptyBorder(40, 25, 40, 50));
-//        //loadGameButtonPanel.add(loadGameButton);
-//
-//
-//        buttonsPanel = new JPanel(new GridLayout(2, 1));
-//        buttonsPanel.setPreferredSize(new Dimension(300, 200));
-//        buttonsPanel.add(newGameButton);
-//        buttonsPanel.add(loadGameButton);
-//
-//        this.setLayout(new BorderLayout());
-//        this.add(buttonsPanel, BorderLayout.CENTER);
-//        this.pack();
-//        this.setVisible(true);
-//        this.setResizable(false);
-//        this.setLocationRelativeTo(null);
+
     }
+
+    private void chooseProfile() {
+        this.profile = themes[profilSelector.getSelectedIndex()];
+    }
+
+    //Preview Panel
+    class preview extends JPanel {
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setColor(profile.getBackground());
+            int xOffset = 45;
+            int yOffset = 10;
+            g2.fill(new Rectangle2D.Double(xOffset, yOffset, 200, 100));
+
+            g2.setColor(profile.getLineColor());
+            g2.setStroke(new BasicStroke(2));
+            g2.drawLine(0 + xOffset, 50 + yOffset, 200 + xOffset, 50 + yOffset);
+            g2.drawLine(50 + xOffset, 0 + yOffset, 50 + xOffset, 100 + yOffset);
+            g2.drawLine(150 + xOffset, 0 + yOffset, 150 + xOffset, 100 + yOffset);
+
+
+            g2.setColor(profile.getForeGround());
+            g2.fill(new Ellipse2D.Double(xOffset + 10, 10 + yOffset, 80, 80));
+            g2.fill(new Ellipse2D.Double(xOffset + 110, 10 + yOffset, 80, 80));
+
+            g2.setStroke(new BasicStroke(5));
+            g2.setColor(profile.getP1Color());
+            g2.draw(new Ellipse2D.Double(10 + xOffset, 10 + yOffset, 80, 80));
+            g2.drawString("General", 25 + xOffset, 55 + yOffset);
+
+            g2.setColor(profile.getP2Color());
+            g2.draw(new Ellipse2D.Double(110 + xOffset, 10 + yOffset, 80, 80));
+            g2.drawString("Elephant", 125 + xOffset, 55 + yOffset);
+        }
+
+    }
+
 }
+
+

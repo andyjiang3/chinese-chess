@@ -31,6 +31,18 @@ public class Profile {
         lineColor = Color.BLACK;
     }
 
+    Profile(Color p1color, Color p2Color, Color backGround, Color foreGround, Color lineColor) {
+        this.p1Color = p1color;
+        this.p2Color = p2Color;
+        this.backGround = backGround;
+        this.foreGround = foreGround;
+        this.lineColor = lineColor;
+        this.p1String = "Player 1";
+        this.p2String = "Player 2";
+        this.minutes = 10;
+
+    }
+
     public void setP1Color(Color p1Color) {
         this.p1Color = p1Color;
     }
@@ -92,7 +104,6 @@ public class Profile {
     public int getMinutes() {
         return minutes;
     }
-
 
     public Color getLineColor() {
         return lineColor;
