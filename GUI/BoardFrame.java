@@ -43,6 +43,11 @@ public class BoardFrame extends JFrame {
 		       //saves the board when the player presses saveItem
 		       public void actionPerformed( ActionEvent event ){
 		          //add code to save the board
+				   try {
+					   core.saveGame();
+				   } catch (Exception e) {
+					   e.printStackTrace();
+				   }
 		       }
 		    }; 
 		BoardMenu boardMenu = core.getBoardMenu();
