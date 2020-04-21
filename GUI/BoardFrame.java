@@ -1,9 +1,6 @@
 package GUI;
 
-import GameLogic.*;
-import GameLogic.Pieces.Piece;
-import GUI.BoardPanel;
-import GameLogic.Point;
+import Run.Core;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

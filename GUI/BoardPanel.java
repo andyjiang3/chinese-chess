@@ -19,6 +19,7 @@ import GameLogic.Board;
 import GameLogic.Move;
 import GameLogic.Point;
 import GameLogic.Pieces.Piece;
+import Run.Core;
 
 /**
  * Draws like everything.

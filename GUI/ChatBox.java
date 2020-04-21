@@ -1,5 +1,7 @@
 package GUI;
 
+import Run.Core;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

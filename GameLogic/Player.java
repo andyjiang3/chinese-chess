@@ -1,10 +1,12 @@
 package GameLogic;
 
+
 import java.util.ArrayList;
 
 import GUI.Profile;
 import GUI.TurnTimerPanel;
 import GameLogic.Pieces.*;
+import Run.Core;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -294,7 +296,7 @@ public class Player {
         if (timer.getTime()+ timeElapsed >= timeLimit) {
             if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
                 Board.setWinner(Board.PLAYER1_WINS);
-                //popup end game
+
             } else {
                 Board.setWinner(Board.PLAYER2_WINS);           //player 2 up river
                 //popup end game
