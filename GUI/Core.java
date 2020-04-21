@@ -28,6 +28,7 @@ public class Core {
     private Profile profile;
 
 
+
     /**
      * Upon instantiation the start menu runs, which in turn starts everything else.
      */
@@ -86,9 +87,13 @@ public class Core {
         getBoardPanel().userRepaint();
         if (board.getWinner() != -1) {
             System.out.println("GAME OVER");
-            endScreen = new EndScreen(board.getWinner(), profile);
+            callEnd();
         }
 
+    }
+
+    public void callEnd() {
+        endScreen = new EndScreen(board.getWinner(), profile);
     }
 
     public void saveGame() throws Exception {

@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -24,7 +22,7 @@ StartFrame extends JFrame {
     private BoardFrame boardFrame;
     private JSpinner minutes;
     private Profile[] themes;
-    private JComboBox profilSelector;
+    private JComboBox profileSelector;
     private Image logo;
     private Profile profile;
 
@@ -147,9 +145,9 @@ StartFrame extends JFrame {
 
         //Theme Selector Stuff
         JPanel ComboPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 10));
-        profilSelector = new JComboBox(themes2);
+        profileSelector = new JComboBox(themes2);
         ComboPanel.add(new JLabel("Or select a default theme:"));
-        ComboPanel.add(profilSelector);
+        ComboPanel.add(profileSelector);
         ComboPanel.add(timers);
 
 
@@ -231,7 +229,7 @@ StartFrame extends JFrame {
             }
         });
 
-        profilSelector.addActionListener(new ActionListener() {
+        profileSelector.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chooseProfile();
@@ -272,7 +270,7 @@ StartFrame extends JFrame {
     }
 
     private void chooseProfile() {
-        this.profile = themes[profilSelector.getSelectedIndex()];
+        this.profile = themes[profileSelector.getSelectedIndex()];
     }
 
     //Preview Panel
