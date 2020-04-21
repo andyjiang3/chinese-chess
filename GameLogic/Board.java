@@ -29,7 +29,7 @@ public class Board {
     private boolean staleMate = false;
 
 
-    private int winner;
+    private static int winner;
 
 
     private boolean gameOver = false;
@@ -393,9 +393,6 @@ public class Board {
     }
 
 
-    public void setWinner(int winner) {
-        this.winner = winner;
-    }
 
     /**
      * An Ascii board used for testing purposes
@@ -473,6 +470,10 @@ public class Board {
 
     public boolean isGameOver() {
         return gameOver;
+    }
+
+    public static void setWinner(int winnerNum) {
+        winner = winnerNum;
     }
 
     public int getWinner() {
