@@ -266,15 +266,15 @@ public class Player {
     }
 
     /**
-     * Print time elapsed of player.
-     * FORMAT: Time: mm:ss
+     * Return the time elapsed of player.
+     * String is in format - Time: mm:ss
      */
 
-    public void printElapsedTime() {
+    public String printElapsedTime() {
         Date date = new Date(timeElapsed);
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String formatted = formatter.format(date);
-        System.out.println("Time Elapsed: " + formatted);
+        return formatted;
 
     }
 
@@ -291,10 +291,16 @@ public class Player {
     public String elapsedTimeToString(int timeLimit) {
 
         timeLimit = timeLimit * 60000;
-//        if (timer.getTime()+ timeElapsed >= timeLimit) {
-//            //end game
-//            //show popup
-//        }
+        if (timer.getTime()+ timeElapsed >= timeLimit) {
+            if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
+                Board.setWinner(Board.PLAYER1_WINS);
+                //popup end game
+            } else {
+                Board.setWinner(Board.PLAYER2_WINS);           //player 2 up river
+                //popup end game
+            }
+        }
+
         Date date = new Date(timeLimit - (timer.getTime() + timeElapsed));
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String formatted = formatter.format(date);
