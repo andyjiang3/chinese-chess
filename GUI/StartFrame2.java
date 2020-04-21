@@ -24,7 +24,7 @@ public class StartFrame2 extends JFrame {
         //Player 1 stuff
         p1Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
         p1Names.add(new JLabel("Name: "));
-        p1Name = new JTextField("Northern Gamer");
+        p1Name = new JTextField("Player 1");
         p1Names.add(p1Name);
 
         p1Colors = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
@@ -35,7 +35,7 @@ public class StartFrame2 extends JFrame {
         //Player 2 stuff
         p2Names = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
         p2Names.add(new JLabel("Name: "));
-        p2Name = new JTextField("Northern Gamer");
+        p2Name = new JTextField("Player 2");
         p2Names.add(p2Name);
 
         p2Colors = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));

@@ -81,6 +81,12 @@ public class Profile {
     }
 
     Profile() {
+        p1Color = Color.RED;
+        p2Color = Color.BLACK;
+        bgColor1 = Color.lightGray;
+        p1String = "Player 1";
+        p2String = "Player 2";
+        minutes = 10;
     }
 
     ;

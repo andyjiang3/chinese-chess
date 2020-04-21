@@ -10,7 +10,7 @@ import GameLogic.Player;
 public class Core {
 	
     private static boolean inGame;
-    private static StartFrame startFrame;
+    //    private static StartFrame startFrame;
     private BoardFrame boardFrame;
     private BoardPanel boardPanel;
     private TurnTimerPanel timerPanel;
