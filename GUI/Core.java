@@ -19,8 +19,12 @@ public class Core {
     private int counter;
     private Player player1;
     private Player player2;
+    private static StartFrame2 startFrame2;
+    private Profile profile;
+
     
 	public Core() {
+
 
         player1 = new Player(1, "DownGamer", Piece.Side.DOWN);
         player2 = new Player(2, "GamersRise", Piece.Side.UP);
@@ -30,6 +34,7 @@ public class Core {
         timerPanel = new TurnTimerPanel(player1,player2);
         boardFrame = new BoardFrame(this);
 
+
         counter = 0;
 
 		//board.tryMove(new Move(4, 9, 4, 8 ));
@@ -38,7 +43,9 @@ public class Core {
     }
 	public void start() {
         inGame = false;
-        startFrame = new StartFrame(this);
+        //startFrame = new StartFrame(this);
+        startFrame2 = new StartFrame2(this);
+
     }
 
 	public void doMove(Move move) {
@@ -87,5 +94,9 @@ public class Core {
     }
     public BoardMenu getBoardMenu() {
         return boardMenu;
+    }
+
+    public void setProfile(Profile newProfile) {
+        this.profile = newProfile;
     }
 }
