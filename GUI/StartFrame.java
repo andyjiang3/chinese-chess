@@ -15,7 +15,7 @@ import javax.swing.*;
  */
 public class
 StartFrame extends JFrame {
-
+//sdfsafsdafdsaf
     private JPanel tippyTop, top, middle, bottom; //larger containers
     private JPanel topLeftPanel, topRightPanel; //medium containers
     private JPanel p1Colors, p2Colors, p1Names, p2Names, bgColors, timers, fgColors, lineColors; //basic containers

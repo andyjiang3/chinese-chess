@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 class ChatBox extends JPanel {
-    //private JLabel systemOutput;
+//    private JLabel systemOutput;
     private JTextArea systemOutput;
 
     public ChatBox() {
@@ -22,6 +22,7 @@ class ChatBox extends JPanel {
         setPreferredSize(new Dimension(220, 400));
 
 
+        //setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         JButton endGameBtn = new JButton("End Game");
         endGameBtn.addActionListener(new ActionListener() {
             @Override
