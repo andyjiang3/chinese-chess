@@ -55,6 +55,30 @@ public abstract class Piece {
 
         return this.type;
     }
+    public String getImageName() {
+        String fileName = "";
+        if(side == Piece.Side.UP)
+            fileName += "black_";
+        else
+            fileName += "red_";
 
+        if(type.equals("Soldier"))
+            fileName += "soldier";
+        else if(type.equals("General"))
+            fileName += "general";
+        else if(type.equals("Cannon"))
+            fileName += "cannon";
+        else if(type.equals("Horse"))
+            fileName += "horse";
+        else if(type.equals("Elephant"))
+            fileName += "elephant";
+        else if(type.equals("Guard"))
+            fileName += "guard";
+        else if(type.equals("Chariot"))
+            fileName += "chariot";
+
+        fileName += ".png";
+        return fileName;
+    }
 
 }

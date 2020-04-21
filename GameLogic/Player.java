@@ -7,7 +7,7 @@ import GameLogic.Pieces.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import javafx.concurrent.Task;
+//import javafx.concurrent.Task;
 
 /**
  * Class to generate the Player object, which handles data about player.

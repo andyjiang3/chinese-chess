@@ -14,6 +14,7 @@ public class Core {
     private BoardFrame boardFrame;
     private BoardPanel boardPanel;
     private TurnTimerPanel timerPanel;
+    private BoardMenu boardMenu;
     private Board board;
     private int counter;
     private Player player1;
@@ -25,6 +26,7 @@ public class Core {
         player2 = new Player(2, "GamersRise", Piece.Side.UP);
         board = new Board();
         boardPanel = new BoardPanel(this);
+        boardMenu = new BoardMenu(this);
         timerPanel = new TurnTimerPanel(player1,player2);
         boardFrame = new BoardFrame(this);
 
@@ -60,6 +62,9 @@ public class Core {
         }
 
     }
+    public void saveGame(){
+
+    }
     /*public static void startGame() {
         inGame = true;
         BoardFrame boardFrame = new BoardFrame();
@@ -79,5 +84,8 @@ public class Core {
     }
     public Board getBoard() {
     	return board;
+    }
+    public BoardMenu getBoardMenu() {
+        return boardMenu;
     }
 }

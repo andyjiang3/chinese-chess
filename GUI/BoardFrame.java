@@ -45,7 +45,7 @@ public class BoardFrame extends JFrame {
 		          //add code to save the board
 		       }
 		    }; 
-		BoardMenu boardMenu = new BoardMenu(saveHandler);
+		BoardMenu boardMenu = core.getBoardMenu();
 		setJMenuBar(boardMenu);
 		
 	    JPopupMenu popupMenu = new JPopupMenu(); // create pop-up menu
