@@ -144,8 +144,6 @@ public class Board {
     }
 
 
-    //in progress tryMove v2
-
 
     /**
      * Physically executes a move by changing the pieces that are presnt on certian points.
@@ -175,82 +173,6 @@ public class Board {
     }
 
 
-    /**
-     * Returns a point object at a specified board location (not array index, but coordinate instead.
-     *
-     * @param x the x coordinate on the board where the left most point is 0. (note not indecies)
-     * @param y the y coordinate on the board where the top most point is 0. (note not indecies)
-     * @return the point object at the specified location
-     */
-    public Point getPoint(int x, int y) {
-        return gBoard[y][x];
-    }
-
-    /**
-     * Sets up the board to play by placing all the pieces down as instantiated points. If there is no piece, it is set to null.
-     *
-     * @param board a board object to be initialized
-     */
-    private static void initialize(Point[][] board) {
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 9; x++) {
-                board[y][x] = new Point(x, y); //weird but basically transposes for easier coding and visualization. x and y are coordinates if the origin was the top right of the gameboard.
-            }
-        }
-
-        //Chariots/Rook
-        board[0][0].setPiece(new Chariot(Piece.Side.UP));
-        board[0][8].setPiece(new Chariot(Piece.Side.UP));
-
-        board[9][0].setPiece(new Chariot(Piece.Side.DOWN));
-        board[9][8].setPiece(new Chariot(Piece.Side.DOWN));
-
-        //Cannons
-        board[2][1].setPiece(new Cannon(Piece.Side.UP));
-        board[2][7].setPiece(new Cannon(Piece.Side.UP));
-
-        board[7][1].setPiece(new Cannon(Piece.Side.DOWN));
-        board[7][7].setPiece(new Cannon(Piece.Side.DOWN));
-
-        //Horses/Knights
-        board[0][1].setPiece(new Horse(Piece.Side.UP));
-        board[0][7].setPiece(new Horse(Piece.Side.UP));
-
-        board[9][1].setPiece(new Horse(Piece.Side.DOWN));
-        board[9][7].setPiece(new Horse(Piece.Side.DOWN));
-
-        //Elephants/bishops
-        board[0][2].setPiece(new Elephant(Piece.Side.UP));
-        board[0][6].setPiece(new Elephant(Piece.Side.UP));
-
-        board[9][2].setPiece(new Elephant(Piece.Side.DOWN));
-        board[9][6].setPiece(new Elephant(Piece.Side.DOWN));
-
-        //Guard/Advisors
-        board[0][3].setPiece(new Guard(Piece.Side.UP));
-        board[0][5].setPiece(new Guard(Piece.Side.UP));
-
-        board[9][3].setPiece(new Guard(Piece.Side.DOWN));
-        board[9][5].setPiece(new Guard(Piece.Side.DOWN));
-
-        //General/King
-        board[0][4].setPiece(new General(Piece.Side.UP));
-        board[9][4].setPiece(new General(Piece.Side.DOWN));
-
-        //Solider/pawns
-        board[3][0].setPiece(new Soldier(Piece.Side.UP));
-        board[3][2].setPiece(new Soldier(Piece.Side.UP));
-        board[3][4].setPiece(new Soldier(Piece.Side.UP));
-        board[3][6].setPiece(new Soldier(Piece.Side.UP));
-        board[3][8].setPiece(new Soldier(Piece.Side.UP));
-
-        board[6][0].setPiece(new Soldier(Piece.Side.DOWN));
-        board[6][2].setPiece(new Soldier(Piece.Side.DOWN));
-        board[6][4].setPiece(new Soldier(Piece.Side.DOWN));
-        board[6][6].setPiece(new Soldier(Piece.Side.DOWN));
-        board[6][8].setPiece(new Soldier(Piece.Side.DOWN));
-
-    }
 
 
     /**
@@ -390,6 +312,72 @@ public class Board {
 
 
     /**
+     * Sets up the board to play by placing all the pieces down as instantiated points. If there is no piece, it is set to null.
+     *
+     * @param board a board object to be initialized
+     */
+    private static void initialize(Point[][] board) {
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 9; x++) {
+                board[y][x] = new Point(x, y); //weird but basically transposes for easier coding and visualization. x and y are coordinates if the origin was the top right of the gameboard.
+            }
+        }
+
+        //Chariots/Rook
+        board[0][0].setPiece(new Chariot(Piece.Side.UP));
+        board[0][8].setPiece(new Chariot(Piece.Side.UP));
+
+        board[9][0].setPiece(new Chariot(Piece.Side.DOWN));
+        board[9][8].setPiece(new Chariot(Piece.Side.DOWN));
+
+        //Cannons
+        board[2][1].setPiece(new Cannon(Piece.Side.UP));
+        board[2][7].setPiece(new Cannon(Piece.Side.UP));
+
+        board[7][1].setPiece(new Cannon(Piece.Side.DOWN));
+        board[7][7].setPiece(new Cannon(Piece.Side.DOWN));
+
+        //Horses/Knights
+        board[0][1].setPiece(new Horse(Piece.Side.UP));
+        board[0][7].setPiece(new Horse(Piece.Side.UP));
+
+        board[9][1].setPiece(new Horse(Piece.Side.DOWN));
+        board[9][7].setPiece(new Horse(Piece.Side.DOWN));
+
+        //Elephants/bishops
+        board[0][2].setPiece(new Elephant(Piece.Side.UP));
+        board[0][6].setPiece(new Elephant(Piece.Side.UP));
+
+        board[9][2].setPiece(new Elephant(Piece.Side.DOWN));
+        board[9][6].setPiece(new Elephant(Piece.Side.DOWN));
+
+        //Guard/Advisors
+        board[0][3].setPiece(new Guard(Piece.Side.UP));
+        board[0][5].setPiece(new Guard(Piece.Side.UP));
+
+        board[9][3].setPiece(new Guard(Piece.Side.DOWN));
+        board[9][5].setPiece(new Guard(Piece.Side.DOWN));
+
+        //General/King
+        board[0][4].setPiece(new General(Piece.Side.UP));
+        board[9][4].setPiece(new General(Piece.Side.DOWN));
+
+        //Solider/pawns
+        board[3][0].setPiece(new Soldier(Piece.Side.UP));
+        board[3][2].setPiece(new Soldier(Piece.Side.UP));
+        board[3][4].setPiece(new Soldier(Piece.Side.UP));
+        board[3][6].setPiece(new Soldier(Piece.Side.UP));
+        board[3][8].setPiece(new Soldier(Piece.Side.UP));
+
+        board[6][0].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][2].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][4].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][6].setPiece(new Soldier(Piece.Side.DOWN));
+        board[6][8].setPiece(new Soldier(Piece.Side.DOWN));
+
+    }
+
+    /**
      * An Ascii board used for testing purposes
      */
     protected void printBoard() {
@@ -415,46 +403,102 @@ public class Board {
     }
 
     /**
+     * Returns a point object at a specified board location (not array index, but coordinate instead.
+     *
+     * @param x the x coordinate on the board where the left most point is 0. (note not indecies)
+     * @param y the y coordinate on the board where the top most point is 0. (note not indecies)
+     * @return the point object at the specified location
+     */
+    public Point getPoint(int x, int y) {
+        return gBoard[y][x];
+    }
+
+    /**
      * @return Player 2's generalX position.
      */
     int getUpGeneralX() {
         return upGeneralX;
     }
 
-
+    /**
+     * Update the boards knowledge of where Player 2's general is on the x axis. Does not actually move the general.
+     *
+     * @param upGeneralX Player 2's General's X coordinate
+     */
     private void setUpGeneralX(int upGeneralX) {
         this.upGeneralX = upGeneralX;
     }
 
+    /**
+     * Retrieve the boards knowledge of where Player 2's general is on the y axis.
+     *
+     * @return Player 2's General's X coord
+     */
     int getUpGeneralY() {
         return upGeneralY;
     }
 
+    /**
+     * Update the boards knowledge of where Player 2's general is on the y axis. Does not actually move the general.
+     * @param upGeneralY Player 2's General's Y coord
+     */
     private void setUpGeneralY(int upGeneralY) {
         this.upGeneralY = upGeneralY;
     }
 
+    /**
+     * Retrieve the boards knowledge of where Player 1's general is on the x axis.
+     * @return Player 1's gneral's x coord
+     */
     int getDownGeneralX() {
         return downGeneralX;
     }
 
+    /**
+     * Update the boards knowledge of where Player 1's general is on the x axis. Does not actually move the general.
+     * @param downGeneralX Player 2 General x position
+     */
     private void setDownGeneralX(int downGeneralX) {
         this.downGeneralX = downGeneralX;
     }
 
+    /**
+     * Retrieve the boards knowledge of where Player 1's general is on the y axis.
+     * @return Player 1 General's Y position
+     */
     int getDownGeneralY() {
         return downGeneralY;
     }
 
+    /**
+     * Update the boards knowledge of where Player 1's general is on the x axis. Does not actually move the general.
+     * @param downGeneralY Player 1 General Y position
+     */
     private void setDownGeneralY(int downGeneralY) {
         this.downGeneralY = downGeneralY;
     }
 
 
+    /**
+     * Sets the winner
+     <ul>
+     *                  <li>-1 Game still running</li>
+     *                  <li>0 Game is draw</li>
+     *                  <li>1 Player 1 wins</li>
+     *                  <li>Player 2 Wins</li>
+     * </ul>
+     * @param winnerNum uses the static finals from board
+     *
+     *
+     */
     public static void setWinner(int winnerNum) {
         winner = winnerNum;
     }
 
+    /**
+     * returns the win status
+     * @return an integer representing the current winner, stalemate, or that no game ending condition has been met. (-1, 0, 1, 2)
+     */
     public int getWinner() {
         return winner;
     }

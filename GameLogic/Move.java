@@ -157,7 +157,7 @@ public class Move {
         return isDiagonal;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         return isValid;
     }
 

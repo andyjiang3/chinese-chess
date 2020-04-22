@@ -10,7 +10,7 @@ import GameLogic.Pieces.Piece;
  * @author Venkat Pamulapati
  * @version 4/10/20
  */
-public class MoveTester {
+class MoveTester {
     private Board board;
     private Move move;
 
@@ -311,7 +311,7 @@ public class MoveTester {
 
     }
 
-    public boolean isLegal() {
+    boolean isLegal() {
         return legal;
     }
 }
