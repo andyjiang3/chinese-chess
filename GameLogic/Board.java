@@ -119,10 +119,10 @@ public class Board {
                     }
 
                     // if (!checkMate) {   //LEGAL MOVE AND NOT IN CHECKMATE?
-                    System.out.println(" Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
+                    System.out.println("Moved " + curr + " from (" + x + ", " + y + ") to (" + finalX + ", " + finalY + ")");
                     if (captured != null) {
                         player.addPieceCaptured(captured);
-                        System.out.println(" " + captured + " Captured!");
+                        System.out.println(captured + " Captured!");
                         MoveLogger.addMove(new Move(curr, captured, x, y, finalX, finalY));
                     } else {
                         MoveLogger.addMove(new Move(curr, x, y, finalX, finalY));
@@ -135,11 +135,11 @@ public class Board {
 
                 }
             } else {
-                System.out.println(" That's not your piece");
+                System.out.println("That's not your piece");
                 return false;
             }
         }
-        System.out.println(" Illegal Move");
+        System.out.println("Illegal Move");
         return false;
 
 

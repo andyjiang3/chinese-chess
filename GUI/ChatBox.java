@@ -48,17 +48,7 @@ class ChatBox extends JPanel {
      * @param text The text to be displayed in the chat box
      */
     public void appendText(final String text) {
-        if (EventQueue.isDispatchThread()) {
-            systemOutput.setText(systemOutput.getText() + text);
-        } else {
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    appendText(text);
-                    systemOutput.setCaretPosition(systemOutput.getDocument().getLength());
-                }
-            });
-        }
+        systemOutput.setText(systemOutput.getText() + text);
     }
 }
 

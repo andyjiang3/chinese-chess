@@ -4,7 +4,7 @@ A two player Chinese Chess Game implemented in JAVA using the swing libraries fo
 
 Beyond implementing the rules of standard Chinese Chess, this game includes bonus features such as move timers, theming, exporting move history, a live event log, and a fully fledged gui.
 
-To run the game, simply download the jar file, and use the command java -jar ChineseChess.jar.
+To run the game, simply download the jar file, and use the command java -jar hwx.jar.
 
 ## Extra Features
 * Themeing with an intuitive start menu
@@ -23,7 +23,7 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 ## <a href=https://en.wikipedia.org/wiki/Xiangqi#Rules>How to Play</a>
 
 1. Download the jar file from <a href=https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing>here</a>
-2. On a machine with at least Java 8, run the following command: "java jar ChineseChess-JAVA_Swing.jar
+2. On a machine with at least Java 8, run the following command: "java -jar hwx.jar"
 3. Configure your theme on the start menu, or just press the begin button to launch the board.
 4. Select a piece to highlight it
 5. Select an endpoint to attempt to move the piece there   (*note that the bottom player always goes first*)
@@ -35,9 +35,9 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 Michael handled most of the GUI stuff in game, Venkat handled most of the game logic stuff, and Andy handled most of the bonus feature stuff. We mostly focused on our individual parts but communicated a lot to make sure everything would be easily compatible. 
 
 ##### Michael Yu:
-* Created the visual game board
-* Managed the languages and icon handling
-* Created the event box
+* Created the visual game board and its event handling
+* Managed language settings and the images of each piece
+* Created the event/chat box and the end screen
 
 ##### Venkat Pamulapati
 * Implemented the game logic including the board, the checking/validation, pieces, edge case handling, etc.
@@ -101,10 +101,41 @@ The board is designed to be easily accessed by the other packages of the game wi
 
 ####Game Board
 
-####Start menu
+#####Start menu
 Instead of having command line arguments, the start up menu allows users to easily set their preferences. It includes 
 a decent user interface for setting up player names and the current theme with a live preview of what the board will look like
 if they use the english verison. The themeing is applied throughout the game board, even in subtle areas like the timer. The theming 
 very extensible because it carries the data in a Profile object which is stored as core member data. This way, any part of the application 
 can easily access what it needs.
 
+#####Board Frame
+The BoardFrame displays the BoardPanel, the BoardMenu, the ChatBox, and the TimerPanel. It is the main JFrame of the game and organizes
+the layout of every component of the board. It also manages the event handling for the JPopupMenu, which will display a 
+save button when the user right clicks on the board.
+
+#####Board Panel
+The BoardPanel class displays the main chinese chess game board and handles the event handling that occurs in the game.
+It holds a reference to the board from the core class and updates the appearance of the board if a change is made by the user. 
+It also resizes with the window without issue.
+
+It also contains an inner class called "Icons" that defines the JLabel that exists on every point of the board. Each Icon will display its corresponding piece,
+if it has one, and changes the appearance of it depending on the language setting of the menu. Depending on the language, the color
+of the piece, and the type of the piece, an image will be retrieved from the Pictures folder and displayed on the piece. It implements the
+MouseListener that will store the chosen piece and its chosen destination and send the potential move to the core class, where it
+will be evaluated to see if the move is legal.
+
+#####Board Menu
+The BoardMenu creates the JMenuBar displayed on the BoardFrame. It contains the options to change the language (the
+appearance of the pieces), to save or exit the game, and to learn the rules of the game through a link to the Wikipedia page of 
+Chinese Chess.
+
+#####Chat Box
+The ChatBox creates the chat box on the bottom right of the BoardFrame that displays any messages that the system outputs.
+It redirects the output originally sent to System.out to the JTextArea that will display the messages on the GUI. This is done
+by reassigning the standard output stream to a new one, designed to write each character sent to System.out to the designated 
+ChatBox. The ChatBox contains a title on the top of the panel and an end game button on the bottom of the panel.
+
+#####EndScreen
+The EndScreen is the final window that will appear in this GUI. It appears when the game has reached a checkmate, a stalemate, or if
+the user presses the end game button on the very bottom right of the window. It displays the end result of the game as well as
+two buttons to either restart the game or exit the game.
