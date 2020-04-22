@@ -6,13 +6,19 @@ Beyond implementing the rules of standard Chinese Chess, this game includes bonu
 
 To run the game, simply download the jar file, and use the command java -jar ChineseChess.jar.
 
-##Basic Features
+##Extra Features
 * Theming with an intuitive start menu
-* Player timers
+* Game Profile (option to change time limit, player color, and player name)
+* Player timers (switches between turns)
 * Clean user interface
 * Live event log
+* End Game/Restart Game option
+* Chinese and English piece icons (Under View > Language)
+* Menu Bar (Including direct link to rules, about page)
+* Save Game (Choose file name and path, includes all moves made, player name, time elapsed)
 * Open source and object oriented design
 * Java Documentation
+
 
 ##How to Play
 
@@ -41,9 +47,26 @@ Michael handled most of the GUI stuff in game, Venkat handled most of the game l
 * Implemented theming
 
 #####Andy Jiang
-* Implemented move timers
-* Greated the GUI for the timers
+* Implemented move timers and move logger
+* Created the GUI for the timers and asynchronous updating
 * Implemented game saving
 
 ##In-depth feature overview:
-````
+
+Timer and Timer GUI:
+    The Timer class keeps track of the start and stop time in nanoseconds (System.nanoTime()) to determine the time elapsed
+    , which is then converted into milliseconds. Nanoseconds was used over milliseconds for a more precise measurement of time elapsed. It is then implemented
+    into the Player class to create a timer for each individual player. All methods of timer is called through the Player class.
+    The Player class interacts with the Timer class to get all necessary information about the player's time elapsed during each turn.
+    Then, it formats it in mm:ss format using SimpleDateFormat and make it accessible for the TurnTimerPanel to get.
+
+    The TurnTimerPanel is a GridLayout (2x1) of two timer panel (one for each player). Inside each timer panel, there is a
+    number panel, centered inside timer panel using BorderLayout, which includes the time label. The time label is inside
+    a panel to create extra space between the number and border.
+
+    In order for the two timer panel to update the time left for each player, threading must be used. Without threads, when
+    updating the label inside a while loop, the game does not function until while loop is exited. Thus, the time labels
+    must be updated asynchronously with the game. Players' timer is stopped when their turn is over and started again when
+    their turn start. Thus, the updating of each label is started and stopped, to create a animation of switching. However,
+    dead threads can not be restarted, thus a new thread is created each time the label is suppose to update.
+
