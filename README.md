@@ -51,7 +51,7 @@ Michael handled most of the GUI stuff in game, Venkat handled most of the game l
 
 ## In-depth feature overview:
 
-##### Timer and Timer GUI:
+#### Timer and Timer GUI:
 The Timer class keeps track of the start and stop time in nanoseconds (System.nanoTime()) to determine the time elapsed, which 
 is then converted into milliseconds. Nanoseconds was used over milliseconds for a more precise measurement of time elapsed. It is then implemented
 into the Player class to create a timer for each individual player. All methods of timer is called through the Player class.
@@ -70,7 +70,7 @@ dead threads can not be restarted, thus a new thread is created each time the la
 
 The timer also acts as current player indicator by fading or highlihgting it's colors which are set by the current theme.
 
-##### Game Logic and structure
+#### Game Logic and structure
 The game is essentially handled by manipulating a two-dimensional array of Point objects. Each point object holds a piece, which are differnciated
 by their move patterns. In order to make a move, the player creates a move object (input through the gui) which is then subject to a series of check
 which can be categorized into two categories pre-move checking and post-move checking.
@@ -99,9 +99,9 @@ the only pieces remaining are the generals and a single cannon.
 
 The board is designed to be easily accessed by the other packages of the game with minimal knowledge of how it functions.
 
-#####Game Board
+####Game Board
 
-#####Start menu
+####Start menu
 Instead of having command line arguments, the start up menu allows users to easily set their preferences. It includes 
 a decent user interface for setting up player names and the current theme with a live preview of what the board will look like
 if they use the english verison. The themeing is applied throughout the game board, even in subtle areas like the timer. The theming 
