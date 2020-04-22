@@ -70,7 +70,7 @@ dead threads can not be restarted, thus a new thread is created each time the la
 
 The timer also acts as current player indicator by fading or highlihgting it's colors which are set by the current theme.
 
-#### Game Logic
+#### *Game Logic*
 
 ##### Move checking
 The game is essentially handled by manipulating a two-dimensional array of Point objects. Each point object holds a piece, which are differnciated
@@ -100,7 +100,7 @@ the only pieces remaining are the generals and a single cannon.
 
 The board is designed to be easily accessed by the other packages of the game with minimal knowledge of how it functions.
 
-#### GUI
+#### *GUI*
 
 ##### Start menu
 Instead of having command line arguments, the start up menu allows users to easily set their preferences. It includes 
