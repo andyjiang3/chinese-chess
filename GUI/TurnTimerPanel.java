@@ -7,7 +7,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-
+/**
+ *  TurnTimerPanel creates the timer gui and update the time elapsed and time left for each player
+ *
+ * @author Andy Jiang
+ */
 public class TurnTimerPanel extends JPanel {
 
     private JPanel timerDisplayPanel;
@@ -32,24 +36,37 @@ public class TurnTimerPanel extends JPanel {
 
     private int timeLimit;
 
-
+    /**
+     * Constructor that creates the timer gui and initialize variables.
+     *
+     * @param player1 the player playing the game
+     * @param player1 set this player's side on board
+     * @param profile profile of the game
+     */
     public TurnTimerPanel(Player player1, Player player2, Profile profile) {
+
         if (player1.getPlayerSide() == Piece.Side.DOWN) {  //Player1 is red
             this.redPlayer = player1;
             this.blackPlayer = player2;
-        } else {                                            //Player2 is red
+        } else {                                           //Player2 is red
             this.redPlayer = player2;
             this.blackPlayer = player1;
         }
 
+        //Set time limit
         timeLimit = profile.getMinutes();
 
+        //Set time elapsed
         redTime = 0;
         blackTime = 0;
 
+        //GUI DRAWING ===========================================================================
+
+        //Timer Label ==============================
         timerLabel = new JLabel("Timer");
         timerLabel.setFont(new Font("Sans_Serif", Font.PLAIN, 40));
 
+        //Black Timer ==============================
         Border blackLine = BorderFactory.createLineBorder(profile.getP2Color(), 2);
 
         blackTimerLabel = new JLabel(blackPlayer.elapsedTimeToString(timeLimit));
@@ -63,6 +80,7 @@ public class TurnTimerPanel extends JPanel {
         blackTimerPanel.setBorder(blackLine);
         blackTimerPanel.add(blackNumberPanel, BorderLayout.CENTER);
 
+        //Red Timer ==============================
         Border redLine = BorderFactory.createLineBorder(profile.getP1Color(), 2);
 
         redTimerLabel = new JLabel(redPlayer.elapsedTimeToString(timeLimit));
@@ -79,78 +97,64 @@ public class TurnTimerPanel extends JPanel {
         timerDisplayPanel.add(timerLabel);
         timerDisplayPanel.add(blackTimerPanel);
         timerDisplayPanel.add(redTimerPanel);
+
         this.add(timerDisplayPanel, BorderLayout.CENTER);
-        //set width to be bigger
+
+        //Set width to be bigger so it doesn't touch edge
         this.setPreferredSize(new Dimension(200, 0));
 
     }
 
-
+    /**
+     * Update the red timer in the timer gui.
+     * Uses Thread to update asynchronously with game
+     */
     public void updateRedTime() {
 
         blackTimerLabel.setForeground(Color.LIGHT_GRAY);
         redTimerLabel.setForeground(Color.BLACK);
 
+        //Restart thread by creating a new one since you can't restart dead thread.
         newThread = new Thread(() -> {
             while (redPlayer.isTimerRunning()) {
 
                 redTimerLabel.setText(redPlayer.elapsedTimeToString(timeLimit));
 
-
+                //For testing
                 //System.out.println(redPlayer.elapsedTimeToString());
                 //System.out.println(redPlayer.isTimerRunning());
 
             }
         });
 
-
+        //Start thread
         newThread.start();
-
-//        Task<Void> task1 = new Task<Void>() {
-//            @Override protected Void call() throws Exception {
-//                while (redPlayer.isTimerRunning()) {
-//                    redTimerLabel.setText(redPlayer.elapsedTimeToString());
-//
-//
-//                    System.out.println(redPlayer.elapsedTimeToString());
-//                    //System.out.println(redPlayer.isTimerRunning());
-//
-//                }
-//                return null;
-//            }
-//        };
-
-
-//        while (redPlayer.isTimerRunning()) {
-//            redTimerLabel.setText(redPlayer.elapsedTimeToString());
-//
-//
-//            //System.out.println(redPlayer.elapsedTimeToString());
-//            //System.out.println(redPlayer.isTimerRunning());
-//
-//        }
-
 
     }
 
+    /**
+     * Update the black timer in the timer gui.
+     * Uses Thread to update asynchronously with game
+     */
     public void updateBlackTime() {
 
         blackTimerLabel.setForeground(Color.BLACK);
         redTimerLabel.setForeground(Color.LIGHT_GRAY);
 
+        //Restart thread by creating a new one since you can't restart dead thread.
         newThread = new Thread(() -> {
             while (blackPlayer.isTimerRunning()) {
                 blackTimerLabel.setText(blackPlayer.elapsedTimeToString(timeLimit));
 
-
+                //For testing
                 //System.out.println(blackPlayer.elapsedTimeToString());
                 //System.out.println(blackPlayer.isTimerRunning());
 
             }
         });
 
+        //Start thread
         newThread.start();
-
 
     }
 

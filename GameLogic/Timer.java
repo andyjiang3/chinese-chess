@@ -1,9 +1,9 @@
 package GameLogic;
 
 /**
- * Timer used for game timer.
- *
- * @author Andy Jiang
+ *  * Timer used to keep track of time elapsed and update timer GUI.
+ *  *
+ *  * @author Andy Jiang
  */
 public class Timer {
 
@@ -11,28 +11,43 @@ public class Timer {
     private long stopTime;
     private boolean stillRunning;
 
-
+    /**
+     * Constructor that initiate the start and stop time.
+     */
     public Timer() {
         this.startTime = 0;
         this.stopTime = 0;
         this.stillRunning = false;
     }
 
+    /**
+     * Start the timer.
+     */
     public void start() {
         startTime = System.nanoTime();   //In nanoseconds, more precision than currentTimeMillis(),
         stillRunning = true;
     }
 
+    /**
+     * Stop the timer.
+     */
     public void stop() {
         stopTime = System.nanoTime();
         stillRunning = false;
     }
 
+    /**
+     * Get status of timer
+     * @return whether the timer is running or not
+     */
     public boolean isStillRunning() {
         return this.stillRunning;
     }
 
-    //in milliseconds
+    /**
+     * Get time elapsed in milliseconds
+     * @return the time elapsed in milliseconds.
+     */
     public long getTime() {
 
         if (stillRunning) {
