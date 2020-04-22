@@ -62,8 +62,8 @@ number panel, centered inside timer panel using BorderLayout, which includes the
 a panel to create extra space between the number and border.
 
   In order for the two timer panel to update the time left for each player, threading must be used. Without threads, when
-updating the label inside a while loop, the game does not function until while loop is exited. Thus, the time labels
-must be updated asynchronously with the game. Players' timer is stopped when their turn is over and started again when
-their turn start. Thus, the updating of each label is started and stopped, to create a animation of switching. However,
-dead threads can not be restarted, thus a new thread is created each time the label is suppose to update.
+  updating the label inside a while loop, the game does not function until while loop is exited. Thus, the time labels
+  must be updated asynchronously with the game. Players' timer is stopped when their turn is over and started again when
+  their turn start. Thus, the updating of each label is started and stopped, to create a animation of switching. However,
+  dead threads can not be restarted, thus a new thread is created each time the label is suppose to update.
 
