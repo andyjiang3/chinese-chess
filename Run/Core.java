@@ -91,14 +91,18 @@ public class Core {
         }
 
     }
-
+    /**
+     * Calls an end to the game and opens the endScreen.
+     */
     public void callEnd() {
         player1.stopTurnTimer();
         player2.stopTurnTimer();
         endScreen = new EndScreen(this, board.getWinner(), profile);
 
     }
-
+    /**
+     * Saves the game to the computer as a .txt file.
+     */
     public void saveGame() throws Exception {
         String os = System.getProperty("os.name").toLowerCase();
         JFrame parentFrame = new JFrame();

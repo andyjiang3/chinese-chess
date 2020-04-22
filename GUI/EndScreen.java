@@ -8,6 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Creates the end screen that shows the result of the board game.
+ * Also contains a button to exit the game, restart the game, and close the end screen.
+ *
+ * @author Michael Yu
+ */
 public class EndScreen extends JFrame {
     private String message;
     private JButton exitBtn;

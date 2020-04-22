@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 
 /**
- * Draws like everything.
+ * Draws the appearance of the game board.
  *
  * @author Michael Yu
  */
@@ -27,7 +27,11 @@ public class BoardPanel extends JPanel {
 	private boolean pressed = false, pressIsValid = false;
 	private Core core;
 	private Profile profile;
-
+	/**
+	 * Takes in all of the components of the board from the core class to draw them on the GUI.
+	 *
+	 * @param core the current running core object
+	 */
 	public BoardPanel(Core core) {
 		//setSize(500, 500);
 		//board = new Board();
@@ -49,11 +53,20 @@ public class BoardPanel extends JPanel {
 		setLayout(null);
 		//board.tryMove(new Move(4, 9, 4, 8));
 	}
-
+	/**
+	 * Sets the language of the board to change the appearance of the pieces.
+	 *
+	 * @param language the new language
+	 */
 	void setLanguage(String language) {
 		this.language = language;
 	}
-
+	/**
+	 * Sets the position of each point and resizes the squares on the board when the window is resized
+	 * and draws the board.
+	 *
+	 * @param g
+	 */
 	public void paintComponent(Graphics g) {
 		int xDisplacement, yDisplacement;
 		//sets a new width for the grid squares
@@ -79,7 +92,9 @@ public class BoardPanel extends JPanel {
 		drawRiver(g2);
 		//drawPieces(g2);
 	}
-
+	/**
+	 * Draws the lines on the board.
+	 */
 	private void drawBoard(Graphics2D g2) {
 		g2.setColor(profile.getLineColor());
 		for (int y = 0; y < 10; y++) {
@@ -119,8 +134,12 @@ public class BoardPanel extends JPanel {
 		drawPoint(g2, board.getPoint(7, 7), 0, 360);
 	}
 
-	//marks the points that the soldiers go on at the start of the game
-	//added the start and end angle arguments so I could draw the points on the edge
+	/**
+	 * marks the points that the soldiers go on at the start of the game
+	 * added the start and end angle arguments so I could draw the points on the edge
+	 *
+	 * @param g2
+	 */
 	private void drawPoint(Graphics2D g2, Point point, int startAngle, int endAngle) {
 		for (int x = startAngle / 90; x < endAngle / 90; x++) {
 			g2.drawLine(point.getX() + (int) (Math.cos(Math.toRadians(45 + 90 * x)) * squareWidth / 10),
@@ -133,7 +152,11 @@ public class BoardPanel extends JPanel {
 					point.getY() + (int) (Math.sin(Math.toRadians(45 + 90 * x)) * squareWidth / 10));
 		}
 	}
-
+	/**
+	 * Draws the word "river" on the river if the language is set to English
+	 *
+	 * @param g2
+	 */
 	private void drawRiver(Graphics2D g2) {
 		if (language.equals("English")) {
 			g2.setFont(new Font("Sans_Serif", Font.PLAIN, 18));
@@ -143,7 +166,9 @@ public class BoardPanel extends JPanel {
 			g2.drawString("River", xCoord, yCoord);
 		}
 	}
-
+	/**
+	 * Manually calls a repaint of every part of the object.
+	 */
 	public void userRepaint() {
 		repaint();
 		for (int y = 0; y < 10; y++) {
@@ -152,15 +177,19 @@ public class BoardPanel extends JPanel {
 			}
 		}
 	}
-
-//	public void setProfile(Profile profile) {
-//		this.profile = profile;
-//	}
-
+	/**
+	 * Defines the JLabel that will exist on every point on the board.
+	 */
 	private class Icons extends JLabel implements MouseListener {
 		private int x, y;
 		private Point point;
-
+		/**
+		 * Sets the index of the Icon and which point it will represent.
+		 *
+		 * @param x x position of the icon
+		 * @param y y position of the icon
+		 * @param point the point that is associated with the icon
+		 */
 		Icons(int x, int y, Point point) {
 			this.x = x;
 			this.y = y;
@@ -171,7 +200,9 @@ public class BoardPanel extends JPanel {
 			//	   setText(point.getPiece().toString());
 			addMouseListener(this);
 		}
-
+		/**
+		 * Changes the appearance of the pieces on the board.
+		 */
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
@@ -193,7 +224,9 @@ public class BoardPanel extends JPanel {
 					break;
 			}
 		}
-
+		/**
+		 * Draws each piece with the english name of the piece if the language is set to "English".
+		 */
 		void createEnglishPieces(Graphics2D g2) {
 			setIcon(null);
 			g2.setFont(new Font("Sans_Serif", Font.PLAIN, 12));
@@ -218,7 +251,13 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
-
+		/**
+		 * Draws each piece with the image of the piece's chinese name if the language is set to "Chinese"
+		 * or with a picture of the piece if the language is set to "Pictures".
+		 *
+		 * @param g2
+		 * @param fileName the name of the png that will drawn on the JLabel
+		 */
 		void setPieceImages(Graphics2D g2, String fileName) {
 			try {
 				if (point.getPiece() != null) {
@@ -241,7 +280,9 @@ public class BoardPanel extends JPanel {
 				System.out.print(e);
 			}
 		}
-
+		/**
+		 * Checks if the user's click is selecting a piece or a destination for a selected piece.
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (!pressed) {
@@ -273,7 +314,9 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
-
+		/**
+		 * Stores the piece that the mouse is pressed on.
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if (!pressed) {
@@ -297,11 +340,15 @@ public class BoardPanel extends JPanel {
 			// TODO Auto-generated method stub
 
 		}
-
+		/**
+		 * Sends the move to be handled in the core class.
+		 */
 		void sendMove(Move move) {
 			core.playMove(move);
 		}
-
+		/**
+		 * Stores the location of the pressed piece.
+		 */
 		boolean storePressed() {
 			if (board.getPoint(x, y).getPiece() == null)
 				pressIsValid = false;
@@ -313,8 +360,9 @@ public class BoardPanel extends JPanel {
 			}
 			return false;
 		}
-
-		//this method stores the location of the released piece
+		/**
+		 * Stores the location of the released piece.
+		 */
 		boolean storeReleased() {
 			if (pressIsValid) {
 				releaseLoc[0] = x;

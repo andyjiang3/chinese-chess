@@ -57,6 +57,11 @@ class ChatBox extends JPanel {
     }
 }
 
+/**
+ * Redirects the output stream of System.out to the board frame's chat box.
+ *
+ * @author Michael Yu
+ */
 class StreamIntake extends OutputStream {
 
     private String string = "";
