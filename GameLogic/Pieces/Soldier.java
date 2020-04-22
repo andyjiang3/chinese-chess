@@ -2,6 +2,9 @@ package GameLogic.Pieces;
 
 import GameLogic.Move;
 
+/**
+ * Soldier Piece
+ */
 public class Soldier extends Piece {
     //private Side curSide;
 
