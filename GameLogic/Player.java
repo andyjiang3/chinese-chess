@@ -299,18 +299,22 @@ public class Player {
             if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
                 Board.setWinner(Board.PLAYER2_TIMEOUT_WIN);         //call end game since timer limit has passed
                 core.callEnd();
+                return "00:00";
 
             } else {
                 Board.setWinner(Board.PLAYER1_TIMEOUT_WIN);  //player 2 up river
                 core.callEnd();
+                return "00:00";
             }
-        }
 
-        //if time elapsed have not passed the time limit, return time left in mm:ss format
-        Date date = new Date(timeLimit - (timer.getTime() + timeElapsed));
-        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
-        String formatted = formatter.format(date);
-        return formatted;
+        } else {
+
+            //if time elapsed have not passed the time limit, return time left in mm:ss format
+            Date date = new Date(timeLimit - (timer.getTime() + timeElapsed));
+            SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
+            String formatted = formatter.format(date);
+            return formatted;
+        }
 
     }
 
