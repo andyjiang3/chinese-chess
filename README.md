@@ -70,7 +70,9 @@ dead threads can not be restarted, thus a new thread is created each time the la
 
 The timer also acts as current player indicator by fading or highlihgting it's colors which are set by the current theme.
 
-#### Game Logic and structure
+#### Game Logic
+
+##### Move checking
 The game is essentially handled by manipulating a two-dimensional array of Point objects. Each point object holds a piece, which are differnciated
 by their move patterns. In order to make a move, the player creates a move object (input through the gui) which is then subject to a series of check
 which can be categorized into two categories pre-move checking and post-move checking.
@@ -86,34 +88,33 @@ is that it doesn't account for factors such as:
 Deep checking solves these problems. The way post move checking works is that it executes the move privately and then 
 proceeds to run tests to see if the move is legal. If it fails, it simply undoes the move privately. You may wonder, why 
 not just use deep checking for everything then? Besides saving resources
-(looking for a checkmate is O(n^3) currently) there are several cases where it is needed. For example, in order to see if there's
-a checkmate, we need to see what pieces are delivering a check. A piece can deliver a check, even if the move to actually attak
-the general is illegal! (For example, if moving the piece that is delivering the check would cause it's own general to 
+(looking for a checkmate is O(n^3) currently) there are several cases where it is needed. For example, in order to see if there's a checkmate, we need to see what pieces are delivering a check. A piece can deliver a check, even if the move to actually attak the general is illegal! (For example, if moving the piece that is delivering the check would cause it's own general to 
 fall into check.)
 
 Once a move has been thoroughly checked, it is then executed on the array.
 
+##### Edge Case handling
 Beyond move validation, there is also checking for when the board has reached checkmate or stalemate. Once these cases have 
 been reached neither player can move. Some stalemate edge cases include when the board has no pieces that can cross the river or when 
 the only pieces remaining are the generals and a single cannon.
 
 The board is designed to be easily accessed by the other packages of the game with minimal knowledge of how it functions.
 
-####Game Board
+#### GUI
 
-#####Start menu
+##### Start menu
 Instead of having command line arguments, the start up menu allows users to easily set their preferences. It includes 
 a decent user interface for setting up player names and the current theme with a live preview of what the board will look like
 if they use the english verison. The themeing is applied throughout the game board, even in subtle areas like the timer. The theming 
 very extensible because it carries the data in a Profile object which is stored as core member data. This way, any part of the application 
 can easily access what it needs.
 
-#####Board Frame
+##### Board Frame
 The BoardFrame displays the BoardPanel, the BoardMenu, the ChatBox, and the TimerPanel. It is the main JFrame of the game and organizes
 the layout of every component of the board. It also manages the event handling for the JPopupMenu, which will display a 
 save button when the user right clicks on the board.
 
-#####Board Panel
+##### Board Panel
 The BoardPanel class displays the main chinese chess game board and handles the event handling that occurs in the game.
 It holds a reference to the board from the core class and updates the appearance of the board if a change is made by the user. 
 It also resizes with the window without issue.
@@ -124,18 +125,18 @@ of the piece, and the type of the piece, an image will be retrieved from the Pic
 MouseListener that will store the chosen piece and its chosen destination and send the potential move to the core class, where it
 will be evaluated to see if the move is legal.
 
-#####Board Menu
+##### Board Menu
 The BoardMenu creates the JMenuBar displayed on the BoardFrame. It contains the options to change the language (the
 appearance of the pieces), to save or exit the game, and to learn the rules of the game through a link to the Wikipedia page of 
 Chinese Chess.
 
-#####Chat Box
+##### Chat Box
 The ChatBox creates the chat box on the bottom right of the BoardFrame that displays any messages that the system outputs.
 It redirects the output originally sent to System.out to the JTextArea that will display the messages on the GUI. This is done
 by reassigning the standard output stream to a new one, designed to write each character sent to System.out to the designated 
 ChatBox. The ChatBox contains a title on the top of the panel and an end game button on the bottom of the panel.
 
-#####EndScreen
+##### EndScreen
 The EndScreen is the final window that will appear in this GUI. It appears when the game has reached a checkmate, a stalemate, or if
 the user presses the end game button on the very bottom right of the window. It displays the end result of the game as well as
 two buttons to either restart the game or exit the game.
