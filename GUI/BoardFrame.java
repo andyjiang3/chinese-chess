@@ -11,7 +11,8 @@ import java.awt.event.MouseEvent;
 import java.io.PrintStream;
 
 /**
- * defines the entire JFrame for the GUI
+ * Creates the main JFrame for the Chinese Chess Game.
+ * It displays the chat box, the timer, the menu bar, and the game board.
  *
  * @author Michael Yu
  */

@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+/**
+ * defines the entire JFrame for the GUI
+ *
+ * @author Michael Yu
+ */
 class ChatBox extends JPanel {
     //    private JLabel systemOutput;
     private JTextArea systemOutput;

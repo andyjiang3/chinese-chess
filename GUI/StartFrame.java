@@ -14,8 +14,7 @@ import java.awt.geom.Rectangle2D;
  * <p>
  * It has a very nice live preview which is based on the current profile.
  */
-public class
-StartFrame extends JFrame {
+public class StartFrame extends JFrame {
 
     private JPanel tippyTop, top, middle, bottom; //larger containers
     private JPanel topLeftPanel, topRightPanel; //medium containers

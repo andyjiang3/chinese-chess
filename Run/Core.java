@@ -95,7 +95,7 @@ public class Core {
     public void callEnd() {
         player1.stopTurnTimer();
         player2.stopTurnTimer();
-        endScreen = new EndScreen(board.getWinner(), profile);
+        endScreen = new EndScreen(this, board.getWinner(), profile);
 
     }
 
@@ -124,7 +124,9 @@ public class Core {
             parentFrame.setVisible(false);
         }
     }
-
+    public void setInvisible(){
+        boardFrame.setVisible(false);
+    }
     public BoardPanel getBoardPanel() {
         return boardPanel;
     }
