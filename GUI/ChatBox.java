@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * defines the entire JFrame for the GUI
+ * Creates the chat box on the side of the board that displays system output messages.
  *
  * @author Michael Yu
  */

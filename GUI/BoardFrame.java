@@ -13,6 +13,7 @@ import java.io.PrintStream;
 /**
  * Creates the main JFrame for the Chinese Chess Game.
  * It displays the chat box, the timer, the menu bar, and the game board.
+ * It also handles mouse right clicks to display a popup menu.
  *
  * @author Michael Yu
  */
@@ -50,18 +51,9 @@ public class BoardFrame extends JFrame {
 		BoardMenu boardMenu = core.getBoardMenu();
 		setJMenuBar(boardMenu);
 
-		JPopupMenu popupMenu = new JPopupMenu(); // create pop-up menu
-//	    String popupChoices[] = {"Undo", "Save"};
-//		JMenuItem[] popupItems = new JMenuItem[popupChoices.length];
+		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem popupSave = new JMenuItem("Save");
 		popupSave.addActionListener(saveHandler);
-//	    JMenuItem popupUndo = new JMenuItem("Undo");
-//	    popupUndo.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				core.getBoard().doMove(MoveLogger.undoLastMove(core.getBoard()));
-//			}
-//	    });
-//	    popupMenu.add(popupUndo);
 
 		popupMenu.add(popupSave);
 		addMouseListener(new MouseAdapter() {

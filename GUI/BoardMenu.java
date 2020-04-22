@@ -27,7 +27,7 @@ public class BoardMenu extends JMenuBar {
         aboutItem.setMnemonic('A');
         aboutItem.addActionListener(
                 new ActionListener() {
-                    // display message dialog when user selects About...
+                    //display message dialog when user selects About...
                     public void actionPerformed(ActionEvent event) {
                         JOptionPane.showMessageDialog(BoardMenu.this,
                                 "This Chinese Chess game was created by the following members:\nVenkat Pamulapati\nMichael Yu\nAndy Jiang",
@@ -38,7 +38,7 @@ public class BoardMenu extends JMenuBar {
         JMenuItem saveItem = new JMenuItem("Save");
         saveItem.setMnemonic('S');
         saveItem.addActionListener(new ActionListener() {
-            //saves the board when the player presses saveItem
+            //Saves the board when the player presses saveItem
             public void actionPerformed(ActionEvent event) {
                 try {
                     core.saveGame();
@@ -49,14 +49,12 @@ public class BoardMenu extends JMenuBar {
         });
         JMenuItem exitItem = new JMenuItem("Exit");
         exitItem.setMnemonic('x');
-        exitItem.addActionListener(
-                new ActionListener() {
-                    // terminate application when user clicks exitItem
-                    public void actionPerformed(ActionEvent event) {
-                        System.exit(0);
-                    }
-                }
-        );
+        exitItem.addActionListener(new ActionListener() {
+            //terminate application when user clicks exitItem
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic('F');
         fileMenu.add(aboutItem);
@@ -80,16 +78,19 @@ public class BoardMenu extends JMenuBar {
         languageMenu.add(englishPicButton);
         languageButtonGroup.add(englishPicButton);
         ActionListener itemHandler = new ActionListener() {
+            // process language selection to change the appearance of the pieces
             public void actionPerformed(ActionEvent event) {
-                // process language selection to change the appearance of the pieces
+                // draws each piece and its english name with user chosen colors
                 if (englishButton.isSelected()) {
                     core.getBoardPanel().setLanguage("English");
                     core.getBoardPanel().userRepaint();
                 }
+                // displays images of each piece's chinese character
                 if (chineseButton.isSelected()) {
                     core.getBoardPanel().setLanguage("Chinese");
                     core.getBoardPanel().userRepaint();
                 }
+                // displays pictures of each piece
                 if (englishPicButton.isSelected()) {
                     core.getBoardPanel().setLanguage("Pictures");
                     core.getBoardPanel().userRepaint();
@@ -100,12 +101,14 @@ public class BoardMenu extends JMenuBar {
         chineseButton.addActionListener(itemHandler);
         englishPicButton.addActionListener(itemHandler);
         englishButton.setSelected(true); // select first language item
+
         viewMenu.add(languageMenu);
         //viewMenu.addSeparator();
         JMenu helpMenu = new JMenu("Help");
         helpMenu.setMnemonic('H');
         JMenuItem rules = new JMenuItem("How to Play...");
         rules.addActionListener(new ActionListener() {
+            //opens up the wikipedia page for the rules of Chinese Chess
             public void actionPerformed(ActionEvent e) {
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://en.wikipedia.org/wiki/Xiangqi"));
