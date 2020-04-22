@@ -13,7 +13,7 @@ To run the game, simply download the jar file, and use the command java -jar hwx
 * Clean user interface
 * Live event log
 * End Game/Restart Game option
-* Chinese and English piece icons (Under View > Language)
+* **Chinese and English piece icons (Under View > Language)**
 * Menu Bar (Including direct link to rules, about page)
 * Save Game (Choose file name and path, includes all moves made, player name, time elapsed)
 * Open source and object oriented design
