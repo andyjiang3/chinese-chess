@@ -15,6 +15,8 @@ public class Board {
 
     public static final int PLAYER1_WINS = 1;
     public static final int PLAYER2_WINS = 2;
+    public static final int PLAYER1_TIMEOUT_WIN = 3;
+    public static final int PLAYER2_TIMEOUT_WIN = 4;
     public static final int DRAW = 0;
     public static final int NA = -1;
 
@@ -218,12 +220,12 @@ public class Board {
                     if (!downCheck && getPoint(x, y).getPiece().getSide() == Piece.Side.UP) {
                         if (new MoveTester(this, new Move(x, y, downGeneralX, downGeneralY), 0).isLegal()) {
                             downCheck = true;
-                            System.out.println("Down is in check");
+//                            System.out.println("Down is in check");
                         }
                     } else if (!upCheck && getPoint(x, y).getPiece().getSide() == Piece.Side.DOWN) {
                         if (new MoveTester(this, new Move(x, y, upGeneralX, upGeneralY), 0).isLegal()) {
                             upCheck = true;
-                            System.out.println("up is in check");
+//                            System.out.println("up is in check");
                         }
                     }
                 }
@@ -290,23 +292,25 @@ public class Board {
     private boolean separated() {
 
         int cannonCounter = 0;
+        int pieceCounter = 0;
 
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 10; y++) {
                 if (getPoint(x, y).getPiece() != null) {
+                    pieceCounter++;
                     if (getPoint(x, y).getPiece().canWinAlone()) {
                         return false;
                     }
                     if (getPoint(x, y).getPiece().toString().equals("Cannon")) {
                         cannonCounter++;
-                        if (cannonCounter > 1) {
-                            return false;
-                        }
                     }
                 }
             }
         }
 
+        if (pieceCounter > 3 && cannonCounter >= 1) {
+            return false;
+        }
         return true;
     }
 

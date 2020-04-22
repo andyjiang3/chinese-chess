@@ -3,7 +3,7 @@ package GameLogic.Pieces;
 import GameLogic.Move;
 
 /**
- * Abstract class for Piece.
+ * Abstract class for Piece. Each piece is unaware of it's location. They contain little member data and are stored on points, which are managed by boards.
  *
  * @author Venkat Pamulapati
  * @version 4/1/20

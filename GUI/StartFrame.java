@@ -303,7 +303,7 @@ public class StartFrame extends JFrame {
             g2.setStroke(new BasicStroke(5));
             g2.setColor(profile.getP1Color());
             g2.draw(new Ellipse2D.Double(10 + xOffset, 10 + yOffset, 80, 80));
-            g2.drawString("General", 25 + xOffset, 55 + yOffset);
+            g2.drawString("General", 27 + xOffset, 55 + yOffset);
 
             g2.setColor(profile.getP2Color());
             g2.draw(new Ellipse2D.Double(110 + xOffset, 10 + yOffset, 80, 80));

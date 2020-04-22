@@ -12,7 +12,6 @@ public class EndScreen extends JFrame {
     private String message;
     private JButton exitBtn;
     private JButton restartBtn;
-    private JButton closeBtn;
     private Core core;
     private JPanel buttonPanel;
 
@@ -39,6 +38,12 @@ public class EndScreen extends JFrame {
                 break;
             case Board.PLAYER2_WINS:
                 message = "Checkmate!  " + profile.getP2String() + "  is the winner";
+                break;
+            case Board.PLAYER1_TIMEOUT_WIN:
+                message = "Time out!  " + profile.getP1String() + "  is the winner";
+                break;
+            case Board.PLAYER2_TIMEOUT_WIN:
+                message = "Time out!  " + profile.getP2String() + "  is the winner";
                 break;
             default:
                 message = "Test Message";
@@ -69,16 +74,8 @@ public class EndScreen extends JFrame {
                 setVisible(false);
             }
         });
-        closeBtn = new JButton("Cancel");
-        closeBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
         buttonPanel.add(exitBtn);
         buttonPanel.add(restartBtn);
-        buttonPanel.add(closeBtn);
 
         add(winMessage);
         add(buttonPanel);
