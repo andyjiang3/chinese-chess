@@ -297,11 +297,11 @@ public class Player {
         timeLimit = timeLimit * 60000;
         if (timer.getTime()+ timeElapsed >= timeLimit) {    //check if the timeElapsed have passed the timeLimit
             if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
-                Board.setWinner(Board.PLAYER1_WINS);         //call end game since timer limit has passed
+                Board.setWinner(Board.PLAYER2_TIMEOUT_WIN);         //call end game since timer limit has passed
                 core.callEnd();
 
             } else {
-                Board.setWinner(Board.PLAYER2_WINS);  //player 2 up river
+                Board.setWinner(Board.PLAYER1_TIMEOUT_WIN);  //player 2 up river
                 core.callEnd();
             }
         }
