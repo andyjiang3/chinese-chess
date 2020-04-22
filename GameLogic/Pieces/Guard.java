@@ -1,7 +1,11 @@
 package GameLogic.Pieces;
+
 import GameLogic.Move;
 
-public class Guard extends Piece{
+/**
+ * Guard Piece
+ */
+public class Guard extends Piece {
 
     public Guard(Side side) {
         super(side);
@@ -35,7 +39,6 @@ public class Guard extends Piece{
                 move.setValid(false);
             }
         }
-
 
 
     }

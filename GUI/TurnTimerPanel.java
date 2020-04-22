@@ -2,10 +2,9 @@ package GUI;
 
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
+
 import javax.swing.*;
 import javax.swing.border.Border;
-import GameLogic.Timer;
-
 import java.awt.*;
 
 
@@ -76,7 +75,7 @@ public class TurnTimerPanel extends JPanel {
         redTimerPanel.setBorder(redLine);
         redTimerPanel.add(redNumberPanel, BorderLayout.CENTER);
 
-        timerDisplayPanel = new JPanel(new GridLayout(3,1, 0, 3)); //2 rows, 1 col
+        timerDisplayPanel = new JPanel(new GridLayout(3, 1, 0, 3)); //2 rows, 1 col
         timerDisplayPanel.add(timerLabel);
         timerDisplayPanel.add(blackTimerPanel);
         timerDisplayPanel.add(redTimerPanel);
@@ -85,37 +84,6 @@ public class TurnTimerPanel extends JPanel {
         this.setPreferredSize(new Dimension(200, 0));
 
     }
-
-    //turn timer test
-    public static void main(String args[]) throws Exception {
-        Player player1 = new Player(1, "Hi", Piece.Side.DOWN, new Profile());
-        Player player2 = new Player(2, "Hi2", Piece.Side.UP, new Profile());
-        JFrame testFrame = new JFrame("Timer test");
-        TurnTimerPanel timerPanel = new TurnTimerPanel(player1, player2, new Profile());
-        testFrame.add(timerPanel);
-        testFrame.pack();
-        testFrame.setVisible(true);
-
-/*
-   timer class
-*/
-
-//red
-        player1.startTurnTimer(timerPanel);
-        Thread.sleep(5000);
-        player1.stopTurnTimer();
-
-//black
-        player2.startTurnTimer(timerPanel);
-        Thread.sleep(7000);
-        player2.stopTurnTimer();
-
-        player1.startTurnTimer(timerPanel);
-        Thread.sleep(3000);
-        player1.stopTurnTimer();
-
-    }
-
 
 
     public void updateRedTime() {
@@ -134,7 +102,6 @@ public class TurnTimerPanel extends JPanel {
 
             }
         });
-
 
 
         newThread.start();

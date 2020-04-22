@@ -1,12 +1,17 @@
 package GameLogic.Pieces;
+
 import GameLogic.Move;
 
-public class Cannon extends Piece{
+/**
+ * Cannon Piece
+ */
+public class Cannon extends Piece {
     public Cannon(Side side) {
         super(side);
         this.type = "Cannon";
         this.canWinAlone = false;
     }
+
     @Override
 
     public void checkPattern(Move move) {

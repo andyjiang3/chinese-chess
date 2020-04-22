@@ -3,46 +3,46 @@ package GameLogic.Pieces;
 import GameLogic.Move;
 
 /**
- * Abstract class for Piece
+ * Abstract class for Piece.
  *
  * @author Venkat Pamulapati
  * @version 4/1/20
  */
 
+
 public abstract class Piece {
     protected String type;
     protected boolean canWinAlone;
-
-
-    public enum Side {
-        UP,
-        DOWN
-    }
-
     protected Side side;
     private boolean captured;
 
     /**
      * Constructor for creating a Piece. All that is needed is which side of the board the piece is on. The side is provided as an enum.
+     *
      * @param side
      */
-    public Piece(Side side){
+    public Piece(Side side) {
         this.side = side;
         this.captured = false;
     }
 
-    public void checkPattern(Move move){
+    /**
+     * This method will check if a given move is a move that this piece can generally make. For example, elephants can move diagonally two spaces. In a way, this is what defines a piece.
+     *
+     * @param move
+     */
+    public void checkPattern(Move move) {
         move.setValid(true);
     }
 
     /**
      * Are we up river or down river? Determines the player
+     *
      * @return
      */
     public Side getSide() {
         return side;
     }
-
 
     /**
      * Sets the current piece to a captured state, not capturing a different piece.
@@ -56,34 +56,54 @@ public abstract class Piece {
 
         return this.type;
     }
+
+    /**
+     * returns the matching file name of a piece
+     *
+     * @return
+     * @author Michael Yu
+     */
     public String getImageName() {
         String fileName = "";
-        if(side == Piece.Side.UP)
+        if (side == Piece.Side.UP)
             fileName += "black_";
         else
             fileName += "red_";
 
-        if(type.equals("Soldier"))
+        if (type.equals("Soldier"))
             fileName += "soldier";
-        else if(type.equals("General"))
+        else if (type.equals("General"))
             fileName += "general";
-        else if(type.equals("Cannon"))
+        else if (type.equals("Cannon"))
             fileName += "cannon";
-        else if(type.equals("Horse"))
+        else if (type.equals("Horse"))
             fileName += "horse";
-        else if(type.equals("Elephant"))
+        else if (type.equals("Elephant"))
             fileName += "elephant";
-        else if(type.equals("Guard"))
+        else if (type.equals("Guard"))
             fileName += "guard";
-        else if(type.equals("Chariot"))
+        else if (type.equals("Chariot"))
             fileName += "chariot";
 
         fileName += ".png";
         return fileName;
     }
 
+    /**
+     * If a type of piece can't win by having only it and the gneeral it cannot win alone. This is used to check for stalemate edge cases.
+     *
+     * @return
+     */
     public boolean canWinAlone() {
         return canWinAlone;
+    }
+
+    /**
+     * The side the player is from. Player 1 corresponds to Down, Player 2 corresponds to up.
+     */
+    public enum Side {
+        UP,
+        DOWN
     }
 
 }

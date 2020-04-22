@@ -1,4 +1,5 @@
 package GameLogic;
+
 import GameLogic.Pieces.Piece;
 
 /**
@@ -9,26 +10,9 @@ import GameLogic.Pieces.Piece;
 
 public class Point {
     /**
-     * upRiver = player on top (player 2)
-     * downRiver = player on bottom (player 1)
-     */
-    enum riverSide{
-        upRiver,
-        downRiver
-    }
-
-    private int x;
-    private int y;
-
-    private int x2;
-    private int y2;
-
-    private Piece piece;
-    private riverSide side;
-
-    /**
      * Analogous to the spaces on a chess board, except they are points in Chinese Chess.
      * Usually we aren't concerned with the x/y of a point, but rather the x/y provided by the move object.
+     *
      * @param x
      * @param y
      */
@@ -43,6 +27,24 @@ public class Point {
         }
     }
 
+    private int x;
+    private int y;
+
+    private int x2;
+    private int y2;
+
+    private Piece piece;
+    private riverSide side;
+
+    /**
+     * upRiver = player on top (player 2)
+     * downRiver = player on bottom (player 1)
+     */
+    enum riverSide {
+        upRiver,
+        downRiver
+    }
+
 
     /**
      * @return the piece on the point
@@ -52,7 +54,6 @@ public class Point {
     }
 
     /**
-     *
      * @param newPiece the piece to replace the current piece with
      */
     public void setPiece(Piece newPiece) {
@@ -61,7 +62,6 @@ public class Point {
 
 
     /**
-     *
      * @return the x coordinate
      */
     public int getX() {
@@ -69,7 +69,6 @@ public class Point {
     }
 
     /**
-     *
      * @return the y coordinate
      */
     public int getY() {

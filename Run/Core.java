@@ -6,8 +6,8 @@ import GameLogic.Move;
 import GameLogic.MoveLogger;
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
+
 import javax.swing.*;
-import java.io.File;
 
 /**
  * Combines everything together, since we all developed everything separately they all integrate here. God Class?
@@ -44,17 +44,16 @@ public class Core {
      */
     public void start(Profile profile) {
         this.profile = profile;
-        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, profile);
-        player2 = new Player(2, profile.getP2String(), Piece.Side.UP, profile);
+        player1 = new Player(1, profile.getP1String(), Piece.Side.DOWN, this);
+        player2 = new Player(2, profile.getP2String(), Piece.Side.UP, this);
         board = new Board();
-        boardPanel = new BoardPanel(this, profile);
+        boardPanel = new BoardPanel(this);
         boardMenu = new BoardMenu(this);
         timerPanel = new TurnTimerPanel(player1, player2, profile);
         boardFrame = new BoardFrame(this);
         counter = 0;
         player1.startTurnTimer(timerPanel);
-        //board.setWinner(2);
-        //endScreen = new EndScreen(board.getWinner(), profile);
+
 
     }
 
@@ -86,7 +85,7 @@ public class Core {
         }
 //         Broken Win Screen
         getBoardPanel().userRepaint();
-        if (board.getWinner() != -1) {
+        if (board.getWinner() != Board.NA) {
             System.out.println("GAME OVER");
             callEnd();
         }
@@ -94,16 +93,17 @@ public class Core {
     }
 
     public void callEnd() {
+        player1.stopTurnTimer();
+        player2.stopTurnTimer();
         endScreen = new EndScreen(board.getWinner(), profile);
+
     }
+
     public void saveGame() throws Exception {
-        String os = System.getProperty("os.name").toLowerCase();
         JFrame parentFrame = new JFrame();
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
-        if(os.contains("mac"))
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setDialogTitle("Specify where to save game");
 
@@ -112,9 +112,9 @@ public class Core {
         parentFrame.setVisible(true);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            MoveLogger.saveAllMoves(player1, player2, fileChooser.getSelectedFile());
             System.out.println("Current Directory: " + fileChooser.getCurrentDirectory());
-            System.out.println("Selected File: " + fileChooser.getSelectedFile());
+            System.out.println("Selected File" + fileChooser.getSelectedFile());
+            MoveLogger.saveAllMoves(player1, player2, fileChooser.getSelectedFile());
             System.out.println("Game Saved");
             parentFrame.setVisible(false);
         } else {
@@ -145,5 +145,9 @@ public class Core {
 
     public void setProfile(Profile newProfile) {
         this.profile = newProfile;
+    }
+
+    public Profile getProfile() {
+        return this.profile;
     }
 }
