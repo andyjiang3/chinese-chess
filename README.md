@@ -20,7 +20,7 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 * Java Documentation
 
 
-## How to Play
+## <a href=https://en.wikipedia.org/wiki/Xiangqi#Rules>How to Play</a>
 
 1. Download the jar file from <a href=https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing>here</a>
 2. On a maching with at least Java 8, run the following command: "java jar ChineseChess-JAVA_Swing.jar
