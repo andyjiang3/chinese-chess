@@ -6,7 +6,7 @@ Beyond implementing the rules of standard Chinese Chess, this game includes bonu
 
 To run the game, simply download the jar file, and use the command java -jar ChineseChess.jar.
 
-##Extra Features
+## Extra Features
 * Theming with an intuitive start menu
 * Game Profile (option to change time limit, player color, and player name)
 * Player timers (switches between turns)
@@ -20,7 +20,7 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 * Java Documentation
 
 
-##How to Play
+## How to Play
 
 1. Download the jar file from https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing
 2. On a maching with at least Java 8, run the following command: "java jar ChineseChess-JAVA_Swing.jar
@@ -31,25 +31,25 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 7. If you wish to end the game early, click on the End Game button.
 8. To play again, exit the game and repeast steps 2 through 7.
 
-##Roles
+## Roles
 Michael handled most of the GUI stuff in game, Venkat handled most of the game logic stuff, and Andy handled most of the bonus feature stuff. We mostly focused on our individual parts but communicated a lot to make sure everything would be easily compatible. 
 
-#####Michael Yu:
+##### Michael Yu:
 * Created the actual gameboard
 * Managed the languages and icon handling
 * Created the event box
 
-#####Venkat Pamulapati
+##### Venkat Pamulapati
 * Implemented the game logic including the board, the checking/validation, pieces, edge case handling, etc.
 * Created the Start Menu
 * Implemented theming
 
-#####Andy Jiang
+##### Andy Jiang
 * Implemented move timers and move logger
 * Created the GUI for the timers and asynchronous updating
 * Implemented game saving
 
-##In-depth feature overview:
+## In-depth feature overview:
 
 Timer and Timer GUI:
     The Timer class keeps track of the start and stop time in nanoseconds (System.nanoTime()) to determine the time elapsed
