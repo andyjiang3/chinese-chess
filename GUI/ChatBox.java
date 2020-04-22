@@ -1,5 +1,6 @@
 package GUI;
 
+import Run.Core;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ class ChatBox extends JPanel {
     public ChatBox(Core core) {
         JLabel title = new JLabel("Chat Log");
         systemOutput = new JTextArea(14,18);
-        JScrollPane scrollPane = new JScrollPane(systemOutput, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane(systemOutput, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         add(title, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         systemOutput.setCaretPosition(systemOutput.getDocument().getLength());

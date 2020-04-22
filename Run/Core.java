@@ -6,8 +6,8 @@ import GameLogic.Move;
 import GameLogic.MoveLogger;
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
-
 import javax.swing.*;
+import java.io.File;
 
 /**
  * Combines everything together, since we all developed everything separately they all integrate here. God Class?
@@ -96,12 +96,14 @@ public class Core {
     public void callEnd() {
         endScreen = new EndScreen(board.getWinner(), profile);
     }
-
     public void saveGame() throws Exception {
+        String os = System.getProperty("os.name").toLowerCase();
         JFrame parentFrame = new JFrame();
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if(os.contains("mac"))
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setDialogTitle("Specify where to save game");
 
@@ -110,9 +112,9 @@ public class Core {
         parentFrame.setVisible(true);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            System.out.println("Current Directory: " + fileChooser.getCurrentDirectory());
-            System.out.println("Selected File" + fileChooser.getSelectedFile());
             MoveLogger.saveAllMoves(player1, player2, fileChooser.getSelectedFile());
+            System.out.println("Current Directory: " + fileChooser.getCurrentDirectory());
+            System.out.println("Selected File: " + fileChooser.getSelectedFile());
             System.out.println("Game Saved");
             parentFrame.setVisible(false);
         } else {

@@ -1,10 +1,10 @@
 package GUI;
-
+import Run.Core;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class EndScreen extends JFrame {
+public class EndScreen extends JFrame {
 
 
     private String message;
