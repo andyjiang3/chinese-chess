@@ -100,10 +100,12 @@ public class Core {
     }
 
     public void saveGame() throws Exception {
+        String os = System.getProperty("os.name").toLowerCase();
         JFrame parentFrame = new JFrame();
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (os.contains("mac"))
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setDialogTitle("Specify where to save game");
 
