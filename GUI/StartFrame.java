@@ -35,6 +35,7 @@ StartFrame extends JFrame {
         JLabel logoPic = new JLabel(new ImageIcon(logo.getScaledInstance(120, 120, 50)));
 
 
+        //To make a theme make the profile, add it to the themes array, and a string to match in themes2
         profile = new Profile();
         Profile dark = new Profile(Color.magenta, new Color(0, 255, 132), Color.DARK_GRAY, Color.LIGHT_GRAY, Color.BLACK);
         Profile light = new Profile(Color.pink, Color.LIGHT_GRAY, new Color(230, 216, 195), Color.white, Color.DARK_GRAY);
@@ -59,12 +60,13 @@ StartFrame extends JFrame {
 
         //tippy top stuff
         tippyTop = new JPanel(new GridLayout(0, 2));
-        JLabel leftTitle = new JLabel("Xiang Qi");
-        leftTitle.setFont(bigFont);
-        leftTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        logoPic.setHorizontalAlignment(SwingConstants.CENTER);
-        tippyTop.add(leftTitle);
+        JLabel rightTitle = new JLabel("Xiang Qi");
+        rightTitle.setFont(bigFont);
+        rightTitle.setHorizontalAlignment(SwingConstants.LEFT);
+        logoPic.setHorizontalAlignment(SwingConstants.RIGHT);
         tippyTop.add(logoPic);
+        tippyTop.add(rightTitle);
+
 
 
         //Player 1 stuff
@@ -121,26 +123,26 @@ StartFrame extends JFrame {
         top.add(topRightPanel);
 
         //background stuff
-        bgColors = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        bgColors = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         bgColors.add(new JLabel("Background Color"));
         bgChooser = new JButton("Select");
         bgColors.add(bgChooser);
 
         //foreground stuff
-        fgColors = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
-        fgColors.add(new JLabel("Foreground Color"));
+        fgColors = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
+        fgColors.add(new JLabel("  Foreground Color"));
         fgChooser = new JButton("Select");
         fgColors.add(fgChooser);
 
         //lineColor stuff
-        lineColors = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
-        lineColors.add(new JLabel("Line Colors"));
+        lineColors = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
+        lineColors.add(new JLabel("             Line Colors"));
         lineChooser = new JButton("Select");
         lineColors.add(lineChooser);
 
 
         //timer stuff
-        timers = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        timers = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         timers.add(new JLabel("Time Limit"));
         minutes = new JSpinner(new SpinnerNumberModel(10, 1, 60, 1));
         timers.add(minutes);

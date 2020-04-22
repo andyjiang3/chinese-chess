@@ -93,7 +93,10 @@ public class Core {
     }
 
     public void callEnd() {
+        player1.stopTurnTimer();
+        player2.stopTurnTimer();
         endScreen = new EndScreen(board.getWinner(), profile);
+
     }
 
     public void saveGame() throws Exception {
