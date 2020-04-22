@@ -13,7 +13,7 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 * Clean user interface
 * Live event log
 * End Game/Restart Game option
-* Chinese and English piece icons
+* Chinese and English piece icons (Under View > Language)
 * Menu Bar (Including direct link to rules, about page)
 * Save Game (Choose file name and path, includes all moves made, player name, time elapsed)
 * Open source and object oriented design
@@ -58,5 +58,13 @@ Timer and Timer GUI:
     The Player class interacts with the Timer class to get all necessary information about the player's time elapsed during each turn.
     Then, it formats it in mm:ss format using SimpleDateFormat and make it accessible for the TurnTimerPanel to get.
 
-    The TurnTimerPanel is a GidLayout (2x1) of two timer panel (one for each player). Inside each timer panel, there is a
-    number panel which includes the time label centered
+    The TurnTimerPanel is a GridLayout (2x1) of two timer panel (one for each player). Inside each timer panel, there is a
+    number panel, centered inside timer panel using BorderLayout, which includes the time label. The time label is inside
+    a panel to create extra space between the number and border.
+
+    In order for the two timer panel to update the time left for each player, threading must be used. Without threads, when
+    updating the label inside a while loop, the game does not function until while loop is exited. Thus, the time labels
+    must be updated asynchronously with the game. Players' timer is stopped when their turn is over and started again when
+    their turn start. Thus, the updating of each label is started and stopped, to create a animation of switching. However,
+    dead threads can not be restarted, thus a new thread is created each time the label is suppose to update.
+
