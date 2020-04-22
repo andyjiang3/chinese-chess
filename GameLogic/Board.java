@@ -15,6 +15,8 @@ public class Board {
 
     public static final int PLAYER1_WINS = 1;
     public static final int PLAYER2_WINS = 2;
+    public static final int PLAYER1_TIMEOUT_WIN = 3;
+    public static final int PLAYER2_TIMEOUT_WIN = 4;
     public static final int DRAW = 0;
     public static final int NA = -1;
 
