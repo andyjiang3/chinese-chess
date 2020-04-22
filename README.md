@@ -22,7 +22,7 @@ To run the game, simply download the jar file, and use the command java -jar Chi
 
 ## How to Play
 
-1. Download the jar file from https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing
+1. Download the jar file from <a href=https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing>here</a>
 2. On a maching with at least Java 8, run the following command: "java jar ChineseChess-JAVA_Swing.jar
 3. Configure your theme on the start menu, or just press the begin button to launch the board.
 4. Select a piece to highlight it
