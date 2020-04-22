@@ -51,7 +51,7 @@ Michael handled most of the GUI stuff in game, Venkat handled most of the game l
 
 ## In-depth feature overview:
 
-#####Timer and Timer GUI:
+##### Timer and Timer GUI:
 The Timer class keeps track of the start and stop time in nanoseconds (System.nanoTime()) to determine the time elapsed
 , which is then converted into milliseconds. Nanoseconds was used over milliseconds for a more precise measurement of time elapsed. It is then implemented
 into the Player class to create a timer for each individual player. All methods of timer is called through the Player class.
