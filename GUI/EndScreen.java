@@ -65,7 +65,7 @@ public class EndScreen extends JFrame {
 
         exitBtn = new JButton("Exit Game");
         exitBtn.addActionListener(new ActionListener() {
-            // terminate application when user clicks exitItem
+            // terminate application when user clicks exit game
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -73,6 +73,7 @@ public class EndScreen extends JFrame {
         });
         restartBtn = new JButton("Restart Game");
         restartBtn.addActionListener(new ActionListener() {
+            // restarts game when user clicks restart game
             @Override
             public void actionPerformed(ActionEvent e) {
                 core.setInvisible();

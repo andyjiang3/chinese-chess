@@ -33,6 +33,7 @@ class ChatBox extends JPanel {
         //setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         JButton endGameBtn = new JButton("End Game");
         endGameBtn.addActionListener(new ActionListener() {
+            //calls an end to the game by setting the game as a stalemate
             @Override
             public void actionPerformed(ActionEvent e) {
                 Board.setWinner(0);
@@ -41,7 +42,11 @@ class ChatBox extends JPanel {
         });
         add(endGameBtn, BorderLayout.SOUTH);
     }
-
+    /**
+     * Sets the text of the JTextArea as the same as the system outputted statements.
+     *
+     * @param text The text to be displayed in the chat box
+     */
     public void appendText(final String text) {
         if (EventQueue.isDispatchThread()) {
             systemOutput.setText(systemOutput.getText() + text);
