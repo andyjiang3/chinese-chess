@@ -1,4 +1,5 @@
 package GameLogic;
+
 import GameLogic.Pieces.Piece;
 
 /**
@@ -6,7 +7,6 @@ import GameLogic.Pieces.Piece;
  * It does not actually carry out moves or check for their validity.
  * It simply just represents the details of a move, namely the original and final
  * x and y cooridnates (note, these are not indecies on the board array. They are coordinates which are translated to indecies by the board object.)
- *
  *
  * @author Venkat Pamulapati
  * @version 4/1/20
@@ -36,8 +36,8 @@ public class Move {
      *
      * @param originX the starting x coordinate
      * @param originY starting y coordinate
-     * @param finalX the destination x coordinate
-     * @param finalY the destination y coordinate
+     * @param finalX  the destination x coordinate
+     * @param finalY  the destination y coordinate
      */
     public Move(int originX, int originY, int finalX, int finalY) {
         this.originX = originX;
@@ -92,12 +92,12 @@ public class Move {
     /**
      * Used in move logger for logging an attack move.
      *
-     * @param piece the piece that is being moved
+     * @param piece         the piece that is being moved
      * @param capturedPiece the piece that is being captured
-     * @param originX the starting x coordinate
-     * @param originY starting y coordinate
-     * @param finalX the destination x coordinate
-     * @param finalY the destination y coordinate
+     * @param originX       the starting x coordinate
+     * @param originY       starting y coordinate
+     * @param finalX        the destination x coordinate
+     * @param finalY        the destination y coordinate
      */
     public Move(Piece piece, Piece capturedPiece, int originX, int originY, int finalX, int finalY) {
 
@@ -119,14 +119,6 @@ public class Move {
         if (Math.abs(dx) == Math.abs(dy) && dx != 0) {
             this.isDiagonal = true;
         }
-    }
-
-    /**
-     * Accesed by the Piece object to set wheter or not a move follows the appropriate move pattern.
-     * @param v true = good to go, false = that isn't even normally allowed, go read the rules.
-     */
-    public void setValid(boolean v) {
-        this.isValid = v;
     }
 
     public int getOriginX() {
@@ -169,6 +161,15 @@ public class Move {
         return isValid;
     }
 
+    /**
+     * Accesed by the Piece object to set wheter or not a move follows the appropriate move pattern.
+     *
+     * @param v true = good to go, false = that isn't even normally allowed, go read the rules.
+     */
+    public void setValid(boolean v) {
+        this.isValid = v;
+    }
+
     public Piece getPiece() {
         return piece;
     }
@@ -180,7 +181,6 @@ public class Move {
     public String toString() {
         return originX + ", " + originY + ", " + finalX + ", " + finalY;
     }
-
 
 
 }

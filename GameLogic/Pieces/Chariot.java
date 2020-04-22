@@ -1,6 +1,10 @@
 package GameLogic.Pieces;
-        import GameLogic.Move;
 
+import GameLogic.Move;
+
+/**
+ * Chariot Piece
+ */
 public class Chariot extends Piece{
 
     public Chariot(Side side) {
@@ -8,6 +12,7 @@ public class Chariot extends Piece{
         this.type = "Chariot";
         this.canWinAlone = true;
     }
+
     @Override
 
     public void checkPattern(Move move) {

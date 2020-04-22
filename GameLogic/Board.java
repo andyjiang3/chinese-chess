@@ -25,14 +25,8 @@ public class Board {
     private int downGeneralY = 9;
     private boolean upCheck = false; //up is in check
     private boolean downCheck = false; //down is in check
-    private boolean checkMate = false;
-    private boolean staleMate = false;
-
 
     private static int winner;
-
-
-    private boolean gameOver = false;
 
 
     /**
@@ -155,9 +149,10 @@ public class Board {
 
     /**
      * Physically executes a move by changing the pieces that are presnt on certian points.
+     *
      * @param move the specified move
      */
-    public void doMove(Move move) {
+    void doMove(Move move) {
         Piece curr = gBoard[move.getOriginY()][move.getOriginX()].getPiece();
         //Piece captured = this.gBoard[move.getFinalY()][move.getFinalX()].getPiece();
         this.gBoard[move.getFinalY()][move.getFinalX()].setPiece(curr);
@@ -169,10 +164,10 @@ public class Board {
      * Physically undoes a move by altering the state of the pieces
      * Not for use in the undo button. It used for move testing reasons.
      *
-     * @param move
+     * @param move the current move
      * @param captured The piece that was previously captured, so that it can be restored
      */
-    public void undoMove(Move move, Piece captured) {
+    void undoMove(Move move, Piece captured) {
         Piece curr = getPoint(move.getFinalX(), move.getFinalY()).getPiece();
         getPoint(move.getOriginX(), move.getOriginY()).setPiece(curr);
         getPoint(move.getFinalX(), move.getFinalY()).setPiece(captured);
@@ -185,7 +180,7 @@ public class Board {
      *
      * @param x the x coordinate on the board where the left most point is 0. (note not indecies)
      * @param y the y coordinate on the board where the top most point is 0. (note not indecies)
-     * @return
+     * @return the point object at the specified location
      */
     public Point getPoint(int x, int y) {
         return gBoard[y][x];
@@ -194,7 +189,7 @@ public class Board {
     /**
      * Sets up the board to play by placing all the pieces down as instantiated points. If there is no piece, it is set to null.
      *
-     * @param board
+     * @param board a board object to be initialized
      */
     private static void initialize(Point[][] board) {
         for (int y = 0; y < 10; y++) {
@@ -262,7 +257,7 @@ public class Board {
      * Scans the generals quarters to find their locations and update that data.
      * Is generally called before testing procedured like check and checkMate
      */
-    public void updateGenerals() {
+    void updateGenerals() {
         //finds location of generals
 
         for (int x = 3; x < 6; x++) {
@@ -324,7 +319,7 @@ public class Board {
      */
     private boolean checkMate(Piece.Side loserSide) {
         updateGenerals();
-        checkMate = true;
+
 
         //running through every loser piece
         for (int x = 0; x < 9; x++) {
@@ -367,7 +362,8 @@ public class Board {
 
     /**
      * Covers some edge cases where it is going to be guarantee stalmate like no pieces crossing rier.
-     * @return
+     *
+     * @return true if we're at a stalemate from peices that can never cause checkmate
      */
     private boolean separated() {
 
@@ -391,7 +387,6 @@ public class Board {
 
         return true;
     }
-
 
 
     /**
@@ -419,58 +414,42 @@ public class Board {
         }
     }
 
-    protected int getUpGeneralX() {
+    /**
+     * @return Player 2's generalX position.
+     */
+    int getUpGeneralX() {
         return upGeneralX;
     }
 
 
-    protected void setUpGeneralX(int upGeneralX) {
+    private void setUpGeneralX(int upGeneralX) {
         this.upGeneralX = upGeneralX;
     }
 
-    protected int getUpGeneralY() {
+    int getUpGeneralY() {
         return upGeneralY;
     }
 
-    protected void setUpGeneralY(int upGeneralY) {
+    private void setUpGeneralY(int upGeneralY) {
         this.upGeneralY = upGeneralY;
     }
 
-    protected int getDownGeneralX() {
+    int getDownGeneralX() {
         return downGeneralX;
     }
 
-    protected void setDownGeneralX(int downGeneralX) {
+    private void setDownGeneralX(int downGeneralX) {
         this.downGeneralX = downGeneralX;
     }
 
-    protected int getDownGeneralY() {
+    int getDownGeneralY() {
         return downGeneralY;
     }
 
-    protected void setDownGeneralY(int downGeneralY) {
+    private void setDownGeneralY(int downGeneralY) {
         this.downGeneralY = downGeneralY;
     }
 
-    public boolean isUpCheck() {
-        return upCheck;
-    }
-
-    public boolean isDownCheck() {
-        return downCheck;
-    }
-
-    public boolean isCheckMate() {
-        return checkMate;
-    }
-
-    public boolean isStaleMate() {
-        return staleMate;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
 
     public static void setWinner(int winnerNum) {
         winner = winnerNum;

@@ -1,10 +1,11 @@
 package GameLogic;
 
-import java.util.ArrayList;
-import GameLogic.Pieces.*;
+import GameLogic.Pieces.Piece;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.util.ArrayList;
 
 /**
  * MoveLogger object holds all the moves completed in the board, including the piece and the piece captured.
@@ -27,14 +28,14 @@ public class MoveLogger {
     public static void addMove(Move move) {
 
 
-            int redCount = redMoveHistory.size();
-            int blackCount = blackMoveHistory.size();
-            //last turn is red.
-            if (redCount > blackCount) {
-                blackMoveHistory.add(move);
-            } else {
-                redMoveHistory.add(move);
-            }
+        int redCount = redMoveHistory.size();
+        int blackCount = blackMoveHistory.size();
+        //last turn is red.
+        if (redCount > blackCount) {
+            blackMoveHistory.add(move);
+        } else {
+            redMoveHistory.add(move);
+        }
 
         //test: red = {1, 1} 2
         //       blue = {1}; 1
@@ -57,34 +58,37 @@ public class MoveLogger {
 
     /**
      * Get the last executed move logged.
+     *
      * @return last executed move
      */
 
     public static Move getLastMove() {
 
 
-            int redCount = redMoveHistory.size();
-            int blackCount = blackMoveHistory.size();
+        int redCount = redMoveHistory.size();
+        int blackCount = blackMoveHistory.size();
 
-            //last turn was red
-            if (redCount > blackCount) {
-                if (redMoveHistory.isEmpty()) {
-                    return null;
-                } else {
-                    return redMoveHistory.get(redMoveHistory.size() - 1); //get last move
-                }
-                //last turn was black. blackCount == redCount
+        //last turn was red
+        if (redCount > blackCount) {
+            if (redMoveHistory.isEmpty()) {
+                return null;
             } else {
-                if (blackMoveHistory.isEmpty()) {
-                    return null;
-                } else {
-                    return blackMoveHistory.get(blackMoveHistory.size() - 1);  //get last move
-                }
+                return redMoveHistory.get(redMoveHistory.size() - 1); //get last move
             }
+            //last turn was black. blackCount == redCount
+        } else {
+            if (blackMoveHistory.isEmpty()) {
+                return null;
+            } else {
+                return blackMoveHistory.get(blackMoveHistory.size() - 1);  //get last move
+            }
+        }
 
     }
+
     /**
      * Get the last executed move logged of a side/color.
+     *
      * @param player the player side relative to the river. UP = black, DOWN = red.
      * @return last executed move
      */
@@ -101,7 +105,7 @@ public class MoveLogger {
             if (blackMoveHistory.isEmpty()) {
                 return null;
             } else {
-               return blackMoveHistory.get(blackMoveHistory.size() - 1);  //get last move
+                return blackMoveHistory.get(blackMoveHistory.size() - 1);  //get last move
             }
         }
     }
@@ -109,41 +113,41 @@ public class MoveLogger {
     //for saving files
     public static void saveAllMoves(Player player1, Player player2, File file) throws Exception {
 
-            FileWriter fw = new FileWriter(new File(file.toString() + ".txt"));
-            BufferedWriter bw = new BufferedWriter(fw);
+        FileWriter fw = new FileWriter(new File(file.toString() + ".txt"));
+        BufferedWriter bw = new BufferedWriter(fw);
 
-             bw.write("Logged Moves: ");
-             bw.newLine();
-             bw.newLine();
+        bw.write("Logged Moves: ");
+        bw.newLine();
+        bw.newLine();
 
-             if (player1.getPlayerSide() == Piece.Side.DOWN) {          //player 1 is red, player2 is black
-             bw.write(player1.getName() + " (Red Side), Time Elapsed: " + player1.printElapsedTime() + " ================");
-             bw.newLine();
-             } else {                                                   //player 1 is black, player2 is red
-                 bw.write(player1.getName() + " (Black Side), Time Elapsed: " + player1.printElapsedTime() + " ================");
-                 bw.newLine();
-             }
-            for (int i = 0; i < redMoveHistory.size(); i++) {
-                if (i < 9) {
-                    bw.write("Red   - Round 0" + (i + 1) + ": " + "Moved " + redMoveHistory.get(i).getPiece() + " from (" + redMoveHistory.get(i).getOriginX() + ", " + redMoveHistory.get(i).getOriginY() + ") to (" + redMoveHistory.get(i).getFinalX() + ", " + redMoveHistory.get(i).getFinalY() + ").");
-                    if (redMoveHistory.get(i).getCapturedPiece() != null) {
-                        bw.write(" Captured " + redMoveHistory.get(i).getCapturedPiece());
-                        bw.newLine();
-                    } else {
-                        bw.newLine();
-                    }
+        if (player1.getPlayerSide() == Piece.Side.DOWN) {          //player 1 is red, player2 is black
+            bw.write(player1.getName() + " (Red Side), Time Elapsed: " + player1.printElapsedTime() + " ================");
+            bw.newLine();
+        } else {                                                   //player 1 is black, player2 is red
+            bw.write(player1.getName() + " (Black Side), Time Elapsed: " + player1.printElapsedTime() + " ================");
+            bw.newLine();
+        }
+        for (int i = 0; i < redMoveHistory.size(); i++) {
+            if (i < 9) {
+                bw.write("Red   - Round 0" + (i + 1) + ": " + "Moved " + redMoveHistory.get(i).getPiece() + " from (" + redMoveHistory.get(i).getOriginX() + ", " + redMoveHistory.get(i).getOriginY() + ") to (" + redMoveHistory.get(i).getFinalX() + ", " + redMoveHistory.get(i).getFinalY() + ").");
+                if (redMoveHistory.get(i).getCapturedPiece() != null) {
+                    bw.write(" Captured " + redMoveHistory.get(i).getCapturedPiece());
+                    bw.newLine();
                 } else {
-                    bw.write("Red   - Round " + (i + 1) + ": " + "Moved " + redMoveHistory.get(i).getPiece() + " from (" + redMoveHistory.get(i).getOriginX() + ", " + redMoveHistory.get(i).getOriginY() + ") to (" + redMoveHistory.get(i).getFinalX() + ", " + redMoveHistory.get(i).getFinalY() + ").");
-                    if (redMoveHistory.get(i).getCapturedPiece() != null) {
-                        bw.write(" Captured " + redMoveHistory.get(i).getCapturedPiece());
-                        bw.newLine();
-                    } else {
-                        bw.newLine();
-                    }
+                    bw.newLine();
+                }
+            } else {
+                bw.write("Red   - Round " + (i + 1) + ": " + "Moved " + redMoveHistory.get(i).getPiece() + " from (" + redMoveHistory.get(i).getOriginX() + ", " + redMoveHistory.get(i).getOriginY() + ") to (" + redMoveHistory.get(i).getFinalX() + ", " + redMoveHistory.get(i).getFinalY() + ").");
+                if (redMoveHistory.get(i).getCapturedPiece() != null) {
+                    bw.write(" Captured " + redMoveHistory.get(i).getCapturedPiece());
+                    bw.newLine();
+                } else {
+                    bw.newLine();
                 }
             }
+        }
 
-            bw.newLine();
+        bw.newLine();
         if (player2.getPlayerSide() == Piece.Side.DOWN) {          //player 2 is red, player1 is black
             bw.write(player2.getName() + " (Red Side), Time Elapsed: " + player2.printElapsedTime() + " ================");
             bw.newLine();
@@ -152,35 +156,35 @@ public class MoveLogger {
             bw.newLine();
         }
 
-            for (int i = 0; i < blackMoveHistory.size(); i++) {
-                if (i < 9) {
-                    bw.write("Black - Round 0" + (i + 1) + ": " + "Moved " + blackMoveHistory.get(i).getPiece() + " from (" + blackMoveHistory.get(i).getOriginX() + ", " + blackMoveHistory.get(i).getOriginY() + ") to (" + blackMoveHistory.get(i).getFinalX() + ", " + blackMoveHistory.get(i).getFinalY() + ").");
-                    if (blackMoveHistory.get(i).getCapturedPiece() != null) {
-                        bw.write(" Captured " + blackMoveHistory.get(i).getCapturedPiece());
-                        bw.newLine();
-                    } else {
-                        bw.newLine();
-                    }
+        for (int i = 0; i < blackMoveHistory.size(); i++) {
+            if (i < 9) {
+                bw.write("Black - Round 0" + (i + 1) + ": " + "Moved " + blackMoveHistory.get(i).getPiece() + " from (" + blackMoveHistory.get(i).getOriginX() + ", " + blackMoveHistory.get(i).getOriginY() + ") to (" + blackMoveHistory.get(i).getFinalX() + ", " + blackMoveHistory.get(i).getFinalY() + ").");
+                if (blackMoveHistory.get(i).getCapturedPiece() != null) {
+                    bw.write(" Captured " + blackMoveHistory.get(i).getCapturedPiece());
+                    bw.newLine();
                 } else {
-                    bw.write("Black - Round " + (i + 1) + ": " + "Moved " + blackMoveHistory.get(i).getPiece() + " from (" + blackMoveHistory.get(i).getOriginX() + ", " + blackMoveHistory.get(i).getOriginY() + ") to (" + blackMoveHistory.get(i).getFinalX() + ", " + blackMoveHistory.get(i).getFinalY() + ").");
-                    if (blackMoveHistory.get(i).getCapturedPiece() != null) {
-                        bw.write(" Captured " + blackMoveHistory.get(i).getCapturedPiece());
-                        bw.newLine();
-                    } else {
-                        bw.newLine();
-                    }
+                    bw.newLine();
+                }
+            } else {
+                bw.write("Black - Round " + (i + 1) + ": " + "Moved " + blackMoveHistory.get(i).getPiece() + " from (" + blackMoveHistory.get(i).getOriginX() + ", " + blackMoveHistory.get(i).getOriginY() + ") to (" + blackMoveHistory.get(i).getFinalX() + ", " + blackMoveHistory.get(i).getFinalY() + ").");
+                if (blackMoveHistory.get(i).getCapturedPiece() != null) {
+                    bw.write(" Captured " + blackMoveHistory.get(i).getCapturedPiece());
+                    bw.newLine();
+                } else {
+                    bw.newLine();
                 }
             }
+        }
 
-            bw.flush();
-            bw.close();
-
+        bw.flush();
+        bw.close();
 
 
     }
 
     /**
      * Undo last move in game.
+     *
      * @return the move that was removed
      */
 
@@ -211,8 +215,6 @@ public class MoveLogger {
             }
         }
     }
-
-
 
 
 }

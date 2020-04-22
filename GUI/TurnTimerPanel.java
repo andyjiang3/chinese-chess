@@ -2,10 +2,9 @@ package GUI;
 
 import GameLogic.Pieces.Piece;
 import GameLogic.Player;
+
 import javax.swing.*;
 import javax.swing.border.Border;
-import GameLogic.Timer;
-
 import java.awt.*;
 
 
@@ -76,7 +75,7 @@ public class TurnTimerPanel extends JPanel {
         redTimerPanel.setBorder(redLine);
         redTimerPanel.add(redNumberPanel, BorderLayout.CENTER);
 
-        timerDisplayPanel = new JPanel(new GridLayout(3,1, 0, 3)); //2 rows, 1 col
+        timerDisplayPanel = new JPanel(new GridLayout(3, 1, 0, 3)); //2 rows, 1 col
         timerDisplayPanel.add(timerLabel);
         timerDisplayPanel.add(blackTimerPanel);
         timerDisplayPanel.add(redTimerPanel);
@@ -85,9 +84,6 @@ public class TurnTimerPanel extends JPanel {
         this.setPreferredSize(new Dimension(200, 0));
 
     }
-
-
-
 
 
     public void updateRedTime() {
@@ -106,7 +102,6 @@ public class TurnTimerPanel extends JPanel {
 
             }
         });
-
 
 
         newThread.start();

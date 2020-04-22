@@ -2,6 +2,9 @@ package GameLogic.Pieces;
 
 import GameLogic.Move;
 
+/**
+ * Elephant Piece
+ */
 public class Elephant extends Piece {
     public Elephant(Side side) {
         super(side);

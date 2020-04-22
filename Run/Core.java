@@ -85,7 +85,7 @@ public class Core {
         }
 //         Broken Win Screen
         getBoardPanel().userRepaint();
-        if (board.getWinner() != -1) {
+        if (board.getWinner() != Board.NA) {
             System.out.println("GAME OVER");
             callEnd();
         }

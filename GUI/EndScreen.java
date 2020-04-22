@@ -1,12 +1,9 @@
 package GUI;
 
-import java.awt.*;
-import java.awt.event.*;
+import GameLogic.*;
 import javax.swing.*;
 
 public class EndScreen extends JFrame {
-
-
     private String message;
 
     public EndScreen(int winner, Profile profile) {
@@ -15,16 +12,16 @@ public class EndScreen extends JFrame {
 
         switch (winner) {
 
-            case -1:
+            case Board.NA:
                 message = "Test Message";
                 break;
-            case 0:
-                message = "It's a draw!";
+            case Board.DRAW:
+                message = "Stalemate, it's a draw!";
                 break;
-            case 1:
+            case Board.PLAYER1_WINS:
                 message = "Checkmate!  " + profile.getP1String() + "  is the winner";
                 break;
-            case 2:
+            case Board.PLAYER2_WINS:
                 message = "Checkmate!  " + profile.getP2String() + "  is the winner";
                 break;
             default:

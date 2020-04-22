@@ -2,20 +2,21 @@ package GUI;
 
 import Run.Core;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.*;
-
 /**
  * This is the starting menu. It accepts user input on a gui to create a profile object which is passed to core.start()
+ * <p>
+ * It has a very nice live preview which is based on the current profile.
  */
 public class
 StartFrame extends JFrame {
-//sdfsafsdafdsaf
+
     private JPanel tippyTop, top, middle, bottom; //larger containers
     private JPanel topLeftPanel, topRightPanel; //medium containers
     private JPanel p1Colors, p2Colors, p1Names, p2Names, bgColors, timers, fgColors, lineColors; //basic containers
@@ -28,6 +29,11 @@ StartFrame extends JFrame {
     private Image logo;
     private Profile profile;
 
+    /**
+     * instantiates the start menu.
+     *
+     * @param core the current core.
+     */
     public StartFrame(Core core) {
         super("Start Menu");
         this.setLayout(new GridLayout(4, 0));
@@ -66,7 +72,6 @@ StartFrame extends JFrame {
         logoPic.setHorizontalAlignment(SwingConstants.RIGHT);
         tippyTop.add(logoPic);
         tippyTop.add(rightTitle);
-
 
 
         //Player 1 stuff
@@ -182,8 +187,6 @@ StartFrame extends JFrame {
         bottom.add(beginPanel);
 
 
-
-
         //Action listeners
 
         p1Chooser.addActionListener(new ActionListener() {
@@ -277,7 +280,7 @@ StartFrame extends JFrame {
         this.profile = themes[profileSelector.getSelectedIndex()];
     }
 
-    //Preview Panel
+    //Preview Panel inner class
     class preview extends JPanel {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);

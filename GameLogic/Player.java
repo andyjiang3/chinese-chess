@@ -1,16 +1,14 @@
 package GameLogic;
 
 
-import java.util.ArrayList;
-
 import GUI.Profile;
 import GUI.TurnTimerPanel;
-import GameLogic.Pieces.*;
+import GameLogic.Pieces.Piece;
 import Run.Core;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 //import javafx.concurrent.Task;
 
 /**
@@ -295,7 +293,7 @@ public class Player {
     public String elapsedTimeToString(int timeLimit) {
 
         timeLimit = timeLimit * 60000;
-        if (timer.getTime()+ timeElapsed >= timeLimit) {
+        if (timer.getTime() + timeElapsed >= timeLimit) {
             if (this.getPlayerSide() == Piece.Side.DOWN) {    //player 1 is always down river
                 Board.setWinner(Board.PLAYER1_WINS);
                 core.callEnd();

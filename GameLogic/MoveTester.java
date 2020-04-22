@@ -153,14 +153,10 @@ public class MoveTester {
                 }
             }
 
-            if (obstacleCount == 0) {
-                // System.out.print(" Generals Exposed!");
-                return false;
-
-            }
+            // System.out.print(" Generals Exposed!");
+            return obstacleCount != 0;
         }
 
-        return true;
     }
 
 
@@ -184,7 +180,6 @@ public class MoveTester {
 
     /**
      * Checks the destination piece to see if we're attacking or self blocked
-     *
      */
     private void isAttack() {
         if (board.getPoint(move.getFinalX(), move.getFinalY()).getPiece() == null) {
