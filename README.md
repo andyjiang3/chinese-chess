@@ -13,7 +13,7 @@ To run the game, simply download the jar file, and use the command java -jar hwx
 * Clean user interface
 * Live event log
 * End Game/Restart Game option
-* **Chinese and English piece icons (Under View > Language)**
+* Chinese and English piece icons (Under View > Language)
 * Menu Bar (Including direct link to rules, about page)
 * Save Game (Choose file name and path, includes all moves made, player name, time elapsed)
 * Open source and object oriented design
@@ -22,7 +22,7 @@ To run the game, simply download the jar file, and use the command java -jar hwx
 
 ## <a href=https://en.wikipedia.org/wiki/Xiangqi#Rules>How to Play</a>
 
-1. Download the jar file from <a href=https://github.com/ChiliPaneer/ChineseChess-JAVA_Swing>here</a>
+1. Download the jar file from <a href=https://github.com/itsandyjiang/Chinese-Chess-Xiangqi>here</a>
 2. On a machine with at least Java 8, run the following command: "java -jar hwx.jar"
 3. Configure your theme on the start menu, or just press the begin button to launch the board.
 4. Select a piece to highlight it
@@ -34,6 +34,11 @@ To run the game, simply download the jar file, and use the command java -jar hwx
 ## Roles
 Michael handled most of the GUI stuff in game, Venkat handled most of the game logic stuff, and Andy handled most of the bonus feature stuff. We mostly focused on our individual parts but communicated a lot to make sure everything would be easily compatible. 
 
+##### Andy Jiang
+* Implemented move timers and move logger along with the player system
+* Created the GUI for the timers and asynchronous updating, with animation.
+* Implemented game saving
+
 ##### Michael Yu:
 * Created the visual game board and its event handling
 * Managed language settings and the images of each piece
@@ -43,11 +48,6 @@ Michael handled most of the GUI stuff in game, Venkat handled most of the game l
 * Implemented the game logic including the board, the checking/validation, pieces, edge case handling, etc.
 * Created the Start Menu
 * Implemented theming
-
-##### Andy Jiang
-* Implemented move timers and move logger
-* Created the GUI for the timers and asynchronous updating
-* Implemented game saving
 
 ## In-depth feature overview:
 
@@ -139,4 +139,4 @@ must be updated asynchronously with the game. Players' timer is stopped when the
 their turn start. Thus, the updating of each label is started and stopped, to create a animation of switching. However,
 dead threads can not be restarted, thus a new thread is created each time the label is suppose to update.
 
-The timer also acts as current player indicator by fading or highlihgting it's colors which are set by the current theme.
+The timer also acts as current player indicator by fading or highlighting it's colors which are set by the current theme.
